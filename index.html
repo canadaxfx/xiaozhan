@@ -1,0 +1,633 @@
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xiao Zhan Social Media Hub</title>
+    <!-- CSS STYLES - You can modify colors and styling here -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Background color - change as needed */
+            color: #333;
+        }
+        header {
+            background-color: #2c3e50; /* Header background - change as needed */
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .social-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%; /* Ensure consistent width */
+        }
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .card-header {
+            padding: 1.5rem;
+            background-color: #3498db; /* Default card header color */
+            color: white;
+            text-align: center;
+        }
+        .card-body {
+            padding: 1.5rem;
+            text-align: center;
+            word-break: break-word; /* Allow long words to break */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 200px; /* Fixed height for all cards */
+        }
+        .card-info {
+            flex-grow: 1;
+        }
+        .card-button {
+            margin-top: auto;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #2c3e50;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #1a252f;
+        }
+        
+        /* Platform specific colors - add more as needed */
+        .weibo {
+            background-color: #B7950B; /* Changed from yellow to mustard */
+        }
+        .douyin {
+            background-color: #000000;
+        }
+        .baidu {
+            background-color: #3498db; /* Changed to match Tencent Video blue */
+        }
+        .wikipedia {
+            background-color: #3498db; /* Changed to match Tencent Video blue */
+        }
+        .instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+        .twitter {
+            background-color: #1DA1F2;
+        }
+        .wechat {
+            background-color: #07C160;
+        }
+        .bilibili {
+            background-color: #00a1d6;
+        }
+        .xiaohongshu {
+            background-color: #fe2c55;
+        }
+        .youtube {
+            background-color: #FF0000;
+        }
+        .tencent {
+            background-color: #00A5E0; /* Tencent blue color */
+        }
+        .youku {
+            background-color: #00A5E0; /* Same as Tencent */
+        }
+        .iqiyi {
+            background-color: #00A5E0; /* Same as Tencent and Youku */
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 3rem;
+        }
+        .latest-news {
+            margin-top: 3rem;
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .news-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        /* Admin Tools Section */
+        .admin-tools {
+            margin-top: 3rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: none; /* Hidden by default, but will be shown with JavaScript */
+        }
+        .admin-button {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .admin-button:hover {
+            background-color: #5a6268;
+        }
+        .edit-mode {
+            border: 2px dashed #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER SECTION - Edit the text between the tags as needed -->
+    <header>
+        <img src="xiao-zhan.jpg" alt="Xiao Zhan" class="profile-img">
+        <h1>Xiao Zhan (肖战) Social Media Hub</h1>
+        <p>All of Xiao Zhan's official social media accounts in one place</p>
+    </header>
+    </header>
+
+    <div class="container">
+        <!-- SOCIAL MEDIA CARDS - Copy and paste this section to add more platforms -->
+        <div class="social-grid" id="social-grid">
+            <!-- 肖战微博 XIAO ZHAN WEIBO -->
+            <div class="social-card">
+                <div class="card-header weibo">
+                    <h2>肖战微博</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Follow Xiao Zhan's official Weibo account for updates and announcements.</p>
+                        <p>Followers: 30M+</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://weibo.com/u/1792951112" class="btn weibo" target="_blank">Visit Weibo</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战工作室微博 XZ.STUDIO. WEIBO -->
+            <div class="social-card">
+                <div class="card-header weibo">
+                    <h2>肖战工作室微博</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Follow XZ.STUDIO.'s official Weibo account for updates and announcements.</p>
+                        <p>Followers: 10M+</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://weibo.com/u/6643123988" class="btn weibo" target="_blank">Visit Weibo</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战超话 WEIBO SUPERTOPIC -->
+            <div class="social-card">
+                <div class="card-header weibo">
+                    <h2>肖战超话</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Join and have fun in WEIBO Supertopic.</p>
+                        <p>Followers: 10M+</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://weibo.com/p/100808f57b3faeb25f86b43a8cc58f02286f40/super_index" class="btn weibo" target="_blank">Visit Weibo</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战抖音 XIAO ZHAN DOUYIN -->
+            <div class="social-card">
+                <div class="card-header douyin">
+                    <h2>肖战抖音</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Watch Xiao Zhan's short videos and behind-the-scenes content on Douyin.</p>
+                        <p>Followers: 20M+</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://www.douyin.com/user/MS4wLjABAAAAp5h2oXaBBs4Addlh36wkxtk3srSPYe380PBewEe1si9OnrF_Sy8eZpdJQ_NYBl6H?from_tab_name=main" class="btn douyin" target="_blank">Visit Douyin</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战工作室抖音 XZ.STUDIO. DOUYIN-->
+            <div class="social-card">
+                <div class="card-header douyin">
+                    <h2>肖战工作室抖音</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Watch XZ.STUDIO.'s short videos and behind-the-scenes content on Douyin </p>
+                        <p>Followers: 7M+</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://www.douyin.com/user/MS4wLjABAAAAbeJEodUTXohdleqNzCo2PZ-XsY2G6JGQ3HUT0uDtQ-A?from_tab_name=main" class="btn douyin" target="_blank">Visit Douyin</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战影音会抖音 XZ FANCLUB DOUYIN-->
+            <div class="social-card">
+                <div class="card-header douyin">
+                    <h2>肖战影音会抖音</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>XZ Fanclub on DOUYIN：19911005xzyyh</p>
+                        <p>Followers: 1M+</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://www.douyin.com/user/MS4wLjABAAAAqC4DjHo_8kZSQV9bCTwoOgBbpaxksndgz8kzP96Q6bI?from_tab_name=main" class="btn douyin" target="_blank">Visit Douyin</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战工作室百度 XZ STUDIO BAIDU -->
+            <div class="social-card">
+                <div class="card-header baidu">
+                    <h2>百度肖战工作室</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Follow XZ Studio's official Baidu account for updates and content.</p>
+                        <p>Official studio account</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://author.baidu.com/home?type=profile&action=profile&mthfr=box_share&context=%7B%22from%22%3A%22dusite_sresults%22%2C%22uk%22%3A%226REHqK7YhHdA6m4t1rk1Uw%22%2C%22tab%22%3A%22dynamicList%22%7D" class="btn baidu" target="_blank">Visit Baidu</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战百度百科 BAIDU BAIKE -->
+            <div class="social-card">
+                <div class="card-header baidu">
+                    <h2>肖战百度百科</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Learn about Xiao Zhan's biography, career, and achievements on Baidu Baike.</p>
+                        <p>Encyclopedia and reference</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://baike.baidu.com/item/%E8%82%96%E6%88%98/18866899" class="btn baidu" target="_blank">Visit Baidu Baike</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战维基百科 WIKIPEDIA -->
+            <div class="social-card">
+                <div class="card-header wikipedia">
+                    <h2>肖战维基百科</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>View Xiao Zhan's Wikipedia page for his biography and career information.</p>
+                        <p>Open encyclopedia</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://zh.wikipedia.org/zh-cn/%E8%82%96%E6%88%B0" class="btn wikipedia" target="_blank">Visit Wikipedia</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战Instagram XIAO ZHAN INSTAGRAM -->
+            <div class="social-card">
+                <div class="card-header instagram">
+                    <h2>肖战Instagram</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Follow Xiao Zhan's official Instagram account for photos and updates.</p>
+                        <p>International platform</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://www.instagram.com/xz_1991x/" class="btn instagram" target="_blank">Visit Instagram</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战工作室Instagram XZ.STUDIO INSTAGRAM -->
+            <div class="social-card">
+                <div class="card-header instagram">
+                    <h2>肖战工作室Instagram</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Follow XZ.STUDIO's official Instagram account for behind-the-scenes content.</p>
+                        <p>Official studio account</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://www.instagram.com/xz.studio1005/" class="btn instagram" target="_blank">Visit Instagram</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 肖战工作室YouTube XZ.STUDIO YOUTUBE -->
+            <div class="social-card">
+                <div class="card-header youtube">
+                    <h2>肖战工作室YouTube</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Watch XZ.STUDIO's official videos and content on YouTube.</p>
+                        <p>Official studio channel</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://www.youtube.com/@xzstudio-1005" class="btn youtube" target="_blank">Visit YouTube</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TENCENT VIDEO -->
+            <div class="social-card">
+                <div class="card-header tencent">
+                    <h2>腾讯视频</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Watch Xiao Zhan's shows and performances on Tencent Video.</p>
+                        <p>Official content and shows</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://v.qq.com/x/search/?q=%E8%82%96%E6%88%98" class="btn tencent" target="_blank">Watch Videos</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- YOUKU VIDEO -->
+            <div class="social-card">
+                <div class="card-header youku">
+                    <h2>优酷视频</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Find Xiao Zhan's dramas, interviews and performances on Youku.</p>
+                        <p>Video platform</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://so.youku.com/search/q_%E8%82%96%E6%88%98" class="btn youku" target="_blank">Watch Videos</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- IQIYI VIDEO -->
+            <div class="social-card">
+                <div class="card-header iqiyi">
+                    <h2>爱奇艺视频</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Discover Xiao Zhan's content on iQiyi, one of China's largest video platforms.</p>
+                        <p>Video platform</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://www.iqiyi.com/search/%E8%82%96%E6%88%98.html" class="btn iqiyi" target="_blank">Watch Videos</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ADD MORE PLATFORMS HERE - Copy the template below and paste it inside the social-grid div -->
+            <!-- 
+            <div class="social-card">
+                <div class="card-header [platform-class]">
+                    <h2>[Platform Name]</h2>
+                </div>
+                <div class="card-body">
+                    <p>[Description]</p>
+                    <p>[Additional Info]</p>
+                    <a href="[URL]" class="btn [platform-class]" target="_blank">Visit [Platform]</a>
+                </div>
+            </div>
+            -->
+        </div>
+
+        <!-- LATEST NEWS SECTION - Edit or add news items as needed -->
+        <div class="latest-news">
+            <h2>Latest Updates</h2>
+            <div class="news-item">
+                <h3>New Drama/Movie Announcement</h3>
+                <p>Xiao Zhan's captivating performance in "The Legend of the Condor Heroes" earns widespread acclaim. The upcoming film "De Xian Jin Zhi" and the TV series "Zang Hai Zhuan" are eagerly anticipated.</p>
+            </div>
+            
+            <div class="news-item">
+                <h3>Music Release</h3>
+                <p>Xiao Zhan's latest album "WM" has been gaining popularity across music platforms in China.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>This fan-made website by North American XFX is created for personal use only. All rights to images and content belong to their respective owners.</p>
+        <p>Last updated: <span id="last-updated">April 2025</span></p>
+    </footer>
+
+    <!-- JAVASCRIPT - For editing functionality -->
+    <script>
+        // Show admin tools with improved display toggling
+        function toggleAdminTools() {
+            const password = prompt("Enter admin password:");
+            // Use a strong, unique password (this is just an example)
+            if (password === "X1@0Zh@n2025!") {
+                var adminTools = document.getElementById('admin-tools');
+                // More reliable way to toggle display
+                if (adminTools.style.display === 'block') {
+                    adminTools.style.display = 'none';
+                } else {
+                    adminTools.style.display = 'block';
+                    // Add a console log for debugging
+                    console.log('Admin tools should be visible now');
+                }
+            } else {
+                // For debugging during development, add some feedback
+                console.log('Password incorrect or canceled');
+            }
+        }
+        
+        
+        // Add new social media platform
+        function addNewPlatform() {
+            const name = document.getElementById('platform-name').value;
+            const color = document.getElementById('platform-color').value;
+            const desc = document.getElementById('platform-desc').value;
+            const info = document.getElementById('platform-info').value;
+            const url = document.getElementById('platform-url').value;
+            
+            if (!name || !desc || !url) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+            
+            const platformClass = name.toLowerCase().replace(/\s+/g, '');
+            
+            const newPlatform = document.createElement('div');
+            newPlatform.className = 'social-card';
+            newPlatform.innerHTML = `
+                <div class="card-header" style="background-color: ${color}">
+                    <h2>${name}</h2>
+                </div>
+                <div class="card-body">
+                    <p>${desc}</p>
+                    <p>${info}</p>
+                    <a href="${url}" class="btn" style="background-color: ${color}" target="_blank">Visit ${name}</a>
+                </div>
+            `;
+            
+            document.getElementById('social-grid').appendChild(newPlatform);
+            
+            // Reset form
+            document.getElementById('new-platform-form').reset();
+            
+            // Update last updated date
+            updateLastUpdated();
+        }
+        
+        // Add news item
+        function addNewsItem() {
+            const title = document.getElementById('news-title').value;
+            const content = document.getElementById('news-content').value;
+            
+            if (!title || !content) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+            
+            const newsItem = document.createElement('div');
+            newsItem.className = 'news-item';
+            newsItem.innerHTML = `
+                <h3>${title}</h3>
+                <p>${content}</p>
+            `;
+            
+            document.querySelector('.latest-news').appendChild(newsItem);
+            
+            // Reset form
+            document.getElementById('new-news-form').reset();
+            
+            // Update last updated date
+            updateLastUpdated();
+        }
+        
+        // Toggle edit mode
+        function toggleEditMode() {
+            const body = document.body;
+            body.classList.toggle('edit-mode');
+            
+            if (body.classList.contains('edit-mode')) {
+                // Make all text editable
+                makeEditable();
+            } else {
+                // Remove editability
+                removeEditable();
+            }
+        }
+        
+        // Make elements editable
+        function makeEditable() {
+            const editables = document.querySelectorAll('h1, h2, h3, p, a');
+            editables.forEach(el => {
+                if (!el.isContentEditable) {
+                    el.contentEditable = true;
+                    el.dataset.origColor = el.style.color;
+                    el.style.color = '#dc3545';
+                    el.style.border = '1px dashed #dc3545';
+                    el.style.padding = '5px';
+                }
+            });
+        }
+        
+        // Remove editability
+        function removeEditable() {
+            const editables = document.querySelectorAll('[contenteditable=true]');
+            editables.forEach(el => {
+                el.contentEditable = false;
+                el.style.color = el.dataset.origColor || '';
+                el.style.border = '';
+                el.style.padding = '';
+            });
+            
+            // Update last updated date
+            updateLastUpdated();
+        }
+        
+        // Secret keyboard shortcut for admin access
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+Shift+X for admin access (a shortcut only you would know)
+            if (e.ctrlKey && e.shiftKey && e.key === 'X') {
+                toggleAdminTools();
+            }
+        });
+        
+        // Allow picture to access admin (hidden method)
+        function promptForAdminAccess() {
+            toggleAdminTools();
+        }
+        // Update last updated date
+        function updateLastUpdated() {
+            const now = new Date();
+            const month = now.toLocaleString('default', { month: 'long' });
+            const year = now.getFullYear();
+            document.getElementById('last-updated').textContent = `${month} ${year}`;
+        }
+        
+        // Update profile image
+        function updateProfileImage() {
+            const imageUrl = document.getElementById('profile-image-url').value;
+            if (!imageUrl) {
+                alert('Please enter an image URL');
+                return;
+            }
+            
+            const profileImage = document.querySelector('.profile-img');
+            profileImage.src = imageUrl;
+            alert('Profile image updated!');
+            
+            // Update last updated date
+            updateLastUpdated();
+        }
