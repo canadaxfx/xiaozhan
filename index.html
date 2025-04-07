@@ -529,8 +529,8 @@
     </div>
 
     <!-- Admin tools section (hidden by default) -->
-    <div class="container" id="admin-tools" style="display:none;">
-        <div class="admin-tools">
+    <div class="container">
+        <div class="admin-tools" id="admin-tools" style="display:none;">
             <h2>Admin Tools</h2>
             
             <h3>Edit Mode</h3>
@@ -814,6 +814,9 @@
                 } else {
                     adminTools.style.display = 'block';
                     analyticsContainer.style.display = 'block';
+                    
+                    // Update analytics display when opening
+                    updateAnalyticsDisplay();
                 }
             }
         }
