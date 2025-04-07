@@ -1,27 +1,46 @@
-</script>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official hub for all Xiao Zhan social media accounts and latest updates">
     <title>Xiao Zhan Social Media Hub</title>
-    <!-- CSS STYLES - You can modify colors and styling here -->
+    <!-- Preload key assets -->
+    <link rel="preload" href="xiao-zhan.jpg" as="image">
+    <!-- CSS STYLES - Optimized and minified -->
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --card-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            --card-shadow-hover: 0 10px 20px rgba(0,0,0,0.15);
+            --weibo-color: #B7950B;
+            --douyin-color: #000000;
+            --blue-color: #3498db;
+            --youtube-color: #FF0000;
+            --xiaohongshu-color: #fe2c55;
+            --bilibili-color: #00a1d6;
+            --wechat-color: #07C160;
+        }
+        
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4; /* Background color - change as needed */
-            color: #333;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
+        
         header {
-            background-color: #2c3e50; /* Header background - change as needed */
+            background-color: var(--primary-color);
             color: white;
             text-align: center;
             padding: 2rem 0;
             position: relative;
         }
+        
         .profile-img {
             width: 150px;
             height: 150px;
@@ -30,53 +49,61 @@
             border: 5px solid white;
             margin-bottom: 1rem;
         }
+        
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 0 2rem;
         }
+        
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
+        
         .social-card {
             background-color: white;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: var(--card-shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%; /* Ensure consistent width */
+            height: 100%;
         }
+        
         .social-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            box-shadow: var(--card-shadow-hover);
         }
+        
         .card-header {
             padding: 1.5rem;
-            background-color: #3498db; /* Default card header color */
+            background-color: var(--blue-color);
             color: white;
             text-align: center;
         }
+        
         .card-body {
             padding: 1.5rem;
             text-align: center;
-            word-break: break-word; /* Allow long words to break */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 200px; /* Fixed height for all cards */
+            min-height: 200px;
         }
+        
         .card-info {
             flex-grow: 1;
         }
+        
         .card-button {
-            margin-top: auto;
+            margin-top: 1.5rem;
         }
+        
         .btn {
             display: inline-block;
-            background-color: #2c3e50;
+            background-color: var(--primary-color);
             color: white;
             padding: 0.8rem 1.5rem;
             text-decoration: none;
@@ -84,85 +111,61 @@
             font-weight: bold;
             transition: background-color 0.3s ease;
         }
+        
         .btn:hover {
             background-color: #1a252f;
         }
         
-        /* Platform specific colors - add more as needed */
-        .weibo {
-            background-color: #B7950B; /* Changed from yellow to mustard */
-        }
-        .douyin {
-            background-color: #000000;
-        }
-        .baidu {
-            background-color: #3498db; /* Changed to match Tencent Video blue */
-        }
-        .wikipedia {
-            background-color: #3498db; /* Changed to match Tencent Video blue */
-        }
-        .instagram {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
-        .twitter {
-            background-color: #1DA1F2;
-        }
-        .wechat {
-            background-color: #07C160;
-        }
-        .bilibili {
-            background-color: #00a1d6;
-        }
-        .xiaohongshu {
-            background-color: #fe2c55;
-        }
-        .youtube {
-            background-color: #FF0000;
-        }
-        .tencent {
-            background-color: #00A5E0; /* Tencent blue color */
-        }
-        .youku {
-            background-color: #00A5E0; /* Same as Tencent */
-        }
-        .iqiyi {
-            background-color: #00A5E0; /* Same as Tencent and Youku */
-        }
+        /* Platform specific colors */
+        .weibo { background-color: var(--weibo-color); }
+        .douyin { background-color: var(--douyin-color); }
+        .baidu, .wikipedia { background-color: var(--blue-color); }
+        .instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .twitter { background-color: #1DA1F2; }
+        .wechat { background-color: var(--wechat-color); }
+        .bilibili { background-color: var(--bilibili-color); }
+        .xiaohongshu { background-color: var(--xiaohongshu-color); }
+        .youtube { background-color: var(--youtube-color); }
+        .tencent, .youku, .iqiyi { background-color: var(--blue-color); }
         
         .footer {
             text-align: center;
             padding: 2rem 0;
-            background-color: #2c3e50;
+            background-color: var(--primary-color);
             color: white;
             margin-top: 3rem;
         }
+        
         .latest-news {
             margin-top: 3rem;
             background-color: white;
             border-radius: 10px;
             padding: 2rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: var(--card-shadow);
         }
+        
         .news-item {
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
             border-bottom: 1px solid #eee;
         }
+        
         .news-item:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
         
-        /* Admin Tools Section */
+        /* Admin area styling */
         .admin-tools {
             margin-top: 3rem;
             background-color: #f8f9fa;
             border-radius: 10px;
             padding: 2rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: none; /* Hidden by default, but will be shown with JavaScript */
+            box-shadow: var(--card-shadow);
+            display: none;
         }
+        
         .admin-button {
             background-color: #6c757d;
             color: white;
@@ -173,27 +176,117 @@
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
         }
+        
         .admin-button:hover {
             background-color: #5a6268;
         }
+        
         .edit-mode {
             border: 2px dashed #dc3545;
+        }
+        
+        /* Analytics Dashboard */
+        .analytics-container {
+            margin-top: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .stat-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .stat-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER SECTION - Edit the text between the tags as needed -->
+    <!-- HEADER SECTION -->
     <header>
-        <img src="xiao-zhan.jpg" alt="Xiao Zhan" class="profile-img">
+        <img src="xiao-zhan.jpg" alt="Xiao Zhan" class="profile-img" id="profile-img">
         <h1>Xiao Zhan (肖战) Social Media Hub</h1>
         <p>All of Xiao Zhan's official social media accounts in one place</p>
     </header>
-    </header>
 
     <div class="container">
-        <!-- SOCIAL MEDIA CARDS - Copy and paste this section to add more platforms -->
+        <!-- Traffic Analytics Dashboard (only visible to admin) -->
+        <div class="analytics-container" id="analytics-container" style="display:none;">
+            <h2>Fan Community Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Page Views</h3>
+                    <div class="stat-number" id="page-views">0</div>
+                    <div class="stat-label">Total Views</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Visitors</h3>
+                    <div class="stat-number" id="unique-visitors">0</div>
+                    <div class="stat-label">Unique Fans</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Today</h3>
+                    <div class="stat-number" id="today-visits">0</div>
+                    <div class="stat-label">Today's Visits</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Fan Growth</h3>
+                    <div class="stat-number" id="growth-rate">0%</div>
+                    <div class="stat-label">Weekly Growth</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOCIAL MEDIA CARDS -->
         <div class="social-grid" id="social-grid">
-            <!-- 肖战微博 XIAO ZHAN WEIBO -->
+            <!-- Weibo Cards -->
             <div class="social-card">
                 <div class="card-header weibo">
                     <h2>肖战微博</h2>
@@ -204,12 +297,11 @@
                         <p>Followers: 30M+</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://weibo.com/u/1792951112" class="btn weibo" target="_blank">Visit Weibo</a>
+                        <a href="https://weibo.com/u/1792951112" class="btn weibo" target="_blank" data-platform="weibo-personal">Visit Weibo</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战工作室微博 XZ.STUDIO. WEIBO -->
             <div class="social-card">
                 <div class="card-header weibo">
                     <h2>肖战工作室微博</h2>
@@ -220,12 +312,11 @@
                         <p>Followers: 10M+</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://weibo.com/u/6643123988" class="btn weibo" target="_blank">Visit Weibo</a>
+                        <a href="https://weibo.com/u/6643123988" class="btn weibo" target="_blank" data-platform="weibo-studio">Visit Weibo</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战超话 WEIBO SUPERTOPIC -->
             <div class="social-card">
                 <div class="card-header weibo">
                     <h2>肖战超话</h2>
@@ -236,12 +327,11 @@
                         <p>Followers: 10M+</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://weibo.com/p/100808f57b3faeb25f86b43a8cc58f02286f40/super_index" class="btn weibo" target="_blank">Visit Weibo</a>
+                        <a href="https://weibo.com/p/100808f57b3faeb25f86b43a8cc58f02286f40/super_index" class="btn weibo" target="_blank" data-platform="weibo-supertopic">Visit Weibo</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战抖音 XIAO ZHAN DOUYIN -->
             <div class="social-card">
                 <div class="card-header douyin">
                     <h2>肖战抖音</h2>
@@ -252,12 +342,11 @@
                         <p>Followers: 20M+</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://www.douyin.com/user/MS4wLjABAAAAp5h2oXaBBs4Addlh36wkxtk3srSPYe380PBewEe1si9OnrF_Sy8eZpdJQ_NYBl6H?from_tab_name=main" class="btn douyin" target="_blank">Visit Douyin</a>
+                        <a href="https://www.douyin.com/user/MS4wLjABAAAAp5h2oXaBBs4Addlh36wkxtk3srSPYe380PBewEe1si9OnrF_Sy8eZpdJQ_NYBl6H?from_tab_name=main" class="btn douyin" target="_blank" data-platform="douyin-personal">Visit Douyin</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战工作室抖音 XZ.STUDIO. DOUYIN-->
             <div class="social-card">
                 <div class="card-header douyin">
                     <h2>肖战工作室抖音</h2>
@@ -268,12 +357,11 @@
                         <p>Followers: 7M+</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://www.douyin.com/user/MS4wLjABAAAAbeJEodUTXohdleqNzCo2PZ-XsY2G6JGQ3HUT0uDtQ-A?from_tab_name=main" class="btn douyin" target="_blank">Visit Douyin</a>
+                        <a href="https://www.douyin.com/user/MS4wLjABAAAAbeJEodUTXohdleqNzCo2PZ-XsY2G6JGQ3HUT0uDtQ-A?from_tab_name=main" class="btn douyin" target="_blank" data-platform="douyin-studio">Visit Douyin</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战影音会抖音 XZ FANCLUB DOUYIN-->
             <div class="social-card">
                 <div class="card-header douyin">
                     <h2>肖战影音会抖音</h2>
@@ -284,12 +372,11 @@
                         <p>Followers: 1M+</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://www.douyin.com/user/MS4wLjABAAAAqC4DjHo_8kZSQV9bCTwoOgBbpaxksndgz8kzP96Q6bI?from_tab_name=main" class="btn douyin" target="_blank">Visit Douyin</a>
+                        <a href="https://www.douyin.com/user/MS4wLjABAAAAqC4DjHo_8kZSQV9bCTwoOgBbpaxksndgz8kzP96Q6bI?from_tab_name=main" class="btn douyin" target="_blank" data-platform="douyin-fanclub">Visit Douyin</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战工作室百度 XZ STUDIO BAIDU -->
             <div class="social-card">
                 <div class="card-header baidu">
                     <h2>百度肖战工作室</h2>
@@ -300,12 +387,11 @@
                         <p>Official studio account</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://author.baidu.com/home?type=profile&action=profile&mthfr=box_share&context=%7B%22from%22%3A%22dusite_sresults%22%2C%22uk%22%3A%226REHqK7YhHdA6m4t1rk1Uw%22%2C%22tab%22%3A%22dynamicList%22%7D" class="btn baidu" target="_blank">Visit Baidu</a>
+                        <a href="https://author.baidu.com/home?type=profile&action=profile&mthfr=box_share&context=%7B%22from%22%3A%22dusite_sresults%22%2C%22uk%22%3A%226REHqK7YhHdA6m4t1rk1Uw%22%2C%22tab%22%3A%22dynamicList%22%7D" class="btn baidu" target="_blank" data-platform="baidu-studio">Visit Baidu</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战百度百科 BAIDU BAIKE -->
             <div class="social-card">
                 <div class="card-header baidu">
                     <h2>肖战百度百科</h2>
@@ -316,12 +402,11 @@
                         <p>Encyclopedia and reference</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://baike.baidu.com/item/%E8%82%96%E6%88%98/18866899" class="btn baidu" target="_blank">Visit Baidu Baike</a>
+                        <a href="https://baike.baidu.com/item/%E8%82%96%E6%88%98/18866899" class="btn baidu" target="_blank" data-platform="baidu-baike">Visit Baidu Baike</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战维基百科 WIKIPEDIA -->
             <div class="social-card">
                 <div class="card-header wikipedia">
                     <h2>肖战维基百科</h2>
@@ -332,12 +417,11 @@
                         <p>Open encyclopedia</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://zh.wikipedia.org/zh-cn/%E8%82%96%E6%88%B0" class="btn wikipedia" target="_blank">Visit Wikipedia</a>
+                        <a href="https://zh.wikipedia.org/zh-cn/%E8%82%96%E6%88%B0" class="btn wikipedia" target="_blank" data-platform="wikipedia">Visit Wikipedia</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战Instagram XIAO ZHAN INSTAGRAM -->
             <div class="social-card">
                 <div class="card-header instagram">
                     <h2>肖战Instagram</h2>
@@ -348,12 +432,11 @@
                         <p>International platform</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://www.instagram.com/xz_1991x/" class="btn instagram" target="_blank">Visit Instagram</a>
+                        <a href="https://www.instagram.com/xz_1991x/" class="btn instagram" target="_blank" data-platform="instagram-personal">Visit Instagram</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战工作室Instagram XZ.STUDIO INSTAGRAM -->
             <div class="social-card">
                 <div class="card-header instagram">
                     <h2>肖战工作室Instagram</h2>
@@ -364,12 +447,11 @@
                         <p>Official studio account</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://www.instagram.com/xz.studio1005/" class="btn instagram" target="_blank">Visit Instagram</a>
+                        <a href="https://www.instagram.com/xz.studio1005/" class="btn instagram" target="_blank" data-platform="instagram-studio">Visit Instagram</a>
                     </div>
                 </div>
             </div>
             
-            <!-- 肖战工作室YouTube XZ.STUDIO YOUTUBE -->
             <div class="social-card">
                 <div class="card-header youtube">
                     <h2>肖战工作室YouTube</h2>
@@ -380,12 +462,11 @@
                         <p>Official studio channel</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://www.youtube.com/@xzstudio-1005" class="btn youtube" target="_blank">Visit YouTube</a>
+                        <a href="https://www.youtube.com/@xzstudio-1005" class="btn youtube" target="_blank" data-platform="youtube-studio">Visit YouTube</a>
                     </div>
                 </div>
             </div>
             
-            <!-- TENCENT VIDEO -->
             <div class="social-card">
                 <div class="card-header tencent">
                     <h2>腾讯视频</h2>
@@ -396,12 +477,11 @@
                         <p>Official content and shows</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://v.qq.com/x/search/?q=%E8%82%96%E6%88%98" class="btn tencent" target="_blank">Watch Videos</a>
+                        <a href="https://v.qq.com/x/search/?q=%E8%82%96%E6%88%98" class="btn tencent" target="_blank" data-platform="tencent-video">Watch Videos</a>
                     </div>
                 </div>
             </div>
             
-            <!-- YOUKU VIDEO -->
             <div class="social-card">
                 <div class="card-header youku">
                     <h2>优酷视频</h2>
@@ -412,12 +492,11 @@
                         <p>Video platform</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://so.youku.com/search/q_%E8%82%96%E6%88%98" class="btn youku" target="_blank">Watch Videos</a>
+                        <a href="https://so.youku.com/search/q_%E8%82%96%E6%88%98" class="btn youku" target="_blank" data-platform="youku-video">Watch Videos</a>
                     </div>
                 </div>
             </div>
             
-            <!-- IQIYI VIDEO -->
             <div class="social-card">
                 <div class="card-header iqiyi">
                     <h2>爱奇艺视频</h2>
@@ -428,27 +507,13 @@
                         <p>Video platform</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://www.iqiyi.com/search/%E8%82%96%E6%88%98.html" class="btn iqiyi" target="_blank">Watch Videos</a>
+                        <a href="https://www.iqiyi.com/search/%E8%82%96%E6%88%98.html" class="btn iqiyi" target="_blank" data-platform="iqiyi-video">Watch Videos</a>
                     </div>
                 </div>
             </div>
-            
-            <!-- ADD MORE PLATFORMS HERE - Copy the template below and paste it inside the social-grid div -->
-            <!-- 
-            <div class="social-card">
-                <div class="card-header [platform-class]">
-                    <h2>[Platform Name]</h2>
-                </div>
-                <div class="card-body">
-                    <p>[Description]</p>
-                    <p>[Additional Info]</p>
-                    <a href="[URL]" class="btn [platform-class]" target="_blank">Visit [Platform]</a>
-                </div>
-            </div>
-            -->
         </div>
 
-        <!-- LATEST NEWS SECTION - Edit or add news items as needed -->
+        <!-- LATEST NEWS SECTION -->
         <div class="latest-news">
             <h2>Latest Updates</h2>
             <div class="news-item">
@@ -463,35 +528,296 @@
         </div>
     </div>
 
+    <!-- Admin tools section (hidden by default) -->
+    <div class="container" id="admin-tools" style="display:none;">
+        <div class="admin-tools">
+            <h2>Admin Tools</h2>
+            
+            <h3>Edit Mode</h3>
+            <button class="admin-button" onclick="toggleEditMode()">Toggle Edit Mode</button>
+            
+            <h3>Add New Platform</h3>
+            <form id="new-platform-form">
+                <input type="text" id="platform-name" placeholder="Platform Name" style="margin: 5px; padding: 8px;">
+                <input type="color" id="platform-color" value="#3498db" style="margin: 5px; padding: 5px;">
+                <input type="text" id="platform-desc" placeholder="Description" style="margin: 5px; padding: 8px;">
+                <input type="text" id="platform-info" placeholder="Additional Info" style="margin: 5px; padding: 8px;">
+                <input type="url" id="platform-url" placeholder="URL" style="margin: 5px; padding: 8px;">
+                <button type="button" class="admin-button" onclick="addNewPlatform()">Add Platform</button>
+            </form>
+            
+            <h3>Add News Item</h3>
+            <form id="new-news-form">
+                <input type="text" id="news-title" placeholder="Title" style="margin: 5px; padding: 8px; width: 100%;">
+                <textarea id="news-content" placeholder="Content" style="margin: 5px; padding: 8px; width: 100%; min-height: 100px;"></textarea>
+                <button type="button" class="admin-button" onclick="addNewsItem()">Add News</button>
+            </form>
+            
+            <h3>Update Profile Image</h3>
+            <form id="profile-image-form">
+                <input type="url" id="profile-image-url" placeholder="Image URL" style="margin: 5px; padding: 8px; width: 100%;">
+                <button type="button" class="admin-button" onclick="updateProfileImage()">Update Image</button>
+            </form>
+            
+            <h3>Analytics Control</h3>
+            <button class="admin-button" onclick="resetAnalytics()">Reset Analytics</button>
+            <button class="admin-button" onclick="exportAnalytics()">Export Analytics Data</button>
+        </div>
+    </div>
+
     <footer class="footer">
         <p>This fan-made website by North American XFX is created for personal use only. All rights to images and content belong to their respective owners.</p>
         <p>Last updated: <span id="last-updated">April 2025</span></p>
     </footer>
 
-    <!-- JAVASCRIPT - For editing functionality -->
+    <!-- JAVASCRIPT -->
     <script>
-        // Show admin tools with improved display toggling
-        function toggleAdminTools() {
-            const password = prompt("Enter admin password:");
-            // Use a strong, unique password (this is just an example)
-            if (password === "X1@0Zh@n2025!") {
-                var adminTools = document.getElementById('admin-tools');
-                // More reliable way to toggle display
-                if (adminTools.style.display === 'block') {
-                    adminTools.style.display = 'none';
-                } else {
-                    adminTools.style.display = 'block';
-                    // Add a console log for debugging
-                    console.log('Admin tools should be visible now');
+        // Analytics tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize analytics from localStorage or set defaults
+            initializeAnalytics();
+            
+            // Track page view
+            trackPageView();
+            
+            // Track clicks on social media links
+            document.querySelectorAll('a[data-platform]').forEach(link => {
+                link.addEventListener('click', function() {
+                    trackSocialClick(this.getAttribute('data-platform'));
+                });
+            });
+            
+            // Add admin tools keyboard shortcut
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+Shift+X for admin access
+                if (e.ctrlKey && e.shiftKey && e.key === 'X') {
+                    toggleAdminTools();
                 }
+            });
+            
+            // Add click handler to profile image for hidden admin access
+            document.getElementById('profile-img').addEventListener('click', function(e) {
+                // Secret: need to click 3 times quickly to activate
+                if (!this.clickCount) this.clickCount = 0;
+                this.clickCount++;
+                
+                setTimeout(() => {
+                    if (this.clickCount >= 3) {
+                        toggleAdminTools();
+                    }
+                    this.clickCount = 0;
+                }, 500);
+            });
+            
+            // Add a visible but subtle stats button for quick access
+            const quickStatsButton = document.createElement('div');
+            quickStatsButton.id = 'quick-stats-button';
+            quickStatsButton.innerHTML = '📊';
+            quickStatsButton.style.position = 'fixed';
+            quickStatsButton.style.bottom = '5px';
+            quickStatsButton.style.right = '5px';
+            quickStatsButton.style.width = '24px';
+            quickStatsButton.style.height = '24px';
+            quickStatsButton.style.backgroundColor = 'rgba(0,0,0,0.05)';
+            quickStatsButton.style.borderRadius = '50%';
+            quickStatsButton.style.display = 'flex';
+            quickStatsButton.style.alignItems = 'center';
+            quickStatsButton.style.justifyContent = 'center';
+            quickStatsButton.style.fontSize = '14px';
+            quickStatsButton.style.opacity = '0.3';
+            quickStatsButton.style.cursor = 'pointer';
+            quickStatsButton.style.zIndex = '1000';
+            quickStatsButton.title = "Ctrl+Click for quick stats";
+            document.body.appendChild(quickStatsButton);
+            
+            quickStatsButton.addEventListener('click', function(e) {
+                // Show analytics when clicked while holding Ctrl
+                if (e.ctrlKey) {
+                    const analyticsContainer = document.getElementById('analytics-container');
+                    if (analyticsContainer.style.display === 'block') {
+                        analyticsContainer.style.display = 'none';
+                        this.style.opacity = '0.3';
+                    } else {
+                        analyticsContainer.style.display = 'block';
+                        this.style.opacity = '1';
+                    }
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+            
+            // Also add keyboard shortcut Alt+S for quick stats
+            document.addEventListener('keydown', function(e) {
+                // Alt+S for quick stats
+                if (e.altKey && e.key === 's') {
+                    const analyticsContainer = document.getElementById('analytics-container');
+                    if (analyticsContainer.style.display === 'block') {
+                        analyticsContainer.style.display = 'none';
+                        document.getElementById('quick-stats-button').style.opacity = '0.3';
+                    } else {
+                        analyticsContainer.style.display = 'block';
+                        document.getElementById('quick-stats-button').style.opacity = '1';
+                    }
+                    e.preventDefault();
+                }
+            });
+        });
+        
+        // Analytics functions
+        function initializeAnalytics() {
+            const defaultStats = {
+                pageViews: 0,
+                uniqueVisitors: 0,
+                todayVisits: 0,
+                lastVisitDate: new Date().toDateString(),
+                weeklyData: [0,0,0,0,0,0,0], // Last 7 days
+                socialClicks: {}
+            };
+            
+            let analytics = localStorage.getItem('xzAnalytics');
+            if (!analytics) {
+                localStorage.setItem('xzAnalytics', JSON.stringify(defaultStats));
+                analytics = defaultStats;
             } else {
-                // For debugging during development, add some feedback
-                console.log('Password incorrect or canceled');
+                analytics = JSON.parse(analytics);
+                
+                // Reset today's visits if it's a new day
+                const today = new Date().toDateString();
+                if (analytics.lastVisitDate !== today) {
+                    // Shift weekly data (remove oldest, add new day with 0)
+                    analytics.weeklyData.shift();
+                    analytics.weeklyData.push(0);
+                    
+                    analytics.lastVisitDate = today;
+                    analytics.todayVisits = 0;
+                    
+                    localStorage.setItem('xzAnalytics', JSON.stringify(analytics));
+                }
+            }
+            
+            // Display analytics
+            updateAnalyticsDisplay();
+        }
+        
+        function getUniqueVisitorId() {
+            let visitorId = localStorage.getItem('xzVisitorId');
+            if (!visitorId) {
+                visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('xzVisitorId', visitorId);
+            }
+            return visitorId;
+        }
+        
+        function trackPageView() {
+            const analytics = JSON.parse(localStorage.getItem('xzAnalytics'));
+            const visitorId = getUniqueVisitorId();
+            
+            // Increment page views
+            analytics.pageViews++;
+            
+            // Track unique visitor (simplified approach)
+            const visitorTracker = sessionStorage.getItem('xzVisited');
+            if (!visitorTracker) {
+                sessionStorage.setItem('xzVisited', '1');
+                analytics.uniqueVisitors++;
+            }
+            
+            // Track today's visits
+            analytics.todayVisits++;
+            analytics.weeklyData[analytics.weeklyData.length - 1] = analytics.todayVisits;
+            
+            // Save updated analytics
+            localStorage.setItem('xzAnalytics', JSON.stringify(analytics));
+            
+            // Update display
+            updateAnalyticsDisplay();
+        }
+        
+        function trackSocialClick(platform) {
+            const analytics = JSON.parse(localStorage.getItem('xzAnalytics'));
+            
+            if (!analytics.socialClicks) {
+                analytics.socialClicks = {};
+            }
+            
+            if (!analytics.socialClicks[platform]) {
+                analytics.socialClicks[platform] = 0;
+            }
+            
+            analytics.socialClicks[platform]++;
+            
+            localStorage.setItem('xzAnalytics', JSON.stringify(analytics));
+        }
+        
+        function resetAnalytics() {
+            if (confirm('Are you sure you want to reset all analytics data?')) {
+                localStorage.removeItem('xzAnalytics');
+                initializeAnalytics();
+                alert('Analytics data has been reset');
             }
         }
         
+        function exportAnalytics() {
+            const analytics = JSON.parse(localStorage.getItem('xzAnalytics'));
+            
+            // Create a formatted export
+            const exportData = {
+                exportDate: new Date().toISOString(),
+                analytics: analytics
+            };
+            
+            // Create downloadable file
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "xz_analytics_" + new Date().toISOString().split('T')[0] + ".json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
         
-        // Add new social media platform
+        function updateAnalyticsDisplay() {
+            const analytics = JSON.parse(localStorage.getItem('xzAnalytics'));
+            
+            document.getElementById('page-views').textContent = analytics.pageViews;
+            document.getElementById('unique-visitors').textContent = analytics.uniqueVisitors;
+            document.getElementById('today-visits').textContent = analytics.todayVisits;
+            
+            // Calculate growth rate (comparing today with average of previous 6 days)
+            const previousDays = analytics.weeklyData.slice(0, 6);
+            const avgPrevious = previousDays.length > 0 ? 
+                previousDays.reduce((a, b) => a + b, 0) / previousDays.length : 0;
+            
+            let growthRate = 0;
+            if (avgPrevious > 0) {
+                growthRate = ((analytics.todayVisits - avgPrevious) / avgPrevious) * 100;
+            }
+            
+            document.getElementById('growth-rate').textContent = growthRate.toFixed(1) + '%';
+            if (growthRate > 0) {
+                document.getElementById('growth-rate').style.color = 'green';
+            } else if (growthRate < 0) {
+                document.getElementById('growth-rate').style.color = 'red';
+            }
+        }
+        
+        // Admin functionality
+        function toggleAdminTools() {
+            const password = prompt("Enter admin password:");
+            if (password === "X1@0Zh@n2025!") {
+                const adminTools = document.getElementById('admin-tools');
+                const analyticsContainer = document.getElementById('analytics-container');
+                
+                if (adminTools.style.display === 'block') {
+                    adminTools.style.display = 'none';
+                    analyticsContainer.style.display = 'none';
+                } else {
+                    adminTools.style.display = 'block';
+                    analyticsContainer.style.display = 'block';
+                }
+            }
+        }
+        
         function addNewPlatform() {
             const name = document.getElementById('platform-name').value;
             const color = document.getElementById('platform-color').value;
@@ -513,13 +839,23 @@
                     <h2>${name}</h2>
                 </div>
                 <div class="card-body">
-                    <p>${desc}</p>
-                    <p>${info}</p>
-                    <a href="${url}" class="btn" style="background-color: ${color}" target="_blank">Visit ${name}</a>
+                    <div class="card-info">
+                        <p>${desc}</p>
+                        <p>${info}</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="${url}" class="btn" style="background-color: ${color}" target="_blank" data-platform="${platformClass}">Visit ${name}</a>
+                    </div>
                 </div>
             `;
             
             document.getElementById('social-grid').appendChild(newPlatform);
+            
+            // Add click tracking to the new link
+            const newLink = newPlatform.querySelector('a[data-platform]');
+            newLink.addEventListener('click', function() {
+                trackSocialClick(this.getAttribute('data-platform'));
+            });
             
             // Reset form
             document.getElementById('new-platform-form').reset();
@@ -528,7 +864,6 @@
             updateLastUpdated();
         }
         
-        // Add news item
         function addNewsItem() {
             const title = document.getElementById('news-title').value;
             const content = document.getElementById('news-content').value;
@@ -554,21 +889,17 @@
             updateLastUpdated();
         }
         
-        // Toggle edit mode
         function toggleEditMode() {
             const body = document.body;
             body.classList.toggle('edit-mode');
             
             if (body.classList.contains('edit-mode')) {
-                // Make all text editable
                 makeEditable();
             } else {
-                // Remove editability
                 removeEditable();
             }
         }
         
-        // Make elements editable
         function makeEditable() {
             const editables = document.querySelectorAll('h1, h2, h3, p, a');
             editables.forEach(el => {
@@ -582,7 +913,6 @@
             });
         }
         
-        // Remove editability
         function removeEditable() {
             const editables = document.querySelectorAll('[contenteditable=true]');
             editables.forEach(el => {
@@ -596,19 +926,6 @@
             updateLastUpdated();
         }
         
-        // Secret keyboard shortcut for admin access
-        document.addEventListener('keydown', function(e) {
-            // Ctrl+Shift+X for admin access (a shortcut only you would know)
-            if (e.ctrlKey && e.shiftKey && e.key === 'X') {
-                toggleAdminTools();
-            }
-        });
-        
-        // Allow picture to access admin (hidden method)
-        function promptForAdminAccess() {
-            toggleAdminTools();
-        }
-        // Update last updated date
         function updateLastUpdated() {
             const now = new Date();
             const month = now.toLocaleString('default', { month: 'long' });
@@ -616,7 +933,6 @@
             document.getElementById('last-updated').textContent = `${month} ${year}`;
         }
         
-        // Update profile image
         function updateProfileImage() {
             const imageUrl = document.getElementById('profile-image-url').value;
             if (!imageUrl) {
@@ -631,3 +947,6 @@
             // Update last updated date
             updateLastUpdated();
         }
+    </script>
+</body>
+</html>
