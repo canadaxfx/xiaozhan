@@ -333,7 +333,7 @@
 <body>
 
 <div class="music-player">
-    <audio id="background-music" preload="auto">
+    <audio id="background-music">
         <!-- Your tracks will be loaded here via JavaScript -->
     </audio>
     <div class="music-controls">
@@ -826,30 +826,10 @@
         loadTrack(currentTrackIndex);
         
         // Set volume
-        audioElement.volume = 0.3; // Set volume to 30% for autoplay
-        
-        // Attempt to autoplay when the page loads
-        audioElement.play().then(() => {
-            isPlaying = true;
-            updatePlayButton();
-            console.log('Autoplay started successfully');
-        }).catch(error => {
-            console.log('Autoplay prevented by browser:', error);
-            // We'll still show the controls so user can start manually
-        });
+        audioElement.volume = 0.5; // Set volume to 50%
         
         // Initialize shuffle button appearance
         updateShuffleButton();
-        
-        // Add page visibility change detection to handle when user returns to tab
-        document.addEventListener('visibilitychange', function() {
-            if (!document.hidden && isPlaying) {
-                // Try to resume playback when the user returns to the page
-                audioElement.play().catch(e => {
-                    console.log('Auto-resume prevented by browser');
-                });
-            }
-        });
     });
 </script>
 
