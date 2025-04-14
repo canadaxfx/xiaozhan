@@ -156,76 +156,28 @@
             padding-bottom: 0;
         }
         
-        /* Admin area styling */
-        .admin-tools {
-            margin-top: 3rem;
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-            display: none;
-        }
-        
-        .admin-button {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .admin-button:hover {
-            background-color: #5a6268;
-        }
-        
-        .edit-mode {
-            border: 2px dashed #dc3545;
-        }
-        
-        /* Analytics Dashboard */
-        .analytics-container {
-            margin-top: 2rem;
+        .work-item {
             background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .stat-card {
-            background-color: #f8f9fa;
             border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: var(--card-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
         }
         
-        .stat-card h3 {
-            margin-top: 0;
+        .work-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .work-title {
+            font-size: 1.5rem;
             color: var(--primary-color);
+            margin-bottom: 10px;
         }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin: 0.5rem 0;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-        
+
+
+
         /* Mobile responsive adjustments */
         @media (max-width: 768px) {
             .social-grid {
@@ -246,6 +198,62 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Email Contact Form Styles */
+        .contact-section {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+        }
+
     </style>
 
 <!-- Google tag (gtag.js) -->
@@ -539,49 +547,13 @@
         </div>
     </div>
 
-    <!-- Admin tools section (hidden by default) -->
-    <div class="container">
-        <div class="admin-tools" id="admin-tools" style="display:none;">
-            <h2>Admin Tools</h2>
-            
-            <h3>Edit Mode</h3>
-            <button class="admin-button" onclick="toggleEditMode()">Toggle Edit Mode</button>
-            
-            <h3>Add New Platform</h3>
-            <form id="new-platform-form">
-                <input type="text" id="platform-name" placeholder="Platform Name" style="margin: 5px; padding: 8px;">
-                <input type="color" id="platform-color" value="#3498db" style="margin: 5px; padding: 5px;">
-                <input type="text" id="platform-desc" placeholder="Description" style="margin: 5px; padding: 8px;">
-                <input type="text" id="platform-info" placeholder="Additional Info" style="margin: 5px; padding: 8px;">
-                <input type="url" id="platform-url" placeholder="URL" style="margin: 5px; padding: 8px;">
-                <button type="button" class="admin-button" onclick="addNewPlatform()">Add Platform</button>
-            </form>
-            
-            <h3>Add News Item</h3>
-            <form id="new-news-form">
-                <input type="text" id="news-title" placeholder="Title" style="margin: 5px; padding: 8px; width: 100%;">
-                <textarea id="news-content" placeholder="Content" style="margin: 5px; padding: 8px; width: 100%; min-height: 100px;"></textarea>
-                <button type="button" class="admin-button" onclick="addNewsItem()">Add News</button>
-            </form>
-            
-            <h3>Update Profile Image</h3>
-            <form id="profile-image-form">
-                <input type="url" id="profile-image-url" placeholder="Image URL" style="margin: 5px; padding: 8px; width: 100%;">
-                <button type="button" class="admin-button" onclick="updateProfileImage()">Update Image</button>
-            </form>
-            
-            <h3>Analytics Control</h3>
-            <button class="admin-button" onclick="resetAnalytics()">Reset Analytics</button>
-            <button class="admin-button" onclick="exportAnalytics()">Export Analytics Data</button>
-        </div>
-    </div>
 
 <div class="container">
     <div class="work-item" style="text-align: center; margin-bottom: 40px;">
         <h3 class="work-title">Discover Xiao Zhan's Captivating Works</h3>
         <p class="work-description">Complete collection of dramas, movies, and shows</p>
         <div style="margin-top: 20px;">
-            <a href="https://canadaxfx.github.io/XZworks/" target="_blank" class="platform-link" style="font-size: 1.1rem; padding: 10px 25px;">Complete collection of Xiao Zhan</a>
+            <a href="https://canadaxfx.github.io/XZworks/" target="_blank" class="platform-link" style="font-size: 1.1rem; padding: 10px 25px;">Complete Collection</a>
         </div>
     </div>
 </div>
@@ -629,386 +601,6 @@
         <p>Last updated: <span id="last-updated">April 2025</span></p>
     </footer>
 
-    <!-- JAVASCRIPT -->
-    <script>
-        // Analytics tracking
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize analytics from localStorage or set defaults
-            initializeAnalytics();
-            
-            // Track page view
-            trackPageView();
-            
-            // Track clicks on social media links
-            document.querySelectorAll('a[data-platform]').forEach(link => {
-                link.addEventListener('click', function() {
-                    trackSocialClick(this.getAttribute('data-platform'));
-                });
-            });
-            
-            // Add admin tools keyboard shortcut
-            document.addEventListener('keydown', function(e) {
-                // Ctrl+Shift+X for admin access
-                if (e.ctrlKey && e.shiftKey && e.key === 'X') {
-                    toggleAdminTools();
-                }
-            });
-            
-            // Add click handler to profile image for hidden admin access
-            document.getElementById('profile-img').addEventListener('click', function(e) {
-                // Secret: need to click 3 times quickly to activate
-                if (!this.clickCount) this.clickCount = 0;
-                this.clickCount++;
-                
-                setTimeout(() => {
-                    if (this.clickCount >= 3) {
-                        toggleAdminTools();
-                    }
-                    this.clickCount = 0;
-                }, 500);
-            });
-            
-            // Add a visible but subtle stats button for quick access
-            const quickStatsButton = document.createElement('div');
-            quickStatsButton.id = 'quick-stats-button';
-            quickStatsButton.innerHTML = '📊';
-            quickStatsButton.style.position = 'fixed';
-            quickStatsButton.style.bottom = '5px';
-            quickStatsButton.style.right = '5px';
-            quickStatsButton.style.width = '24px';
-            quickStatsButton.style.height = '24px';
-            quickStatsButton.style.backgroundColor = 'rgba(0,0,0,0.05)';
-            quickStatsButton.style.borderRadius = '50%';
-            quickStatsButton.style.display = 'flex';
-            quickStatsButton.style.alignItems = 'center';
-            quickStatsButton.style.justifyContent = 'center';
-            quickStatsButton.style.fontSize = '14px';
-            quickStatsButton.style.opacity = '0.3';
-            quickStatsButton.style.cursor = 'pointer';
-            quickStatsButton.style.zIndex = '1000';
-            quickStatsButton.title = "Ctrl+Click for quick stats";
-            document.body.appendChild(quickStatsButton);
-            
-            quickStatsButton.addEventListener('click', function(e) {
-                // Show analytics when clicked while holding Ctrl
-                if (e.ctrlKey) {
-                    const analyticsContainer = document.getElementById('analytics-container');
-                    if (analyticsContainer.style.display === 'block') {
-                        analyticsContainer.style.display = 'none';
-                        this.style.opacity = '0.3';
-                    } else {
-                        analyticsContainer.style.display = 'block';
-                        this.style.opacity = '1';
-                    }
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-            });
-            
-            // Also add keyboard shortcut Alt+S for quick stats
-            document.addEventListener('keydown', function(e) {
-                // Alt+S for quick stats
-                if (e.altKey && e.key === 's') {
-                    const analyticsContainer = document.getElementById('analytics-container');
-                    if (analyticsContainer.style.display === 'block') {
-                        analyticsContainer.style.display = 'none';
-                        document.getElementById('quick-stats-button').style.opacity = '0.3';
-                    } else {
-                        analyticsContainer.style.display = 'block';
-                        document.getElementById('quick-stats-button').style.opacity = '1';
-                    }
-                    e.preventDefault();
-                }
-            });
-        });
-        
-        // Analytics functions
-        function initializeAnalytics() {
-            const defaultStats = {
-                pageViews: 0,
-                uniqueVisitors: 0,
-                todayVisits: 0,
-                lastVisitDate: new Date().toDateString(),
-                weeklyData: [0,0,0,0,0,0,0], // Last 7 days
-                socialClicks: {}
-            };
-            
-            let analytics = localStorage.getItem('xzAnalytics');
-            if (!analytics) {
-                localStorage.setItem('xzAnalytics', JSON.stringify(defaultStats));
-                analytics = defaultStats;
-            } else {
-                analytics = JSON.parse(analytics);
-                
-                // Reset today's visits if it's a new day
-                const today = new Date().toDateString();
-                if (analytics.lastVisitDate !== today) {
-                    // Shift weekly data (remove oldest, add new day with 0)
-                    analytics.weeklyData.shift();
-                    analytics.weeklyData.push(0);
-                    
-                    analytics.lastVisitDate = today;
-                    analytics.todayVisits = 0;
-                    
-                    localStorage.setItem('xzAnalytics', JSON.stringify(analytics));
-                }
-            }
-            
-            // Display analytics
-            updateAnalyticsDisplay();
-        }
-        
-        function getUniqueVisitorId() {
-            let visitorId = localStorage.getItem('xzVisitorId');
-            if (!visitorId) {
-                visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('xzVisitorId', visitorId);
-            }
-            return visitorId;
-        }
-        
-        function trackPageView() {
-            const analytics = JSON.parse(localStorage.getItem('xzAnalytics'));
-            const visitorId = getUniqueVisitorId();
-            
-            // Increment page views
-            analytics.pageViews++;
-            
-            // Track unique visitor (simplified approach)
-            const visitorTracker = sessionStorage.getItem('xzVisited');
-            if (!visitorTracker) {
-                sessionStorage.setItem('xzVisited', '1');
-                analytics.uniqueVisitors++;
-            }
-            
-            // Track today's visits
-            analytics.todayVisits++;
-            analytics.weeklyData[analytics.weeklyData.length - 1] = analytics.todayVisits;
-            
-            // Save updated analytics
-            localStorage.setItem('xzAnalytics', JSON.stringify(analytics));
-            
-            // Update display
-            updateAnalyticsDisplay();
-        }
-        
-        function trackSocialClick(platform) {
-            const analytics = JSON.parse(localStorage.getItem('xzAnalytics'));
-            
-            if (!analytics.socialClicks) {
-                analytics.socialClicks = {};
-            }
-            
-            if (!analytics.socialClicks[platform]) {
-                analytics.socialClicks[platform] = 0;
-            }
-            
-            analytics.socialClicks[platform]++;
-            
-            localStorage.setItem('xzAnalytics', JSON.stringify(analytics));
-        }
-        
-        function resetAnalytics() {
-            if (confirm('Are you sure you want to reset all analytics data?')) {
-                localStorage.removeItem('xzAnalytics');
-                initializeAnalytics();
-                alert('Analytics data has been reset');
-            }
-        }
-        
-        function exportAnalytics() {
-            const analytics = JSON.parse(localStorage.getItem('xzAnalytics'));
-            
-            // Create a formatted export
-            const exportData = {
-                exportDate: new Date().toISOString(),
-                analytics: analytics
-            };
-            
-            // Create downloadable file
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
-            const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", dataStr);
-            downloadAnchorNode.setAttribute("download", "xz_analytics_" + new Date().toISOString().split('T')[0] + ".json");
-            document.body.appendChild(downloadAnchorNode);
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
-        }
-        
-        function updateAnalyticsDisplay() {
-            const analytics = JSON.parse(localStorage.getItem('xzAnalytics'));
-            
-            document.getElementById('page-views').textContent = analytics.pageViews;
-            document.getElementById('unique-visitors').textContent = analytics.uniqueVisitors;
-            document.getElementById('today-visits').textContent = analytics.todayVisits;
-            
-            // Calculate growth rate (comparing today with average of previous 6 days)
-            const previousDays = analytics.weeklyData.slice(0, 6);
-            const avgPrevious = previousDays.length > 0 ? 
-                previousDays.reduce((a, b) => a + b, 0) / previousDays.length : 0;
-            
-            let growthRate = 0;
-            if (avgPrevious > 0) {
-                growthRate = ((analytics.todayVisits - avgPrevious) / avgPrevious) * 100;
-            }
-            
-            document.getElementById('growth-rate').textContent = growthRate.toFixed(1) + '%';
-            if (growthRate > 0) {
-                document.getElementById('growth-rate').style.color = 'green';
-            } else if (growthRate < 0) {
-                document.getElementById('growth-rate').style.color = 'red';
-            }
-        }
-        
-        // Admin functionality
-        function toggleAdminTools() {
-            const password = prompt("Enter admin password:");
-            if (password === "X1@0Zh@n2025!") {
-                const adminTools = document.getElementById('admin-tools');
-                const analyticsContainer = document.getElementById('analytics-container');
-                
-                if (adminTools.style.display === 'block') {
-                    adminTools.style.display = 'none';
-                    analyticsContainer.style.display = 'none';
-                } else {
-                    adminTools.style.display = 'block';
-                    analyticsContainer.style.display = 'block';
-                    
-                    // Update analytics display when opening
-                    updateAnalyticsDisplay();
-                }
-            }
-        }
-        
-        function addNewPlatform() {
-            const name = document.getElementById('platform-name').value;
-            const color = document.getElementById('platform-color').value;
-            const desc = document.getElementById('platform-desc').value;
-            const info = document.getElementById('platform-info').value;
-            const url = document.getElementById('platform-url').value;
-            
-            if (!name || !desc || !url) {
-                alert('Please fill in all required fields!');
-                return;
-            }
-            
-            const platformClass = name.toLowerCase().replace(/\s+/g, '');
-            
-            const newPlatform = document.createElement('div');
-            newPlatform.className = 'social-card';
-            newPlatform.innerHTML = `
-                <div class="card-header" style="background-color: ${color}">
-                    <h2>${name}</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>${desc}</p>
-                        <p>${info}</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="${url}" class="btn" style="background-color: ${color}" target="_blank" data-platform="${platformClass}">Visit ${name}</a>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('social-grid').appendChild(newPlatform);
-            
-            // Add click tracking to the new link
-            const newLink = newPlatform.querySelector('a[data-platform]');
-            newLink.addEventListener('click', function() {
-                trackSocialClick(this.getAttribute('data-platform'));
-            });
-            
-            // Reset form
-            document.getElementById('new-platform-form').reset();
-            
-            // Update last updated date
-            updateLastUpdated();
-        }
-        
-        function addNewsItem() {
-            const title = document.getElementById('news-title').value;
-            const content = document.getElementById('news-content').value;
-            
-            if (!title || !content) {
-                alert('Please fill in all required fields!');
-                return;
-            }
-            
-            const newsItem = document.createElement('div');
-            newsItem.className = 'news-item';
-            newsItem.innerHTML = `
-                <h3>${title}</h3>
-                <p>${content}</p>
-            `;
-            
-            document.querySelector('.latest-news').appendChild(newsItem);
-            
-            // Reset form
-            document.getElementById('new-news-form').reset();
-            
-            // Update last updated date
-            updateLastUpdated();
-        }
-        
-        function toggleEditMode() {
-            const body = document.body;
-            body.classList.toggle('edit-mode');
-            
-            if (body.classList.contains('edit-mode')) {
-                makeEditable();
-            } else {
-                removeEditable();
-            }
-        }
-        
-        function makeEditable() {
-            const editables = document.querySelectorAll('h1, h2, h3, p, a');
-            editables.forEach(el => {
-                if (!el.isContentEditable) {
-                    el.contentEditable = true;
-                    el.dataset.origColor = el.style.color;
-                    el.style.color = '#dc3545';
-                    el.style.border = '1px dashed #dc3545';
-                    el.style.padding = '5px';
-                }
-            });
-        }
-        
-        function removeEditable() {
-            const editables = document.querySelectorAll('[contenteditable=true]');
-            editables.forEach(el => {
-                el.contentEditable = false;
-                el.style.color = el.dataset.origColor || '';
-                el.style.border = '';
-                el.style.padding = '';
-            });
-            
-            // Update last updated date
-            updateLastUpdated();
-        }
-        
-        function updateLastUpdated() {
-            const now = new Date();
-            const month = now.toLocaleString('default', { month: 'long' });
-            const year = now.getFullYear();
-            document.getElementById('last-updated').textContent = `${month} ${year}`;
-        }
-        
-        function updateProfileImage() {
-            const imageUrl = document.getElementById('profile-image-url').value;
-            if (!imageUrl) {
-                alert('Please enter an image URL');
-                return;
-            }
-            
-            const profileImage = document.querySelector('.profile-img');
-            profileImage.src = imageUrl;
-            alert('Profile image updated!');
-            
-            // Update last updated date
-            updateLastUpdated();
-        }
-    </script>
+
 </body>
 </html>
