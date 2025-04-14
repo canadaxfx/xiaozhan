@@ -713,17 +713,32 @@
         // Initialize the first track
         function loadTrack(index) {
             const track = playlist[index];
+            
+            // Log to help debug
+            console.log("Loading track:", track.name, "File path:", track.file);
+            
+            // Set the source and load the audio
             audioElement.src = track.file;
+            audioElement.load(); // Explicitly load the audio file
+            
             trackNameDisplay.textContent = track.name;
             trackNameDisplay.title = track.name; // For tooltip on hover
             
             // If music was playing before changing tracks, start playing the new track
             if (isPlaying) {
-                audioElement.play().catch(e => {
-                    console.log('Playback prevented. User interaction required.');
-                    isPlaying = false;
-                    updatePlayButton();
-                });
+                const playPromise = audioElement.play();
+                
+                // Handle play promise properly
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Playback started successfully
+                        console.log("Playback started for:", track.name);
+                    }).catch(e => {
+                        console.error('Playback prevented:', e);
+                        isPlaying = false;
+                        updatePlayButton();
+                    });
+                }
             }
         }
         
@@ -789,9 +804,13 @@
             if (isPlaying) {
                 audioElement.pause();
             } else {
-                audioElement.play().catch(e => {
-                    console.log('Playback prevented. User interaction required.');
-                });
+                const playPromise = audioElement.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => {
+                        console.error('Playback prevented:', e);
+                    });
+                }
             }
             isPlaying = !isPlaying;
             updatePlayButton();
@@ -817,9 +836,16 @@
         
         // When current track ends, play the next one
         audioElement.addEventListener('ended', function() {
-            if (!audioElement.loop) {
-                playNextTrack();
-            }
+            console.log("Track ended, playing next");
+            playNextTrack();
+        });
+        
+        // Add error handling for audio loading issues
+        audioElement.addEventListener('error', function(e) {
+            console.error('Audio loading error:', e);
+            console.error('Failed to load:', playlist[currentTrackIndex].file);
+            // Optionally try the next track
+            // playNextTrack();
         });
         
         // Initialize the first track
