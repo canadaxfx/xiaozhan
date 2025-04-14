@@ -9,6 +9,69 @@
     <link rel="preload" href="xiao-zhan.jpg" as="image">
     <!-- CSS STYLES - Optimized and minified -->
     <style>
+
+    .music-player {
+        position: fixed;
+        bottom: 20px;
+        right: 5px;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 50px;
+        padding: 8px 16px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+    
+    .music-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .play-btn, .control-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        font-size: 14px;
+    }
+    
+    .play-btn:hover, .control-btn:hover {
+        background-color: #1a252f;
+        transform: scale(1.1);
+    }
+    
+    .track-info {
+        margin-left: 10px;
+        font-size: 0.9rem;
+        color: var(--text-color);
+        white-space: nowrap;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    @media (max-width: 768px) {
+        .music-player {
+            bottom: 10px;
+            right: 10px;
+            padding: 6px 12px;
+        }
+        
+        .track-info {
+            max-width: 100px;
+        }
+    }
+
         :root {
             --primary-color: #CC9933;
             --background-color: #f4f4f4;
@@ -268,6 +331,22 @@
 
 </head>
 <body>
+
+<div class="music-player">
+    <audio id="background-music" preload="auto">
+        <!-- Your tracks will be loaded here via JavaScript -->
+    </audio>
+    <div class="music-controls">
+        <button id="prev-track" class="control-btn">⏮️</button>
+        <button id="music-toggle" class="play-btn">
+            <span class="music-icon">▶️</span>
+        </button>
+        <button id="next-track" class="control-btn">⏭️</button>
+        <button id="shuffle-toggle" class="control-btn">🔀</button>
+        <span id="track-name" class="track-info">Select a track</span>
+    </div>
+</div>
+
     <!-- HEADER SECTION -->
     <header>
         <img src="xiao-zhan.jpg" alt="Xiao Zhan" class="profile-img" id="profile-img">
@@ -601,6 +680,178 @@
         <p>Last updated: <span id="last-updated">April 2025</span></p>
     </footer>
 
+<!-- Add this JavaScript code right before the closing </body> tag -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Define your playlist with track names and file paths
+        const originalPlaylist = [
+            { name: "XZ-都一样", file: "都一样.mp3" },
+            { name: "XZ-灯塔", file: "灯塔.mp3" },
+            { name: "XZ-漂流", file: "漂流.mp3" },
+            { name: "XZ-不要回头", file: "不要回头.mp3" },
+            { name: "XZ-如愿", file: "如愿.mp3" },
+            { name: "XZ-同路人", file: "同路人.mp3" },
+            { name: "XZ-余年", file: "余年.mp3" },
+            { name: "XZ-晚安", file: "晚安.mp3" },
+            // Add more tracks as needed
+        ];
+        
+        // Create a working copy of the playlist that we can shuffle
+        let playlist = [...originalPlaylist];
+        
+        const audioElement = document.getElementById('background-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const prevButton = document.getElementById('prev-track');
+        const nextButton = document.getElementById('next-track');
+        const shuffleButton = document.getElementById('shuffle-toggle');
+        const trackNameDisplay = document.getElementById('track-name');
+        
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let isShuffled = false;
+        
+        // Initialize the first track
+        function loadTrack(index) {
+            const track = playlist[index];
+            audioElement.src = track.file;
+            trackNameDisplay.textContent = track.name;
+            trackNameDisplay.title = track.name; // For tooltip on hover
+            
+            // If music was playing before changing tracks, start playing the new track
+            if (isPlaying) {
+                audioElement.play().catch(e => {
+                    console.log('Playback prevented. User interaction required.');
+                    isPlaying = false;
+                    updatePlayButton();
+                });
+            }
+        }
+        
+        // Update the play/pause button appearance
+        function updatePlayButton() {
+            musicToggle.innerHTML = isPlaying ? 
+                '<span class="music-icon">⏸️</span>' : 
+                '<span class="music-icon">▶️</span>';
+        }
+        
+        // Update shuffle button appearance
+        function updateShuffleButton() {
+            shuffleButton.style.backgroundColor = isShuffled ? 
+                '#1a252f' : 'var(--primary-color)';
+        }
+        
+        // Function to shuffle array using Fisher-Yates algorithm
+        function shuffleArray(array) {
+            let currentIndex = array.length;
+            let temporaryValue, randomIndex;
+            
+            // While there remain elements to shuffle
+            while (0 !== currentIndex) {
+                // Pick a remaining element
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+                
+                // Swap it with the current element
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+            
+            return array;
+        }
+        
+        // Function to toggle shuffle mode
+        function toggleShuffle() {
+            const currentTrack = playlist[currentTrackIndex];
+            
+            if (isShuffled) {
+                // Turn off shuffle - restore original playlist order
+                playlist = [...originalPlaylist];
+                isShuffled = false;
+            } else {
+                // Turn on shuffle - randomize the playlist
+                playlist = shuffleArray([...originalPlaylist]);
+                isShuffled = true;
+            }
+            
+            // Find the current track in the new playlist order
+            currentTrackIndex = playlist.findIndex(track => 
+                track.file === currentTrack.file);
+            
+            // If somehow the track wasn't found, reset to first track
+            if (currentTrackIndex === -1) currentTrackIndex = 0;
+            
+            updateShuffleButton();
+        }
+        
+        // Function to toggle music play/pause
+        function toggleMusic() {
+            if (isPlaying) {
+                audioElement.pause();
+            } else {
+                audioElement.play().catch(e => {
+                    console.log('Playback prevented. User interaction required.');
+                });
+            }
+            isPlaying = !isPlaying;
+            updatePlayButton();
+        }
+        
+        // Function to play previous track
+        function playPreviousTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrackIndex);
+        }
+        
+        // Function to play next track
+        function playNextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            loadTrack(currentTrackIndex);
+        }
+        
+        // Add event listeners
+        musicToggle.addEventListener('click', toggleMusic);
+        prevButton.addEventListener('click', playPreviousTrack);
+        nextButton.addEventListener('click', playNextTrack);
+        shuffleButton.addEventListener('click', toggleShuffle);
+        
+        // When current track ends, play the next one
+        audioElement.addEventListener('ended', function() {
+            if (!audioElement.loop) {
+                playNextTrack();
+            }
+        });
+        
+        // Initialize the first track
+        loadTrack(currentTrackIndex);
+        
+        // Set volume
+        audioElement.volume = 0.3; // Set volume to 30% for autoplay
+        
+        // Attempt to autoplay when the page loads
+        audioElement.play().then(() => {
+            isPlaying = true;
+            updatePlayButton();
+            console.log('Autoplay started successfully');
+        }).catch(error => {
+            console.log('Autoplay prevented by browser:', error);
+            // We'll still show the controls so user can start manually
+        });
+        
+        // Initialize shuffle button appearance
+        updateShuffleButton();
+        
+        // Add page visibility change detection to handle when user returns to tab
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && isPlaying) {
+                // Try to resume playback when the user returns to the page
+                audioElement.play().catch(e => {
+                    console.log('Auto-resume prevented by browser');
+                });
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
