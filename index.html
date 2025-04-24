@@ -1,19 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official hub for all Xiao Zhan social media accounts and latest updates">
-    <title>Xiao Zhan Social Media Hub</title>
+    <title>Screen Arts of Xiao Zhan</title>
     <!-- Preload key assets -->
     <link rel="preload" href="xiao-zhan1-1.jpg" as="image">
     <!-- CSS STYLES - Optimized and minified -->
+
+<!-- Add these CSS styles to the existing <style> section -->
+<style>
+    /* Update header to support background carousel */
+    header {
+        position: relative;
+        background-color: var(--primary-color); /* Keep the background color as fallback */
+        color: white;
+        text-align: center;
+        padding: 3rem 0;
+        overflow: hidden; /* Keep the carousel contained */
+        min-height: 200px; /* Increased height to give more room for portrait images */
+    }
+    
+    /* Header carousel styles - completely overhauled for truly seamless looping */
+    .header-bg-carousel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1; /* Place behind content */
+        overflow: hidden;
+    }
+    
+    /* Image strip with critical settings for seamless looping */
+    .image-strip {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        display: flex; /* Make images line up horizontally */
+        will-change: transform; /* Hardware acceleration hint */
+        backface-visibility: hidden; /* Reduce flickering */
+        transform: translateZ(0); /* Force GPU rendering */
+    }
+    
+    .image-strip img {
+        height: 100%;
+        width: auto; /* Maintain aspect ratio */
+        object-fit: cover;
+        flex-shrink: 0; /* Prevent images from shrinking */
+        -webkit-backface-visibility: hidden; /* Prevent flickering */
+        -moz-backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        -moz-perspective: 1000;
+    }
+    
+    @keyframes scrollStrip {
+        0% { 
+            transform: translateX(0);
+        }
+        100% { 
+            transform: translateX(calc(-100% / 2)); /* Move exactly half the total width */
+        }
+    }
+
+
+
+   
+    /* Dark overlay to improve text readability */
+    .header-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+        z-index: 2;
+    }
+    
+    /* Header content positioning */
+    .header-content {
+        position: relative;
+        z-index: 3; /* Ensure content is on top */
+    }
+    
+    /* Carousel navigation */
+    .carousel-nav {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        z-index: 4;
+    }
+    
+    .nav-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-dot.active {
+        background-color: white;
+        transform: scale(1.2);
+    }
+    
+
+
+</style>
+
+
+
     <style>
 
     .music-player {
         position: fixed;
         bottom: 20px;
-        right: 5px;
+        right: 20px;
         z-index: 1000;
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 50px;
@@ -42,7 +151,6 @@
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
-        font-size: 14px;
     }
     
     .play-btn:hover, .control-btn:hover {
@@ -73,205 +181,95 @@
     }
 
         :root {
-            --primary-color: #CC9933;
-            --background-color: #f4f4f4;
+            --primary-color: #3f3f7d;
+            --secondary-color: #f8f8ff;
+            --accent-color: #7f3a7f;
             --text-color: #333;
-            --card-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            --card-shadow-hover: 0 10px 20px rgba(0,0,0,0.15);
-            --weibo-color: #B7950B;
-            --douyin-color: #666600;
-            --youtube-color: #CC6600;
-            --xiaohongshu-color: #fe2c55;
-            --bilibili-color: #00a1d6;
-            --wechat-color: #07C160;
-            --video-color: #660033;
-            --baiduwiki-color: #669999;
+            --light-gray: #f0f0f0;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
-        }
-        
-    /* Header with carousel support */
-    header {
-        background-color: var(--primary-color); /* Fallback color */
-        color: white;
-        text-align: center;
-        padding: 2rem 0;
-        position: relative;
-        overflow: hidden; /* Keep the carousel contained */
-        min-height: 350px; /* Ensure enough height for the header */
-    }
-    
-    /* Background carousel container */
-    .header-bg-carousel {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1; /* Place behind content */
-        overflow: hidden;
-    }
-    
-    /* Image strip for seamless scrolling */
-    .image-strip {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        display: flex; /* Make images line up horizontally */
-        will-change: transform; /* Hardware acceleration hint */
-        backface-visibility: hidden; /* Reduce flickering */
-        transform: translateZ(0); /* Force GPU rendering */
-    }
-    
-    .image-strip img {
-        height: 100%;
-        width: auto; /* Maintain aspect ratio */
-        object-fit: cover;
-        flex-shrink: 0; /* Prevent images from shrinking */
-        -webkit-backface-visibility: hidden; /* Prevent flickering */
-        -moz-backface-visibility: hidden;
-        -webkit-perspective: 1000;
-        -moz-perspective: 1000;
-    }
-    
-    /* Dark overlay to ensure text readability */
-    .header-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-        z-index: 2;
-    }
-    
-    /* Header content positioning */
-    .header-content {
-        position: relative;
-        z-index: 3; /* Ensure content is on top */
-    }
-
-        
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid white;
-            margin-bottom: 1rem;
+            background-color: var(--secondary-color);
         }
         
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
+            margin: 0 auto;
+            padding: 20px;
         }
         
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .social-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
-        }
-        
-        .social-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow-hover);
-        }
-        
-        .card-header {
-            padding: 1.5rem;
-            color: white;
-            text-align: center;
-        }
-        
-        .card-body {
-            padding: 1.5rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 200px;
-        }
-        
-        .card-info {
-            flex-grow: 1;
-        }
-        
-        .card-button {
-            margin-top: 1.5rem;
-        }
-        
-        .btn {
-            display: inline-block;
+        header {
             background-color: var(--primary-color);
             color: white;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        
-        .btn:hover {
-            background-color: #1a252f;
-        }
-        
-        /* Platform specific colors */
-        .weibo { background-color: var(--weibo-color); }
-        .douyin { background-color: var(--douyin-color); }
-        .baidu, .wikipedia { background-color: var(--baiduwiki-color); }
-        .instagram { background-color: var(--youtube-color); }
-        .twitter { background-color: #1DA1F2; }
-        .wechat { background-color: var(--wechat-color); }
-        .bilibili { background-color: var(--bilibili-color); }
-        .xiaohongshu { background-color: var(--xiaohongshu-color); }
-        .youtube { background-color: var(--youtube-color); }
-        .tencent, .youku, .iqiyi { background-color: var(--video-color); }
-        
-        .footer {
-            text-align: center;
             padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Add shadow for more depth */
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+        
+
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 15px 20px;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+	    font-weight: bold;
+	    text-align: center;
+        }
+        
+        .tab:hover {
+            background-color: #d0d0d0;
+        }
+        
+        .tab.active {
             background-color: var(--primary-color);
             color: white;
-            margin-top: 3rem;
         }
         
-        .latest-news {
-            margin-top: 3rem;
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
+        .content-section {
+            display: none;
         }
         
-        .news-item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .news-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        .content-section.active {
+            display: block;
         }
         
         .work-item {
@@ -293,30 +291,65 @@
             color: var(--primary-color);
             margin-bottom: 10px;
         }
-
-
-
-        /* Mobile responsive adjustments */
+        
+        .work-year {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        
+        .work-role {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .work-description {
+            margin-bottom: 15px;
+        }
+        
+        .platform-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .platform-link {
+            padding: 5px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .platform-link:hover {
+            background-color: var(--accent-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: var(--light-gray);
+            border-top: 1px solid #ddd;
+        }
+        
+        
         @media (max-width: 768px) {
-            .social-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
             .container {
-                padding: 0 1rem;
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .work-title {
+                font-size: 1.3rem;
             }
         }
         
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         /* Email Contact Form Styles */
         .contact-section {
             max-width: 800px;
@@ -372,16 +405,100 @@
             background-color: var(--accent-color);
         }
 
+/* Search Bar Styles */
+	.search-container {
+	    margin-top: 30px;
+   	    margin-bottom: 0px;
+            display: flex;
+   	    flex-wrap: wrap;
+  	    align-items: center;
+	    justify-content: center;
+    	    gap: 10px;
+	    max-width: 600px;  /* Limit the width of the search container */
+    	    margin-left: auto;  /* Center the search bar */
+    	    margin-right: auto;
+	}
+
+	#search-input {
+   	    flex: 1;
+   	    min-width: 200px;
+            max-width: 600px;
+  	    padding: 10px 15px;
+ 	    border: 1px solid #ddd;
+ 	    border-radius: 5px;
+	    font-size: 1rem;
+	    outline: none;
+	}
+
+	#search-input:focus {
+   	    border-color: var(--primary-color);
+   	    box-shadow: 0 0 3px rgba(74, 74, 143, 0.3);
+	}
+
+	#search-button, #clear-search {
+    	    padding: 10px 15px;
+    	    background-color: var(--primary-color);
+   	    color: white;
+   	    border: none;
+    	    border-radius: 5px;
+    	    cursor: pointer;
+    	    transition: background-color 0.3s;
+	}
+
+	#search-button:hover, #clear-search:hover {
+    	    background-color: var(--accent-color);
+	}
+
+	#clear-search {
+  	    background-color: #999;
+	}
+
+	#search-results-count {
+   	    width: 100%;
+   	    margin-top: 5px;
+   	    font-size: 0.9rem;
+   	    color: var(--accent-color);
+	}
+
+	.work-item.hidden {
+    	    display: none;
+	}
+
+	.highlight {
+    	    background-color: rgba(143, 74, 143, 0.3);
+   	    padding: 0 2px;
+   	    border-radius: 2px;
+	}
+
+
+/* Add this to your existing style section */
+.youtube-tab {
+    /* Keep the same styles as the other tabs */
+    padding: 15px 20px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    text-align: center;
+}
+
+.youtube-tab:hover {
+    background-color: #d0d0d0;
+}
+
+
     </style>
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9HHY88KW0F"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3EF01R2111"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-9HHY88KW0F');
+  gtag('config', 'G-3EF01R2111');
 </script>
 
 </head>
@@ -392,7 +509,7 @@
         <!-- Your tracks will be loaded here via JavaScript -->
     </audio>
     <div class="music-controls">
-        <button id="prev-track" class="control-btn">⏮️</button>
+        <button id="prev-track" class="control-btn"⏮️</button>
         <button id="music-toggle" class="play-btn">
             <span class="music-icon">▶️</span>
         </button>
@@ -402,312 +519,1718 @@
     </div>
 </div>
 
-    <!-- HEADER SECTION -->
     <header>
-    <!-- Background carousel that sits behind everything -->
+     <!-- Background carousel that sits behind everything -->
     <div class="header-bg-carousel">
-        <!-- Images will be added here dynamically -->
-        <div class="image-strip"></div>
+        <!-- We'll use a continuous strip of images instead of individual slides -->
+        <div class="image-strip">
+            <!-- Images will be added here dynamically -->
+        </div>
     </div>
     
     <!-- Overlay with a semi-transparent background to ensure text readability -->
     <div class="header-overlay"></div>
     
-    <!-- Header content in a wrapper for z-index control -->
+    <!-- Header content remains unchanged -->
     <div class="header-content">
         <img src="logo.jpg" alt="Xiao Zhan" class="profile-img" id="profile-img">
-        <h1>Xiao Zhan (肖战) Social Media Hub</h1>
-        <p>All of Xiao Zhan's official social media accounts in one place</p>
+        <h1>Screen Arts of Xiao Zhan</h1>
+        <p class="subtitle">Complete collection of dramas, movies, and shows</p>
     </div>
+
     </header>
+    
+<!-- =============== SEARCH BAR =============== -->
+    <div class="search-container">
+   	    <input type="text" id="search-input" placeholder="Search by title, role, year..." />
+   	    <button id="search-button">Search</button>
+            <button id="clear-search">Clear</button>
+            <div id="search-results-count"></div>
+    </div>
 
     <div class="container">
-        <!-- Traffic Analytics Dashboard (only visible to admin) -->
-        <div class="analytics-container" id="analytics-container" style="display:none;">
-            <h2>Fan Community Stats</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Page Views</h3>
-                    <div class="stat-number" id="page-views">0</div>
-                    <div class="stat-label">Total Views</div>
+        <div class="category-tabs">
+            <div class="tab active" data-section="all">All Works<br>全部演出</div>
+            <div class="tab" data-section="dramas">TV Dramas<br>剧集</div>
+            <div class="tab" data-section="movies">Movies<br>电影</div>
+            <div class="tab" data-section="stage performance">Stage Performance<br>舞台</div>
+            <div class="tab" data-section="variety">Variety Shows<br>综艺</div>
+            <div class="tab youtube-tab">YouTube<br>聚合站</div>
+
+        </div>
+        
+        <div id="all" class="content-section active">
+            <h2>All Works</h2>            
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2025-02-09</div>
+                <h3 class="work-title">Talk Show Part 2: Legends of the Condor Heroes The Gallants &nbsp; 射雕英雄传侠之大者特别对谈（下）</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">Interviews and behind-the-scenes about Legends of the Condor Heroes The Gallants.</p>
+                <div class="platform-links">
+                    <a href="https://www.bilibili.com/video/BV17mNXeJEsN/?spm_id_from=333.1387.search.video_card.click" target="_blank" class="platform-link">Bilibili</a>
+                    <a href="https://weibo.com/tv/show/1034:5132241161093136?from=old_pc_videoshow" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=Ae182PJGvCA" target="_blank" class="platform-link">YouTube</a>
+
                 </div>
-                <div class="stat-card">
-                    <h3>Visitors</h3>
-                    <div class="stat-number" id="unique-visitors">0</div>
-                    <div class="stat-label">Unique Fans</div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">Talk Show Part 1: Legends of the Condor Heroes The Gallants &nbsp; 射雕英雄传侠之大者特别对谈（上）</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">Interviews and behind-the-scenes about Legends of the Condor Heroes The Gallants.</p>
+                <div class="platform-links">
+                    <a href="https://www.bilibili.com/video/BV1LuFheMEgE/" target="_blank" class="platform-link">Bilibili</a>
+                    <a href="https://weibo.com/tv/show/1034:5128009334849543?from=old_pc_videoshow" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=1q-PnHHS73I" target="_blank" class="platform-link">YouTube</a>
+
                 </div>
-                <div class="stat-card">
-                    <h3>Today</h3>
-                    <div class="stat-number" id="today-visits">0</div>
-                    <div class="stat-label">Today's Visits</div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">Lan Yu Show·The New Year's Roundtable Meeting: Legends of the Condor Heroes The Gallants<br>蓝羽会客厅·新春圆桌会”之《射雕英雄传：侠之大者》</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">Interviews and behind-the-scenes about Legends of the Condor Heroes The Gallants.</p>
+                <div class="platform-links">
+                    <a href="https://tv.cctv.com/2025/01/29/VIDEImPwng68RrpZ87MWyaMg250129.shtml"  target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://weibo.com/tv/show/1034:5128276054835293?from=old_pc_videoshow"  target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=gHgZAt8BohY"  target="_blank" class="platform-link">YouTube</a>
                 </div>
-                <div class="stat-card">
-                    <h3>Fan Growth</h3>
-                    <div class="stat-number" id="growth-rate">0%</div>
-                    <div class="stat-label">Weekly Growth</div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">New Year's Greetings: Legends of the Condor Heroes The Gallants<br>《射雕英雄传：侠之大者》新春拜年会</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">Interviews and behind-the-scenes about Legends of the Condor Heroes The Gallants.</p>
+                <div class="platform-links">
+                    <a href="https://m.chinanews.com/wap/detail/chs/zb/5744.shtml"  target="_blank" class="platform-link">中国新闻网</a>
+                    <a href="https://v.youku.com/video?s=aafd4926d195453ab4df"  target="_blank" class="platform-link">优酷</a>
+                    <a href="https://www.youtube.com/watch?v=2aumtAO4uXk&t=82s"  target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+ 
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">Legends of the Condor Heroes: The Gallants &nbsp; 射雕英雄传：侠之大者</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">In a turbulent era of power struggles, Guo Jing (played by Xiao Zhan) embarks on a journey, honing his formidable skills to shape his destiny. Despite mastering legendary martial arts, he faces envy from all sides. Yet, with a pure heart, he and Huang Rong (played by Zhuang Dafen) brave the chaos, fighting to protect the Southern Song's borders.</p>
+                <div class="platform-links">
+                    <a href="https://v.youku.com/video?vid=XNjQ2NjA3OTE5Ng%3D%3D" target="_blank" class="platform-link">优酷</a>
+                    <a href="https://v.qq.com/x/cover/mzc00200vw6f142/e41009yghfh.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.iqiyi.com/v_hzvqba6v0o.html" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://w.mgtv.com/b/706801/22694149.html?fpa=1413&fpos=6" target="_blank" class="platform-link">芒果TV</a>
+                    <a href="https://www.bilibili.com/bangumi/play/ep1566136?from_spmid=666.19.0.0" target="_blank" class="platform-link">Bilibili</a>
+                    <a href="https://www.miguvideo.com/p/detail/951701301?lastLocation=6d97aa391d86420188f2c3103a1b3b55%2372c4c89448b24107b94d888d5aa99d4c" target="_blank" class="platform-link">咪咕视频</a>
+                    <a href="" target="_blank" class="platform-link">Also available on Huawei, Xiaomi, Oppo, & Honor mobile apps</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">Beijing Spring Festival Gala &nbsp; 北京春晚舞台：灯塔</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://news.qq.com/rain/a/20250129A06JDW00?suid=&media_id=" target="_blank" class="platform-link">QQ.COM</a>
+                    <a href="https://www.iq.com/play/2025%E5%8C%97%E4%BA%AC%E6%98%A5%E6%99%9A-%E8%82%96%E6%88%98%E6%AD%8C%E6%9B%B2%E3%80%8A%E7%81%AF%E5%A1%94%E3%80%8B-2025-15lulj5zwyg?lang=en_us" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/watch?v=GUJy4QTe2_k" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2024-09-22</div>
+                <h3 class="work-title">The Greater Bay Area Film Concert 2024<br>2024 湾区升明月电影音乐晚会：1.这世界那么多人 &nbsp; 2.往事随风</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.chinanews.com.cn/shipin/cns-d/2024/09-23/news1000725.shtml" target="_blank" class="platform-link">中国新闻网1</a>
+                    <a href="https://video.sina.cn/finance/2024-09-23/detail-incqafyf0629406.d.html?vt=4" target="_blank" class="platform-link">Sina1</a>
+                    <a href="https://www.facebook.com/PhoenixTVHK/videos/%E7%81%A3%E5%8D%80%E5%8D%87%E6%98%8E%E6%9C%88%E5%A4%AA%E5%A5%BD%E8%81%BD%E4%BA%86%E8%8E%AB%E6%96%87%E8%94%9A%E8%82%96%E6%88%B0%E7%89%BD%E6%89%8B%E5%90%88%E5%94%B1%E9%80%99%E4%B8%96%E7%95%8C%E9%82%A3%E9%BA%BC%E5%A4%9A%E4%BA%BA/490703023831493/" target="_blank" class="platform-link">Facebook1</a>
+                    <a href="https://www.youtube.com/watch?v=iv49foV0oPU" target="_blank" class="platform-link">YouTube1-1(凤凰卫视)</a>
+                    <a href="https://www.youtube.com/watch?v=qNJb4g1QELk" target="_blank" class="platform-link">YouTube1-2(中国新闻社)</a>
+                    <a href="https://www.youtube.com/watch?v=8GpqCj9EECQ" target="_blank" class="platform-link">YouTube1-3(莫文蔚版)</a>
+                    <a href="https://x.com/ChinaDaily/status/1838029425130238412" target="_blank" class="platform-link">X(China Daily)1-1</a>
+                    <a href="https://x.com/PhoenixTVHK/status/1837904700412432785" target="_blank" class="platform-link">X(凤凰卫视)1-2</a>
+
+                    <a href="https://k.sina.cn/article_1643971635_m61fd0433033013a1i.html?from=movie" target="_blank" class="platform-link">Sina2</a>
+                    <a href="https://v.ifeng.com/c/8d61URNjqqt" target="_blank" class="platform-link">凤凰网2</a>
+                    <a href="https://www.facebook.com/PhoenixTVHK/videos/%E7%81%A3%E5%8D%80%E5%8D%87%E6%98%8E%E6%9C%88%E8%B6%85%E7%A9%A9%E7%8F%BE%E5%A0%B4%E8%82%96%E6%88%B0%E5%91%88%E7%8F%BE%E9%AB%98%E9%9F%B3%E8%88%9E%E5%8F%B0%E5%BE%80%E4%BA%8B%E9%9A%A8%E9%A2%A8/1463277994388769/" target="_blank" class="platform-link">Facebook2</a>
+                    <a href="https://www.youtube.com/watch?v=NwkSVCyMtVE" target="_blank" class="platform-link">YouTube2</a>
+
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2024-09-20</div>
+                <h3 class="work-title">2024 The Beijing Cultural Forum's Artistic Performance<br>2024 北京文化论坛专场文艺演出：月亮代表我的心</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://k.sina.cn/article_1644948230_m620beb06033014hme.html" target="_blank" class="platform-link">Sina</a>
+                    <a href="https://www.youtube.com/watch?v=ARChdSyNrvw" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2024-02-10</div>
+                <h3 class="work-title">Beijing Spring Festival Gala &nbsp; 北京春晚舞台：如愿</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://xinwen.bjd.com.cn/content/s65c784bde4b06c5601ebadfd.html" target="_blank" class="platform-link">北京日报</a>
+                    <a href="https://www.iq.com/play/%E8%82%96%E6%88%98%E6%AD%8C%E6%9B%B2%E3%80%8A%E5%A6%82%E6%84%BF%E3%80%8B-2024-1hqd7mcdfp8?lang=en_us" target="_blank" class="platform-link">iQIYI</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2024-02-03</div>
+                <h3 class="work-title">2024 China Internet Audio-Visual Annual Gala<br>2024中国网络视听年度盛典：1.第一篇章《同梦·不负韶华》 &nbsp; 2.同路人</h3>
+                <div class="work-role">Role: Narrator & Singer </div>
+                <p class="work-description">1.Narrator of Chapter 1: Seize the Day. 2.Singer of the song: Fellow Traveler.</p>
+                <div class="platform-links">
+                    <a href="http://www.news.cn/politics/20240128/9f4d386a26884392a4b67c29d6640980/c.html" target="_blank" class="platform-link">新华网1</a>
+                    <a href="https://www.douyin.com/video/7334645390165200169" target="_blank" class="platform-link">抖音1</a>
+                    <a href="https://www.bilibili.com/video/BV1J64y1374c/" target="_blank" class="platform-link">Bilibili1</a>
+                    <a href="https://v.qq.com/x/cover/mzc00200wlrpuxb/p0048hjuvou.html" target="_blank" class="platform-link">Tencent2</a>
+                    <a href="https://www.chinanews.com.cn/yl/shipin/cns/2023/10-16/news972808.shtml" target="_blank" class="platform-link">中国新闻网2-1</a>
+                    <a href="https://www.chinanews.com.cn/gn/2023/10-16/10094669.shtml" target="_blank" class="platform-link">中国新闻网2-2</a>
+                    <a href="https://www.youtube.com/watch?v=SPOZ_Um_dpA" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+           
+            <div class="work-item">
+                <div class="work-year">2023-09-01</div>
+                <h3 class="work-title">Sunshine by My Side &nbsp; 骄阳伴我</h3>
+                <div class="work-role">Role: Sheng Yang 盛阳 (Lead)</div>
+                <p class="work-description">This drama tells the story of an advertising director "Jian Bing" (played by Bai Baihe) and a newcomer designer "Sheng Yang" (played by Xiao Zhan) who meet by chance. The two people with completely different personalities gradually develop feelings for each other in their daily interactions. This leads to a hilarious yet positive and inspiring story.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc00200t71kuy5/e0047g3kvgs.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.iqiyi.com/v_15kzchdfiqk.html?vfm=2008_aldbd&fv=p_02_01" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.iq.com/album/%E9%A9%95%E9%99%BD%E4%BC%B4%E6%88%91-2023-tq1cyfu2j5?lang=zh_tw" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/playlist?list=PLQqbdnAgoRmbSsGj7qT3ARvqvXe3SOWwM" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2023-07-02</div>
+                <h3 class="work-title">The Longest Promise &nbsp; 玉骨遥</h3>
+                <div class="work-role">Role: Shi Ying 时影 (Lead)</div>
+                <p class="work-description">In a mystical realm called "Yunhuang," the Kongsang people, the Jiao tribe, and the Ice tribe coexist. The aloof and enigmatic Kongsang Crown Prince Shi Ying (played by Xiao Zhan) and the passionate and righteous Zhu Yan, the Chieftain's Daughter (played by Ren Min), are bound by a fateful encounter with a flower (Xue Hanwei). Together, they face challenges to protect the Kongsang Dream-Flower Dynasty.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc002003rb9ntl/o0046yvt2fv.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.netflix.com/ca/title/81633653" target="_blank" class="platform-link">Netflix</a>
+                    <a href="https://www.youtube.com/playlist?list=PLGBZFpiWG8JXhPifLlHJz9wuB7Nv2YRr6" target="_blank" class="platform-link">YouTube</a>		    
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2023-06-29</div>
+                <h3 class="work-title">The Greater Bay Area Film Concert 2023 &nbsp; “湾区升明月”2023大湾区电影音乐晚会：潇洒走一回</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://js.ifeng.com/c/8R1QT9oTFuy" target="_blank" class="platform-link">凤凰网</a>
+                    <a href="https://www.youtube.com/watch?v=1LYMKAgLhBM" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2023-06-18 &nbsp; 2023-06-25</div>
+                <h3 class="work-title">Show of Great Shows: The Youth Memories &nbsp; 剧说很好看：梦中的那片海 </h3>
+                <div class="work-role">Role: Xiao Chunsheng 肖春生 (Lead)</div>
+                <p class="work-description">Behind-the-scenes and interviews.</p>
+                <div class="platform-links">
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=t000028qt7y" target="_blank" class="platform-link">央视频1</a>
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=p000037v9d4&ptag=4_2.8.1.23336_sina" target="_blank" class="platform-link">央视频2</a>
+                    <a href="https://tv.cctv.com/2023/06/18/VIDEpwqsabN3o0VEW0u4WIMc230618.shtml" target="_blank" class="platform-link">CCTV.COM1</a>
+                    <a href="https://tv.cctv.com/2023/06/25/VIDEQjw87amDHR2I0cmsxX8g230625.shtml?spm=C53090171355.PaxHVtmpGFpz.0.0" target="_blank" class="platform-link">CCTV.COM2</a>
+                    <a href="https://www.youtube.com/watch?v=h6OG10lWir4&t=932s" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=0caKdpLrG9A" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+
+            
+            <div class="work-item">
+                <div class="work-year">2023-06-01</div>
+                <h3 class="work-title">The Youth Memories &nbsp; 梦中的那片海 </h3>
+                <div class="work-role">Role: Xiao Chunsheng 肖春生 (Lead)</div>
+                <p class="work-description">The Youth Memories is a show about a group of youths and their struggles as they chase their dreams in 1970's Beijing.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc002007vp35qj/s0046m7x9we.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/zh-tw/play/sp6ws3r9o3upf7l-%E5%A4%A2%E4%B8%AD%E7%9A%84%E9%82%A3%E7%89%87%E6%B5%B7/c0046cmle6l-%E5%A4%A2%E4%B8%AD%E7%9A%84%E9%82%A3%E7%89%87%E6%B5%B7_01" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLRBClVey5BqwM9E2uvd2rVf_mekyic98m" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2022-03-15</div>
+                <h3 class="work-title">The Oath of Love &nbsp; 余生，请多指教</h3>
+                <div class="work-role">Role: Gu Wei 顾魏 (Lead)</div>
+                <p class="work-description">Gu Wei is a very solemn surgeon, although glimpses of his warm heart can be seen from time to time. As Zhi Xiao's father progresses through treatment, she and Dr. Gu become close—she helps him learn how to enjoy life, and he helps her focus on what she truly wants in life.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc00200opqzg5p/i0042znd9iv.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/zh-cn/play/et4xynjronzthfj-%E4%BD%99%E7%94%9F%EF%BC%8C%E8%AF%B7%E5%A4%9A%E6%8C%87%E6%95%99/c0042mhbdbu-%E4%BD%99%E7%94%9F%EF%BC%8C%E8%AF%B7%E5%A4%9A%E6%8C%87%E6%95%99_01" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLMX26aiIvX5pKLsGYgPFP0gDFVVjGbf0k" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.viki.com/tv/36966c-the-oath-of-love?utm_source=global_search_or_media_action&utm_campaign=36966c#episodes" target="_blank" class="platform-link">Rakuten Viki</a>
+                </div>
+            </div>
+
+
+          <div class="work-item">
+                <div class="work-year">2022-02-02</div>
+                <h3 class="work-title">2022 China Internet Audio-Visual Annual Gala &nbsp; 2022年中国网络视听年度盛典：只道是寻常</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/tv/show/1034:4732588779307117?from=old_pc_videoshow" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=IWou9xlKSl0&list=PLxbgQdcnIafgy2d95lKn_QVqNxtvgkXmX&index=9" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-12-26</div>
+                <h3 class="work-title">Ace Troops &nbsp; 王牌部队</h3>
+                <div class="work-role">Role: Gu Yiye 顾一野 (Lead)</div>
+                <p class="work-description">From humble beginnings to forged bonds, two recruits - miner's son Gao Liang and military family scion Gu Yiye - clash over their differences, only to become comrades-in-arms. Through battles, demining in Guangxi, Hong Kong garrison, and the '98 flood relief, they weathered the military's transformation from mechanization to informatization. Their story is one of rivalry, camaraderie, and the unbreakable spirit of soldiers.</p>
+                <div class="platform-links">
+                    <a href="https://www.iqiyi.com/v_1u9rlrabn5w.html?vfm=2008_aldbd&fv=p_02_01" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.iq.com/play/ace-troops-episode-1-nlcx80xlds?lang=en_us" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/playlist?list=PLlCrV9TCfzMYAXQEBxvu6aoqBlXFLVs6x" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2021-10-16</div>
+                <h3 class="work-title">6th Jackie Chan International Action Film Week &nbsp; 第六届成龙国际动作电影周：中华力量</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=U65WI4DT-c8" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://m.weibo.cn/status/4693030101847226#&video" target="_blank" class="platform-link">Weibo</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2021-09-10</div>
+                <h3 class="work-title">One-year Countdown to Hangzhou Asian Games 2022<br>2022杭州亚运会倒计时一周年：我们都将奔赴美好未来</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=T2f0LjV29Rs" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.douyin.com/video/7006292054959590669" target="_blank" class="platform-link">抖音</a>
+                    <a href="https://www.iq.com/play/%E3%80%8A%E6%88%91%E4%BB%AC%E9%83%BD%E5%B0%86%E5%A5%94%E8%B5%B4%E7%BE%8E%E5%A5%BD%E6%9C%AA%E6%9D%A5%E3%80%8B%E5%A4%AA%E7%BB%9D%E4%BA%86-%E8%82%96%E6%88%98%E6%9D%AD%E5%B7%9E%E4%BA%9A%E8%BF%90%E4%BC%9A%E5%80%92%E8%AE%A1%E6%97%B6%E5%90%AF%E5%8A%A8-2021-p4ghq73y84?lang=en_us" target="_blank" class="platform-link">iQIYI</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-05-31</div>
+                <h3 class="work-title">Ignite the Night: JD.com's 618 Extravaganza &nbsp; 618沸腾之夜：让我留在你身边 &nbsp; 竹石</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/tv/show/1034:4643045698896064?from=old_pc_videoshow" target="_blank" class="platform-link">Weibo</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-03-05</div>
+                <h3 class="work-title">The Winter Dream's Promise: Ice Hockey &nbsp; 冬梦之约：冰球运动</h3>
+                <div class="work-role">Role: Guest </div>
+                <p class="work-description">BRTV's Winter Olympics venue music reality show</p>
+                <div class="platform-links">
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=h000016zrzb" target="_blank" class="platform-link">央视频</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-03-05</div>
+                <h3 class="work-title">The Winter Dream's Promise &nbsp; 冬梦之约舞台：1.冬梦 &nbsp; 2.Something just like this</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=f000099v8tv&cid=nxigpbeei12heg7&ptag=4_2.2.3.23078_wxf" target="_blank" class="platform-link">央视频1</a>
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=d000060rs23&cid=nxigpbeei12heg7" target="_blank" class="platform-link">央视频2</a>
+                    <a href="https://v.youku.com/video?vid=XNTExNTc4Njk4MA%3D%3D" target="_blank" class="platform-link">优酷1</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-02-05</div>
+                <h3 class="work-title">Douluo Continent &nbsp; 斗罗大陆</h3>
+                <div class="work-role">Role: Tang San 唐三 (Lead)</div>
+                <p class="work-description">A gifted young man, Tang San (played by Xiao Zhan), and his alcoholic father, Tang Hao, forge an unbreakable bond. As Tang San's martial soul awakens, his father reveals a secret about his mother. Determined to fulfill his promise, Tang San enrolls at Nuoding Academy and Shrek Academy, where he and six other talented youths form the "Shrek Seven Devils." Through trials and tribulations, they uncover a sinister plot by the Martial Soul Hall, ultimately emerging victorious and becoming the pinnacle of the Douluo Continent.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc00200js3mdvw/q00354i139r.html?ptag=11974" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.youtube.com/playlist?list=PLuidrAcAGAOO3cEgUAV5ziXjDk2_xg9jn" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.viki.com/tv/36952c-douluo-continent?utm_source=global_search_or_media_action&utm_campaign=36952c#episodes" target="_blank" class="platform-link">Rakuten Viki</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2021-02-05</div>
+                <h3 class="work-title">Douluo Continent Launch Event &nbsp; 斗罗大陆发布会</h3>
+                <div class="work-role">Role: Tang San 唐三 (Lead)</div>
+                <p class="work-description">TV series premiere event of the Douluo Continent.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc00200js3mdvw/p0035nypt0c.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.youtube.com/watch?v=Xpz7jfSKU-s" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-02-12</div>
+                <h3 class="work-title">SMG Spring Festival Gala &nbsp; 2021年东方卫视春节晚会：异乡人 &nbsp; 用尽我的一切奔向你</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=Xykyd0Cl2nw" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-02-12</div>
+                <h3 class="work-title">Beijing Spring Festival Gala &nbsp; 北京春晚舞台：给所有知道我名字的人</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.iqiyi.com/v_1b07bvfwzss.html?list=140w677p0ya" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.youtube.com/watch?v=hqXcmqgJP7U" target="_blank" class="platform-link">YouTube</a>      
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2021-01-15</div>
+                <h3 class="work-title">2021 iQIYI Shout Out For Love Gala &nbsp; 2021爱奇艺为爱尖叫晚会：余年</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.iqiyi.com/v_1g73ftahgvs.html?ht=0&ischarge=false&tvname=%E3%80%8A%E4%B8%BA%E7%88%B1%E5%B0%96%E5%8F%AB%E6%99%9A%E4%BC%9A%E3%80%8B%E7%BA%AF%E4%BA%AB%EF%BC%9A%E8%82%96%E6%88%98%E3%80%8A%E4%BD%99%E5%B9%B4%E3%80%8B&vid=3ebc0e1761e0f6da74e836e5c7443d88&lt=4&vtype=0&f_block=tabbed_wonderful_short_bk-undefined&s2=wna_tvg_1st&s3=wna_tvg_shorts&s4=image_2&vfrm=playlist&vfrmblk=sv_content&vfrmrst=4&pb2=bkt%3D%26c1%3D6%26childinfo%3D%26e%3D%26fatherid%3D%26position%3D5%26r_area%3D%26r_source%3D%26recext%3D%26sc1%3D6%26sqpid%3D%26stype%3D%26tagemode%3D0&ab=8883_A%2C10385_B%2C10274_A%2C8739_B%2C9419_B%2C9922_C%2C9379_B%2C10590_A%2C10276_A%2C8004_B%2C5257_B%2C10566_C%2C9776_A%2C8873_E%2C10123_A%2C7423_C%2C8401_A%2C6249_C%2C7996_B%2C10793_C%2C9576_B%2C10358_B%2C9365_B%2C5465_B%2C6843_B%2C10897_A%2C6578_B%2C6312_B%2C6091_B%2C8690_C%2C8737_D%2C8742_A%2C10193_B%2C10596_B%2C9484_B%2C10803_A%2C6752_C%2C10311_B%2C10698_B%2C10237_A%2C10188_B%2C8971_A%2C7332_B%2C9683_B%2C10383_B%2C8665_E%2C10575_B%2C6237_B%2C9569_B%2C11004_A%2C8983_A%2C7024_C%2C5592_B%2C9117_A%2C6031_B%2C10509_B%2C7581_A%2C9506_B%2C9517_D%2C10216_A%2C9394_B%2C8542_B%2C6050_B%2C9167_D%2C10637_A%2C10551_B%2C9469_B%2C10633_B%2C8812_B%2C10598_A%2C6832_C%2C7074_C%2C7682_C%2C8867_B%2C5924_D%2C6151_C%2C5468_B%2C10447_B%2C11014_B%2C10825_C%2C6704_C%2C10530_B%2C8808_B%2C10765_C%2C8497_B%2C8342_B%2C8871_C%2C9790_B%2C9355_B%2C10389_B%2C8760_B%2C10624_B%2C10627_D%2C9292_B%2C6629_B%2C5670_B%2C9158_A%2C9805_B%2C10541_B%2C9959_B%2C10999_C%2C6082_B%2C5335_B%2C10271_A" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.youtube.com/watch?v=Mr2XecnJa8E" target="_blank" class="platform-link">YouTube</a>      
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-01-12</div>
+                <h3 class="work-title">Marvelous City S1 Ep2: Chongqing &nbsp; 奇妙之城第一季  第二集：重庆</h3>
+                <div class="work-role">Role: Celebrity Host </div>
+                <p class="work-description">This is a documentary series that explores the human stories behind the artisans, foodies, and artists who embody the spirit of urban life. Told from the perspective of celebrity hosts, the series uncovers the hidden wonders that lie within the everyday fabric of each city.</p>
+                <div class="platform-links">
+                    <a href="https://v.youku.com/video?spm=a2hkm.8166622.PhoneSokuProgram_2.dselectbutton_2&vid=XNTA1NjM0MDg4MA==" target="_blank" class="platform-link">优酷</a>
+                    <a href="https://www.youku.tv/v/v_show/id_XNTkyNDcwOTMzMg==.html?s=addfb4a9b2184a2d9158&spm=a2hje.13141534.1_2.d_zj2_2&scm=20140719.apircmd.242627.video_XNTkyNDcwOTMzMg==" target="_blank" class="platform-link">Youku</a>
+                    <a href="https://www.youtube.com/watch?v=e601XtWLcr8" target="_blank" class="platform-link">YouTube</a>      
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-12-31</div>
+                <h3 class="work-title">SMG Countdown Party &nbsp; 2021东方卫视跨年盛典：1.相爱后动物感伤 &nbsp; 2.别问我什么是迪斯科 &nbsp; 3.野子</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=ihf9Mb6W7f4" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=qppP9bt2e40" target="_blank" class="platform-link">YouTube2</a>
+                    <a href="https://www.youtube.com/watch?v=1xnvLhlptKk" target="_blank" class="platform-link">YouTube3</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-12-20</div>
+                <h3 class="work-title">Tencent Video All Star Night 2020 &nbsp; 腾讯星光大赏：1.余生，请多指教 &nbsp; 2.最幸运的幸运</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=iIU61IEZydQ" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=snpbIm_8tyg" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-12-05</div>
+                <h3 class="work-title">Everybody Standby S2 &nbsp; 演员请就位第二季：用尽我的一切奔向你</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=EL9jpQGDfYU" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-11-19</div>
+                <h3 class="work-title">The Wolf &nbsp; 狼殿下</h3>
+                <div class="work-role">Role: Ji Chong 疾冲 </div>
+                <p class="work-description">A young wolf raised in the pack is mistaken for a murderer and hunted relentlessly. Though the truth is uncovered, a sibling's interference leads the wolf to believe the noblewoman has betrayed him. He vanishes, only to be secretly adopted by a passing traveler. Years later, they reunite, their past misunderstandings unraveling a new tale.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/rj22lk3mjdlxfet/n0035l8ajq6.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.iqiyi.com/v_ryscd5za9s.html?vfm=2008_aldbd&fv=p_02_01" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.iq.com/play/2f3t4gx3rf9?source_caller=ui&shortlink=GoogleTraffic&pid=Google%20Traffic&deep_link_value=%257B%2522biz_id%2522%253A%2522102%2522%252C%2522biz_plugin%2522%253A%2522qiyiplayer%2522%252C%2522biz_params%2522%253A%257B%2522biz_sub_id%2522%253A%2522101%2522%252C%2522biz_params%2522%253A%2522aid%253D8752932918020601%2526tvid%253D1578361576507000%2526ctype%253D0%2526pc%253D0%2526video_type%253D0%2526playMode%253D1%2522%257D%252C%2522biz_extend_params%2522%253A%2522%2522%252C%2522biz_dynamic_params%2522%253A%2522%2522%252C%2522biz_statistics%2522%253A%2522%2522%257D&version=2&af_channel=Mediaaction" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/playlist?list=PLpghCOjR4QqrKjwKw-jkbWAbH6g08q1SR" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.viki.com/tv/35890c-the-wolf#episodes" target="_blank" class="platform-link">Rakuten Viki</a>
+                    <a href="https://www.primevideo.com/dp/amzn1.dv.gti.e8ffe5ab-ce63-4acf-8b0f-8d831275a3e3?autoplay=0&ref_=atv_cf_strg_wb" target="_blank" class="platform-link">Prime Video</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-10-25</div>
+                <h3 class="work-title">Celebrating the Double Ninth Festival &nbsp; CCTV3《岁岁又重阳》重阳节特别节目：夜空中最亮的星</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+		    <a href="https://tv.cctv.com/2020/10/25/VIDEvmcOE8DiMhWfYQoDPcQO201025.shtml" target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://www.youtube.com/watch?v=l60mfjxNlXU" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-09-17</div>
+                <h3 class="work-title">Heroes in Harm's Way: Happiness Community &nbsp; 最美逆行者：幸福社区</h3>
+                <div class="work-role">Role: Cai Ding 蔡丁</div>
+                <p class="work-description">The COVID-19 pandemic in China serves as the backdrop for this 7-part series.</p>
+                <div class="platform-links">
+                    <a href="https://tv.cctv.com/2020/09/21/VIDEnAR2exiunMHhn41cbvlI200921.shtml" target="_blank" class="platform-link">CCTV1</a>
+                    <a href="https://tv.cctv.com/2020/09/21/VIDEG7oR7FWKequmjWI7bHx3200921.shtml?spm=C55853485115.PhO6T4rt8QwC.0.0" target="_blank" class="platform-link">CCTV2</a>
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=g000022hfsl" target="_blank" class="platform-link">央视频1</a>
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=h0000813lav" target="_blank" class="platform-link">央视频2</a>
+                    <a href="https://www.youtube.com/watch?v=ttmwU8mYYac" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=jC_1ErkEaVY" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-05-09</div>
+                <h3 class="work-title">Celebrate International Nurses Day &nbsp; 《国际护士节》特别节目：竹石</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+		    <a href="https://zx.sina.cn/entactivity/xiaozhan/2021-01-29/detail-ikftssap1802000.d.html?cre=wappage&mod=r&loc=3&r=0&rfunc=84&tj=wap_news_relate" target="_blank" class="platform-link">Sina</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-26</div>
+                <h3 class="work-title">Everlasting Classics &nbsp; 《经典咏流传》第三季：1.千年一声唱 &nbsp; 2.竹石</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+		    <a href="https://tv.cctv.com/2020/01/26/VIDEG4OFtTbBZcO4PlK8AmyW200126.shtml" target="_blank" class="platform-link">CCTV.COM1</a>
+                    <a href="https://tv.cctv.com/2020/01/26/VIDEnwSofzp8gXf3paAqayE2200126.shtml?spm=C52056131267.P6AQcZyePmUN.0.0" target="_blank" class="platform-link">CCTV.COM2</a>
+		    <a href="https://www.youtube.com/watch?v=mmu9qLIMMuY" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=YmKTxosE0pE" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-25</div>
+                <h3 class="work-title">Beijing Spring Festival Gala &nbsp; 北京春晚舞台：1.沧海一声笑 &nbsp; 2.壮志在我胸</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+		    <a href="https://www.douyin.com/video/6785863696775187720" target="_blank" class="platform-link">抖音1</a>
+		    <a href="https://www.douyin.com/user/MS4wLjABAAAAU-9q9jD8WQyj7jJHsSfxPGHxyVajJBaGu7A8hn24cio?from_tab_name=main&modal_id=6785903440527641864&relation=0&vid=6785863696775187720" target="_blank" class="platform-link">抖音2</a>
+                    <a href="https://www.iqiyi.com/v_19rvy6dnbw.html" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.youtube.com/watch?v=YZhtDJJRPEc" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-24</div>
+                <h3 class="work-title">CMG Spring Festival Gala: I Like You Because You Like Me &nbsp; 央视春晚：喜欢你喜欢我</h3>
+                <div class="work-role">Role: A Dentist (Lead) </div>
+                <p class="work-description">The short play tells the story of tea house owner Xie Na, who has played matchmaker for many customers, but her own love life remains a blank slate. Dentist Xiao Zhan, who met Xie Na online, bravely comes to confess his love.</p>
+                <div class="platform-links">
+		    <a href="https://www.douyin.com/video/6927619076466478343" target="_blank" class="platform-link">抖音</a>
+		    <a href="https://tv.cctv.com/2020/01/25/VIDEfNtgACc8baqFL6DqhlB5200125.shtml?spm=C88599.PAZ9IA5B3QsX.E2jnZ4cc7gEy.63" target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://www.iq.com/play/%E5%B0%8F%E5%93%81%E3%80%8A%E5%96%9C%E6%AC%A2%E4%BD%A0%E5%96%9C%E6%AC%A2%E6%88%91%E3%80%8B%E8%82%96%E6%88%98%E8%B0%A2%E5%A8%9C%E4%B8%8A%E6%BC%94%E2%80%9C%E5%A7%90%E5%BC%9F%E6%81%8B%E2%80%9D%E2%80%942020%E5%A4%AE%E8%A7%86%E6%98%A5%E6%99%9A-2020-19rwamg4nk?lang=es_mx" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/watch?v=XGb3WueZ8dI" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-24</div>
+                <h3 class="work-title">Who's the Murderer S5 Ep 11-12 &nbsp; 《明星大侦探》第五季  第11-12期</h3>
+                <div class="work-role">Role: Guest </div>
+                <p class="work-description">The show was licensed from JTBC's Crime Scene. Episode 11-12 are about solving murders on the Slow Northern Train.</p>
+                <div class="platform-links">
+		    <a href="https://www.youtube.com/watch?v=fZdewSQ4HWE" target="_blank" class="platform-link">YouTube1</a>
+		    <a href="https://www.youtube.com/watch?v=qG9YfhHjBYw" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-08</div>
+                <h3 class="work-title">The Best Acting Performances: Family Rules &nbsp; 最美表演：家规</h3>
+                <div class="work-role">Role: the son (Lead) </div>
+                <p class="work-description">The mischievous and cheeky boy played by Xiao Zhan is also a filial and good-natured child. He takes out a loan to buy a car, enduring a frugal lifestyle for the next two years, all with the goal of letting his father ride in his four-wheeled vehicle and bask in the adoration in his father's eyes.</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/5721872475/Iox9OrHpc" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=c8PaBbPAQZA" target="_blank" class="platform-link">YouTube</a>      
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-08</div>
+                <h3 class="work-title">The Best Acting Performances: Buying Hearing Aid &nbsp; 最美表演：买耳朵</h3>
+                <div class="work-role">Role: Food delivery rider (Lead) </div>
+                <p class="work-description">Xiao Zhan took on the role of a food delivery worker, portraying a story about his deep concern for his grandmother and his desire to buy her a hearing aid.</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/5721872475/IpjUWzy8C" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=gzTFUWmV_iQ" target="_blank" class="platform-link">YouTube</a>                   
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-06</div>
+                <h3 class="work-title">Super IP Ceremony &nbsp; 阅文原创文学风云盛典：余年</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=i3H95319FEk" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=YVf7OJ2g2Nk" target="_blank" class="platform-link">YouTube2</a>
+                    <a href="https://www.youtube.com/watch?v=x92_XB3Snfo" target="_blank" class="platform-link">YouTube3</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2019-12-31</div>
+                <h3 class="work-title">SMG Countdown Party &nbsp; 2020东方卫视跨年盛典：1.我们都是追梦人 &nbsp; 2.跟着感觉走 &nbsp; 3.余年 &nbsp; 4.神奇</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=cJtXk1pAq4s" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=O96YBHQSx3M" target="_blank" class="platform-link">YouTube2</a>
+                    <a href="https://www.iq.com/play/2020%E4%B8%9C%E6%96%B9%E8%B7%A8%E5%B9%B4-%E8%82%96%E6%88%98%E6%AD%8C%E6%9B%B2%E3%80%8A%E4%BD%99%E5%B9%B4%E3%80%8B-2019-19rwgj221g?lang=en_us" target="_blank" class="platform-link">iQIYI3</a>
+                    <a href="https://www.youtube.com/watch?v=Z6uWaQjM5G4" target="_blank" class="platform-link">YouTube4</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2019-12-13</div>
+                <h3 class="work-title">CCTV Heart to Heart Gutian Tour &nbsp; CCTV “心连心”古田慰问演出：我们都是追梦人</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://tv.cctv.com/2019/12/27/VIDErYc4hSWejbJgpluX4OFu191227.shtml" target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://www.youtube.com/watch?v=WlPRr15FZxk" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2019-11-26</div>
+                <h3 class="work-title">Joy of Life &nbsp; 庆余年</h3>
+                <div class="work-role">Role: Yan Bingyun 言冰云</div>
+                <p class="work-description">The story follows a young man of mysterious origins, who sets out from his coastal hometown to face a series of trials and tribulations in his family, the city streets, the martial world, and the imperial court.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/rjae621myqca41h/i0032qxbi2v.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/en/play/e1028wfqyv7e32s-Joy%20of%20Life/g0032bnc6xu-EP1%3AJoy%20of%20Life" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLTB73Ibi_X3H0oT42WnzzY_6lo3pQjNMW" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.viki.com/tv/36367c-joy-of-life" target="_blank" class="platform-link">Rakuten Viki</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2019-11-17</div>
+                <h3 class="work-title">Our Song &nbsp; 我们的歌</h3>
+                <div class="work-role">Role: Guest Performer</div>
+                <p class="work-description">A reality competition show where singers from different generations collaborate to reinterpret classic songs.</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=u-ro3Ut8JGk" target="_blank" class="platform-link">YouTube(cut)</a>
+                    <a href="https://www.youtube.com/watch?v=anJKIZovysY" target="_blank" class="platform-link">YouTube(XZ合集)</a>
+                    <a href="https://www.bilibili.com/video/BV1PJ411x7Hy/" target="_blank" class="platform-link">Bilibili(XZ合集)</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2019-10-19</div>
+                <h3 class="work-title">Douyin Wonderful Night &nbsp; 抖音美好奇妙夜：你是此生最美的风景</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=84ofVOsZJRo" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2019-10-14</div>
+                <h3 class="work-title">Ai Si Bu Si Interview &nbsp; 爱思不Si</h3>
+                <div class="work-role">Role: Guest </div>
+                <p class="work-description">A micro-variety show that features 'hot topics' and 'unique perspectives.' The show conducts incisive interviews with 'hot-button figures' across various industries.</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=CFVUtZO7ufk" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+ 
+
+            <div class="work-item">
+                <div class="work-year">2019-10-4</div>
+                <h3 class="work-title">"I Love You, China" on CCTV-15 Music Channel &nbsp; CCTV-15音乐频道《我爱你中国》：我的中国心</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://tv.cctv.com/2019/10/04/VIDEV71YJNMa8rKyP2AubWZj191004.shtml" target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://www.youtube.com/watch?v=1lr_k8SaxRA" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2019-09-30</div>
+                <h3 class="work-title">Feel the World: Xiamen &nbsp; 漫游旅行家：厦门篇</h3>
+                <div class="work-role">Role: Guest </div>
+                <p class="work-description">A travel program</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/6470719555/I9ivxtSww" target="_blank" class="platform-link">Weibo1</a>
+                    <a href="https://weibo.com/6470719555/Ibuq2bihY" target="_blank" class="platform-link">Weibo2</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2019-09-13</div>
+                <h3 class="work-title">Jade Dynasty I &nbsp; 诛仙 I</h3>
+                <div class="work-role">Role: Zhang Xiaofan 张小凡 (Lead)</div>
+                <p class="work-description">The film follows the story of Zhang Xiaofan, a kindhearted and pure village boy who is thrown into a world of chaos after his village gets massacred, and then becomes a disciple of the Qingyun Sect. Zhang Xiaofan learns martial arts from three masters and becomes a master of the mythical realm, while at the same time, experiencing a complicated relationship with three beautiful women, Lu Xueqi, Tian Ling'er, and Bi Yao.</p>
+                <div class="platform-links">
+                    <a href="https://tubitv.com/movies/581987/jade-dynasty" target="_blank" class="platform-link">Tubi TV</a>             
+                    <a href="https://www.primevideo.com/detail/Jade-Dynasty/0JXMYFQKWNUA19OEUGB4XZPJDD" target="_blank" class="platform-link">Prime Video</a>
+                    <a href="https://www.viki.com/movies/36837c-jade-dynasty" target="_blank" class="platform-link">Rakuten Viki</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2019-06-27</div>
+                <h3 class="work-title">The Untamed &nbsp; 陈情令</h3>
+                <div class="work-role">Role: Wei Wuxian / Mo Xuanyu 魏无羡 / 莫玄羽 (Lead)</div>
+                <p class="work-description">A fantasy drama based on the novel "Mo Dao Zu Shi" by Mo Xiang Tong Xiu. The story follows Wei Wuxian and Lan Wangji as they solve mysteries, face ghosts, and uncover dark secrets in the cultivation world.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/vbb35hm6m6da1wc/w0031s4gikk.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/en/play/gnwjazjgmg997xg-The%20Untamed/d0031smeq8n-EP01%3A%20The%20Untamed" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.netflix.com/ca/title/81200228" target="_blank" class="platform-link">Netflix</a>
+                    <a href="https://www.viki.com/tv/36657c-the-untamed" target="_blank" class="platform-link">Rakuten Viki</a>
+                </div>
+            </div>
+            
+            <div class="work-item">
+                <div class="work-year">2018-09-03</div>
+                <h3 class="work-title">Battle Through the Heavens &nbsp; 斗破苍穹</h3>
+                <div class="work-role">Role: Lin Xiuya 林修崖</div>
+                <p class="work-description">A fantasy drama based on the novel "Battle Through the Heavens" by Heavenly Silkworm Potato. The story follows Xiao Yan, a former genius, who embarks on a journey to regain his powers and avenge his mother's death.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/5joaacfgqdo8q8v/n0027gzq84y.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.youtube.com/playlist?list=PLpghCOjR4QqrN8DTJsVFY3wDLjYZX8A7H" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+            
+            <div class="work-item">
+                <div class="work-year">2018-05-23</div>
+                <h3 class="work-title">Oh! My Emperor S2 &nbsp; 哦！我的皇帝陛下 第二季</h3>
+                <div class="work-role">Role: Bei Tang Mo Ran 北堂墨染</div>
+                <p class="work-description">A captivating celestial romance unfolds in the enigmatic realm of Zodiac Nation, where star-powered abilities reign supreme.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/idcrbac503kxzap/p06761ymcqx.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/en/play/q3pceue59xfirit/k0027st7gbh-EP1%EF%BC%9AOh!_My_Emperor_SS2" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLxbgQdcnIafgZWz4BvNf_FXcfmXS_g0BK" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2018-04-25</div>
+                <h3 class="work-title">Oh! My Emperor S1 &nbsp; 哦！我的皇帝陛下 第一季</h3>
+                <div class="work-role">Role: Bei Tang Mo Ran 北堂墨染</div>
+                <p class="work-description">A captivating celestial romance unfolds in the enigmatic realm of Zodiac Nation, where star-powered abilities reign supreme.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/wxwaravazucarb1/t0635gds69v.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/en/play/vlk58kdlj1g0lup/l00273jfikp" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLs3DOuT3JlGTWokDapX8D6D-S9s9qbrgI" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2016-09-29</div>
+                <h3 class="work-title">Super Star Academy &nbsp; 超星星学园</h3>
+                <div class="work-role">Role: Fang Tianze 方天泽</div>
+                <p class="work-description">In a parallel world where star sign abilities reign supreme, Cheng Zhier is recruited by the prestigious "Super Star Academy." There, she embarks on a captivating journey alongside the heir to the star sign legacy, Fang Tianze.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/7kcf8a09yt0mkzh/k0332np9ggo.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/zh-cn/play/63s2rqvbmfkbqzl-%E8%B6%85%E6%98%9F%E6%98%9F%E5%AD%A6%E5%9B%AD/x0032pbhdbf-%E8%B6%85%E6%98%9F%E6%98%9F%E5%AD%A6%E5%9B%AD_01" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLMX26aiIvX5r4DsfYoltPM1SmUC-FMcRr" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+            
+            <div class="work-item">
+                <div class="work-year">2015-11-21</div>
+                <h3 class="work-title">X File &nbsp; 燃烧吧少年</h3>
+                <div class="work-role">Role: Contestant (X NINE member)</div>
+                <p class="work-description">A reality competition show where idol groups compete in various challenges and performances.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/imzwsz2awsd230g/e0018j4lzz3.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.youtube.com/playlist?list=PLmHvcli_9mkRH4oFQTVRkZHkiUVQRWw3n" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1ua411w7si/?spm_id_from=333.337.search-card.all.click" target="_blank" class="platform-link">Bilibili(cut)</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">Updated by XZ.Studio</div>
+                <h3 class="work-title">Xiao Zhan Studio on YouTube &nbsp; 肖战工作室</h3>
+                <div class="work-role">Role: The Owner</div>
+                <p class="work-description"> Contents released by Xiao Zhan Studio on YouTube including shorts, MVs, documentaries and behind-the-scenes.</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/@xzstudio-1005/videos" target="_blank" class="platform-link">YouTube</a>                   
+                </div>
+            </div>
+
+
+         </div>
+<!-- =============== End of All Works Section =============== -->
+
+        <div id="dramas" class="content-section">
+            <h2>TV Dramas</h2>
+            
+            <div class="work-item">
+                <div class="work-year">2023-09-01</div>
+                <h3 class="work-title">Sunshine by My Side &nbsp; 骄阳伴我</h3>
+                <div class="work-role">Role: Sheng Yang 盛阳 (Lead)</div>
+                <p class="work-description">This drama tells the story of an advertising director "Jian Bing" (played by Bai Baihe) and a newcomer designer "Sheng Yang" (played by Xiao Zhan) who meet by chance. The two people with completely different personalities gradually develop feelings for each other in their daily interactions. This leads to a hilarious yet positive and inspiring story.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc00200t71kuy5/e0047g3kvgs.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.iqiyi.com/v_15kzchdfiqk.html?vfm=2008_aldbd&fv=p_02_01" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.iq.com/album/%E9%A9%95%E9%99%BD%E4%BC%B4%E6%88%91-2023-tq1cyfu2j5?lang=zh_tw" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/playlist?list=PLQqbdnAgoRmbSsGj7qT3ARvqvXe3SOWwM" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2023-07-02</div>
+                <h3 class="work-title">The Longest Promise &nbsp; 玉骨遥</h3>
+                <div class="work-role">Role: Shi Ying 时影 (Lead)</div>
+                <p class="work-description">In a mystical realm called "Yunhuang," the Kongsang people, the Jiao tribe, and the Ice tribe coexist. The aloof and enigmatic Kongsang Crown Prince Shi Ying (played by Xiao Zhan) and the passionate and righteous Zhu Yan, the Chieftain's Daughter (played by Ren Min), are bound by a fateful encounter with a flower (Xue Hanwei). Together, they face challenges to protect the Kongsang Dream-Flower Dynasty.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc002003rb9ntl/o0046yvt2fv.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.netflix.com/ca/title/81633653" target="_blank" class="platform-link">Netflix</a>
+                    <a href="https://www.youtube.com/playlist?list=PLGBZFpiWG8JXhPifLlHJz9wuB7Nv2YRr6" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+            
+
+            <div class="work-item">
+                <div class="work-year">2023-06-01</div>
+                <h3 class="work-title">The Youth Memories &nbsp; 梦中的那片海 </h3>
+                <div class="work-role">Role: Xiao Chunsheng 肖春生 (Lead)</div>
+                <p class="work-description">The Youth Memories is a show about a group of youths and their struggles as they chase their dreams in 1970's Beijing.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc002007vp35qj/s0046m7x9we.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/zh-tw/play/sp6ws3r9o3upf7l-%E5%A4%A2%E4%B8%AD%E7%9A%84%E9%82%A3%E7%89%87%E6%B5%B7/c0046cmle6l-%E5%A4%A2%E4%B8%AD%E7%9A%84%E9%82%A3%E7%89%87%E6%B5%B7_01" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLRBClVey5BqwM9E2uvd2rVf_mekyic98m" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2022-03-15</div>
+                <h3 class="work-title">The Oath of Love &nbsp; 余生，请多指教</h3>
+                <div class="work-role">Role: Gu Wei 顾魏 (Lead)</div>
+                <p class="work-description">Gu Wei is a very solemn surgeon, although glimpses of his warm heart can be seen from time to time. As Zhi Xiao's father progresses through treatment, she and Dr. Gu become close—she helps him learn how to enjoy life, and he helps her focus on what she truly wants in life.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc00200opqzg5p/i0042znd9iv.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/zh-cn/play/et4xynjronzthfj-%E4%BD%99%E7%94%9F%EF%BC%8C%E8%AF%B7%E5%A4%9A%E6%8C%87%E6%95%99/c0042mhbdbu-%E4%BD%99%E7%94%9F%EF%BC%8C%E8%AF%B7%E5%A4%9A%E6%8C%87%E6%95%99_01" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLMX26aiIvX5pKLsGYgPFP0gDFVVjGbf0k" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.viki.com/tv/36966c-the-oath-of-love?utm_source=global_search_or_media_action&utm_campaign=36966c#episodes" target="_blank" class="platform-link">Rakuten Viki</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2021-12-26</div>
+                <h3 class="work-title">Ace Troops &nbsp; 王牌部队</h3>
+                <div class="work-role">Role: Gu Yiye 顾一野 (Lead)</div>
+                <p class="work-description">From humble beginnings to forged bonds, two recruits - miner's son Gao Liang and military family scion Gu Yiye - clash over their differences, only to become comrades-in-arms. Through battles, demining in Guangxi, Hong Kong garrison, and the '98 flood relief, they weathered the military's transformation from mechanization to informatization. Their story is one of rivalry, camaraderie, and the unbreakable spirit of soldiers.</p>
+                <div class="platform-links">
+                    <a href="https://www.iqiyi.com/v_1u9rlrabn5w.html?vfm=2008_aldbd&fv=p_02_01" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.iq.com/play/ace-troops-episode-1-nlcx80xlds?lang=en_us" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/playlist?list=PLlCrV9TCfzMYAXQEBxvu6aoqBlXFLVs6x" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2021-02-05</div>
+                <h3 class="work-title">Douluo Continent &nbsp; 斗罗大陆</h3>
+                <div class="work-role">Role: Tang San 唐三 (Lead)</div>
+                <p class="work-description">A gifted young man, Tang San (played by Xiao Zhan), and his alcoholic father, Tang Hao, forge an unbreakable bond. As Tang San's martial soul awakens, his father reveals a secret about his mother. Determined to fulfill his promise, Tang San enrolls at Nuoding Academy and Shrek Academy, where he and six other talented youths form the "Shrek Seven Devils." Through trials and tribulations, they uncover a sinister plot by the Martial Soul Hall, ultimately emerging victorious and becoming the pinnacle of the Douluo Continent.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc00200js3mdvw/q00354i139r.html?ptag=11974" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.youtube.com/playlist?list=PLuidrAcAGAOO3cEgUAV5ziXjDk2_xg9jn" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.viki.com/tv/36952c-douluo-continent?utm_source=global_search_or_media_action&utm_campaign=36952c#episodes" target="_blank" class="platform-link">Rakuten Viki</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2020-11-19</div>
+                <h3 class="work-title">The Wolf &nbsp; 狼殿下</h3>
+                <div class="work-role">Role: Ji Chong 疾冲 </div>
+                <p class="work-description">A young wolf raised in the pack is mistaken for a murderer and hunted relentlessly. Though the truth is uncovered, a sibling's interference leads the wolf to believe the noblewoman has betrayed him. He vanishes, only to be secretly adopted by a passing traveler. Years later, they reunite, their past misunderstandings unraveling a new tale.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/rj22lk3mjdlxfet/n0035l8ajq6.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.iqiyi.com/v_ryscd5za9s.html?vfm=2008_aldbd&fv=p_02_01" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.iq.com/play/2f3t4gx3rf9?source_caller=ui&shortlink=GoogleTraffic&pid=Google%20Traffic&deep_link_value=%257B%2522biz_id%2522%253A%2522102%2522%252C%2522biz_plugin%2522%253A%2522qiyiplayer%2522%252C%2522biz_params%2522%253A%257B%2522biz_sub_id%2522%253A%2522101%2522%252C%2522biz_params%2522%253A%2522aid%253D8752932918020601%2526tvid%253D1578361576507000%2526ctype%253D0%2526pc%253D0%2526video_type%253D0%2526playMode%253D1%2522%257D%252C%2522biz_extend_params%2522%253A%2522%2522%252C%2522biz_dynamic_params%2522%253A%2522%2522%252C%2522biz_statistics%2522%253A%2522%2522%257D&version=2&af_channel=Mediaaction" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/playlist?list=PLpghCOjR4QqrKjwKw-jkbWAbH6g08q1SR" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.viki.com/tv/35890c-the-wolf#episodes" target="_blank" class="platform-link">Rakuten Viki</a>
+                    <a href="https://www.primevideo.com/dp/amzn1.dv.gti.e8ffe5ab-ce63-4acf-8b0f-8d831275a3e3?autoplay=0&ref_=atv_cf_strg_wb" target="_blank" class="platform-link">Prime Video</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2020-09-17</div>
+                <h3 class="work-title">Heroes in Harm's Way: Happiness Community &nbsp; 最美逆行者：幸福社区</h3>
+                <div class="work-role">Role: Cai Ding 蔡丁</div>
+                <p class="work-description">The COVID-19 pandemic in China serves as the backdrop for this 7-part series.</p>
+                <div class="platform-links">
+                    <a href="https://tv.cctv.com/2020/09/21/VIDEnAR2exiunMHhn41cbvlI200921.shtml" target="_blank" class="platform-link">CCTV1</a>
+                    <a href="https://tv.cctv.com/2020/09/21/VIDEG7oR7FWKequmjWI7bHx3200921.shtml?spm=C55853485115.PhO6T4rt8QwC.0.0" target="_blank" class="platform-link">CCTV2</a>
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=g000022hfsl" target="_blank" class="platform-link">央视频1</a>
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=h0000813lav" target="_blank" class="platform-link">央视频2</a>
+                    <a href="https://www.youtube.com/watch?v=ttmwU8mYYac" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=jC_1ErkEaVY" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2019-11-26</div>
+                <h3 class="work-title">Joy of Life &nbsp; 庆余年</h3>
+                <div class="work-role">Role: Yan Bingyun 言冰云</div>
+                <p class="work-description">The story follows a young man of mysterious origins, who sets out from his coastal hometown to face a series of trials and tribulations in his family, the city streets, the martial world, and the imperial court.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/rjae621myqca41h/i0032qxbi2v.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/en/play/e1028wfqyv7e32s-Joy%20of%20Life/g0032bnc6xu-EP1%3AJoy%20of%20Life" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLTB73Ibi_X3H0oT42WnzzY_6lo3pQjNMW" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.viki.com/tv/36367c-joy-of-life" target="_blank" class="platform-link">Rakuten Viki</a>
+                </div>
+            </div>
+
+             <div class="work-item">
+                <div class="work-year">2019-06-27</div>
+                <h3 class="work-title">The Untamed &nbsp; 陈情令</h3>
+                <div class="work-role">Role: Wei Wuxian / Mo Xuanyu 魏无羡 / 莫玄羽(Lead)</div>
+                <p class="work-description">A fantasy drama based on the novel "Mo Dao Zu Shi" by Mo Xiang Tong Xiu. The story follows Wei Wuxian and Lan Wangji as they solve mysteries, face ghosts, and uncover dark secrets in the cultivation world.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/vbb35hm6m6da1wc/w0031s4gikk.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/en/play/gnwjazjgmg997xg-The%20Untamed/d0031smeq8n-EP01%3A%20The%20Untamed" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.netflix.com/ca/title/81200228" target="_blank" class="platform-link">Netflix</a>
+                    <a href="https://www.viki.com/tv/36657c-the-untamed" target="_blank" class="platform-link">Rakuten Viki</a>
+                </div>
+            </div>
+            
+            <div class="work-item">
+                <div class="work-year">2018-09-03</div>
+                <h3 class="work-title">Battle Through the Heavens &nbsp; 斗破苍穹</h3>
+                <div class="work-role">Role: Lin Xiuya 林修崖</div>
+                <p class="work-description">A fantasy drama based on the novel "Battle Through the Heavens" by Heavenly Silkworm Potato. The story follows Xiao Yan, a former genius, who embarks on a journey to regain his powers and avenge his mother's death.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/5joaacfgqdo8q8v/n0027gzq84y.html?ptag=11972" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.youtube.com/playlist?list=PLpghCOjR4QqrN8DTJsVFY3wDLjYZX8A7H" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+            
+            <div class="work-item">
+                <div class="work-year">2018-05-23</div>
+                <h3 class="work-title">Oh! My Emperor S2 &nbsp; 哦！我的皇帝陛下 第二季</h3>
+                <div class="work-role">Role: Bei Tang Mo Ran 北堂墨染</div>
+                <p class="work-description">A captivating celestial romance unfolds in the enigmatic realm of Zodiac Nation, where star-powered abilities reign supreme.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/idcrbac503kxzap/p06761ymcqx.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/en/play/q3pceue59xfirit/k0027st7gbh-EP1%EF%BC%9AOh!_My_Emperor_SS2" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLxbgQdcnIafgZWz4BvNf_FXcfmXS_g0BK" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2018-04-25</div>
+                <h3 class="work-title">Oh! My Emperor S1 &nbsp; 哦！我的皇帝陛下 第一季</h3>
+                <div class="work-role">Role: Bei Tang Mo Ran 北堂墨染</div>
+                <p class="work-description">A captivating celestial romance unfolds in the enigmatic realm of Zodiac Nation, where star-powered abilities reign supreme.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/wxwaravazucarb1/t0635gds69v.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/en/play/vlk58kdlj1g0lup/l00273jfikp" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLs3DOuT3JlGTWokDapX8D6D-S9s9qbrgI" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2016-09-29</div>
+                <h3 class="work-title">Super Star Academy &nbsp; 超星星学园</h3>
+                <div class="work-role">Role: Fang Tianze 方天泽</div>
+                <p class="work-description">In a parallel world where star sign abilities reign supreme, Cheng Zhier is recruited by the prestigious "Super Star Academy." There, she embarks on a captivating journey alongside the heir to the star sign legacy, Fang Tianze.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/7kcf8a09yt0mkzh/k0332np9ggo.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://wetv.vip/zh-cn/play/63s2rqvbmfkbqzl-%E8%B6%85%E6%98%9F%E6%98%9F%E5%AD%A6%E5%9B%AD/x0032pbhdbf-%E8%B6%85%E6%98%9F%E6%98%9F%E5%AD%A6%E5%9B%AD_01" target="_blank" class="platform-link">WeTV</a>
+                    <a href="https://www.youtube.com/playlist?list=PLMX26aiIvX5r4DsfYoltPM1SmUC-FMcRr" target="_blank" class="platform-link">YouTube</a>
                 </div>
             </div>
         </div>
 
-        <!-- SOCIAL MEDIA CARDS -->
-        <div class="social-grid" id="social-grid">
-            <!-- Weibo Cards -->
-            <div class="social-card">
-                <div class="card-header weibo">
-                    <h2>肖战微博</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Follow Xiao Zhan's official Weibo account for updates and announcements.</p>
-                        <p>Followers: 30M+</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://weibo.com/u/1792951112" class="btn weibo" target="_blank" data-platform="weibo-personal">Visit Weibo</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header weibo">
-                    <h2>肖战工作室微博</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Follow XZ.STUDIO.'s official Weibo account for updates and announcements.</p>
-                        <p>Followers: 10M+</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://weibo.com/u/6643123988" class="btn weibo" target="_blank" data-platform="weibo-studio">Visit Weibo</a>
-                    </div>
+<!-- =============== End of Dramas =============== -->
+
+
+        <div id="movies" class="content-section">
+            <h2>Movies</h2>
+
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">Legends of the Condor Heroes: The Gallants &nbsp; 射雕英雄传：侠之大者</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">In a turbulent era of power struggles, Guo Jing (played by Xiao Zhan) embarks on a journey, honing his formidable skills to shape his destiny. Despite mastering legendary martial arts, he faces envy from all sides. Yet, with a pure heart, he and Huang Rong (played by Zhuang Dafen) brave the chaos, fighting to protect the Southern Song's borders.</p>
+                <div class="platform-links">
+                    <a href="https://v.youku.com/video?vid=XNjQ2NjA3OTE5Ng%3D%3D" target="_blank" class="platform-link">优酷</a>
+                    <a href="https://v.qq.com/x/cover/mzc00200vw6f142/e41009yghfh.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.iqiyi.com/v_hzvqba6v0o.html" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://w.mgtv.com/b/706801/22694149.html?fpa=1413&fpos=6" target="_blank" class="platform-link">芒果TV</a>
+                    <a href="https://www.bilibili.com/bangumi/play/ep1566136?from_spmid=666.19.0.0" target="_blank" class="platform-link">Bilibili</a>
+                    <a href="https://www.miguvideo.com/p/detail/951701301?lastLocation=6d97aa391d86420188f2c3103a1b3b55%2372c4c89448b24107b94d888d5aa99d4c" target="_blank" class="platform-link">咪咕视频</a>
+                    <a href="" target="_blank" class="platform-link">Also available on Huawei, Xiaomi, Oppo, & Honor mobile apps</a>
                 </div>
             </div>
             
-            <div class="social-card">
-                <div class="card-header weibo">
-                    <h2>肖战超话</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Join and have fun in Weibo Supertopic.</p>
-                        <p>Followers: 10M+</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://weibo.com/p/100808f57b3faeb25f86b43a8cc58f02286f40/super_index" class="btn weibo" target="_blank" data-platform="weibo-supertopic">Visit Weibo</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header douyin">
-                    <h2>肖战抖音</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Watch Xiao Zhan's short videos and behind-the-scenes content on Douyin.</p>
-                        <p>Followers: 20M+</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://www.douyin.com/user/MS4wLjABAAAAp5h2oXaBBs4Addlh36wkxtk3srSPYe380PBewEe1si9OnrF_Sy8eZpdJQ_NYBl6H?from_tab_name=main" class="btn douyin" target="_blank" data-platform="douyin-personal">Visit Douyin</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header douyin">
-                    <h2>肖战工作室抖音</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Watch XZ.STUDIO.'s short videos and behind-the-scenes content on Douyin.</p>
-                        <p>Followers: 7M+</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://www.douyin.com/user/MS4wLjABAAAAbeJEodUTXohdleqNzCo2PZ-XsY2G6JGQ3HUT0uDtQ-A?from_tab_name=main" class="btn douyin" target="_blank" data-platform="douyin-studio">Visit Douyin</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header douyin">
-                    <h2>肖战影音会抖音</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>XZ Fanclub on DOUYIN：19911005xzyyh</p>
-                        <p>Followers: 1M+</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://www.douyin.com/user/MS4wLjABAAAAqC4DjHo_8kZSQV9bCTwoOgBbpaxksndgz8kzP96Q6bI?from_tab_name=main" class="btn douyin" target="_blank" data-platform="douyin-fanclub">Visit Douyin</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header baidu">
-                    <h2>百度肖战工作室</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Follow XZ Studio's official Baidu account for updates and content.</p>
-                        <p>Official studio account</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://author.baidu.com/home?type=profile&action=profile&mthfr=box_share&context=%7B%22from%22%3A%22dusite_sresults%22%2C%22uk%22%3A%226REHqK7YhHdA6m4t1rk1Uw%22%2C%22tab%22%3A%22dynamicList%22%7D" class="btn baidu" target="_blank" data-platform="baidu-studio">Visit Baidu</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header baidu">
-                    <h2>肖战百度百科</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Learn about Xiao Zhan's biography, career, and achievements on Baidu Baike.</p>
-                        <p>Encyclopedia and reference</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://baike.baidu.com/item/%E8%82%96%E6%88%98/18866899" class="btn baidu" target="_blank" data-platform="baidu-baike">Visit Baidu Baike</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header wikipedia">
-                    <h2>肖战维基百科</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>View Xiao Zhan's Wikipedia page for his biography and career information.</p>
-                        <p>Open encyclopedia</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://zh.wikipedia.org/zh-cn/%E8%82%96%E6%88%B0" class="btn wikipedia" target="_blank" data-platform="wikipedia">Visit Wikipedia</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header instagram">
-                    <h2>肖战Instagram</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Follow Xiao Zhan's official Instagram account for photos and updates.</p>
-                        <p>International platform</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://www.instagram.com/xz_1991x/" class="btn instagram" target="_blank" data-platform="instagram-personal">Visit Instagram</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header instagram">
-                    <h2>肖战工作室Instagram</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Follow XZ.STUDIO's official Instagram account for behind-the-scenes content.</p>
-                        <p>Official studio account</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://www.instagram.com/xz.studio1005/" class="btn instagram" target="_blank" data-platform="instagram-studio">Visit Instagram</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header youtube">
-                    <h2>肖战工作室YouTube</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Watch XZ.STUDIO's official videos and content on YouTube.</p>
-                        <p>Official studio channel</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://www.youtube.com/@xzstudio-1005" class="btn youtube" target="_blank" data-platform="youtube-studio">Visit YouTube</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header tencent">
-                    <h2>腾讯视频</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Watch Xiao Zhan's shows and performances on Tencent Video.</p>
-                        <p>Video platform</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://v.qq.com/x/search/?q=%E8%82%96%E6%88%98" class="btn tencent" target="_blank" data-platform="tencent-video">Watch Videos</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header youku">
-                    <h2>优酷视频</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Find Xiao Zhan's dramas, interviews and performances on Youku.</p>
-                        <p>Video platform</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://so.youku.com/search/q_%E8%82%96%E6%88%98" class="btn youku" target="_blank" data-platform="youku-video">Watch Videos</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="social-card">
-                <div class="card-header iqiyi">
-                    <h2>爱奇艺视频</h2>
-                </div>
-                <div class="card-body">
-                    <div class="card-info">
-                        <p>Discover Xiao Zhan's content on iQIYI.</p>
-                        <p>Video platform</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="https://www.iqiyi.com/search/%E8%82%96%E6%88%98.html" class="btn iqiyi" target="_blank" data-platform="iqiyi-video">Watch Videos</a>
-                    </div>
+            <div class="work-item">
+                <div class="work-year">2019-09-13</div>
+                <h3 class="work-title">Jade Dynasty  I &nbsp; 诛仙 I</h3>
+                <div class="work-role">Role: Zhang Xiaofan 张小凡 (Lead)</div>
+                <p class="work-description">The film follows the story of Zhang Xiaofan, a kindhearted and pure village boy who is thrown into a world of chaos after his village gets massacred, and then becomes a disciple of the Qingyun Sect. Zhang Xiaofan learns martial arts from three masters and becomes a master of the mythical realm, while at the same time, experiencing a complicated relationship with three beautiful women, Lu Xueqi, Tian Ling'er, and Bi Yao.</p>
+                <div class="platform-links">
+                    <a href="https://tubitv.com/movies/581987/jade-dynasty" target="_blank" class="platform-link">Tubi TV</a>             
+                    <a href="https://www.primevideo.com/detail/Jade-Dynasty/0JXMYFQKWNUA19OEUGB4XZPJDD" target="_blank" class="platform-link">Prime Video</a>
+                    <a href="https://www.viki.com/movies/36837c-jade-dynasty" target="_blank" class="platform-link">Rakuten Viki</a>
                 </div>
             </div>
         </div>
 
-        <!-- LATEST NEWS SECTION -->
-        <div class="latest-news">
-            <h2>Latest Updates</h2>
-            <div class="news-item">
-                <h3>New Drama/Movie Announcement</h3>
-                <p>Xiao Zhan's captivating performance in "The Legend of the Condor Heroes" earns widespread acclaim. The upcoming film "De Xian Jin Zhi" and the TV series "Zang Hai Zhuan" are eagerly anticipated.</p>
+<!-- =============== End of Movies =============== -->
+
+
+        <div id="stage performance" class="content-section">
+            <h2>Stage Performance</h2>
+ 
+
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">Beijing Spring Festival Gala &nbsp; 北京春晚舞台：灯塔</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://news.qq.com/rain/a/20250129A06JDW00?suid=&media_id=" target="_blank" class="platform-link">QQ.COM</a>
+                    <a href="https://www.iq.com/play/2025%E5%8C%97%E4%BA%AC%E6%98%A5%E6%99%9A-%E8%82%96%E6%88%98%E6%AD%8C%E6%9B%B2%E3%80%8A%E7%81%AF%E5%A1%94%E3%80%8B-2025-15lulj5zwyg?lang=en_us" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/watch?v=GUJy4QTe2_k" target="_blank" class="platform-link">YouTube</a>
+                </div>
             </div>
-            
-            <div class="news-item">
-                <h3>Music Release</h3>
-                <p>Xiao Zhan's latest album "WM" has been gaining popularity across music platforms in China.</p>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2024-09-22</div>
+                <h3 class="work-title">The Greater Bay Area Film Concert 2024<br>2024 湾区升明月电影音乐晚会：1.这世界那么多人 &nbsp; 2.往事随风</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.chinanews.com.cn/shipin/cns-d/2024/09-23/news1000725.shtml" target="_blank" class="platform-link">中国新闻网1</a>
+                    <a href="https://video.sina.cn/finance/2024-09-23/detail-incqafyf0629406.d.html?vt=4" target="_blank" class="platform-link">Sina1</a>
+                    <a href="https://www.facebook.com/PhoenixTVHK/videos/%E7%81%A3%E5%8D%80%E5%8D%87%E6%98%8E%E6%9C%88%E5%A4%AA%E5%A5%BD%E8%81%BD%E4%BA%86%E8%8E%AB%E6%96%87%E8%94%9A%E8%82%96%E6%88%B0%E7%89%BD%E6%89%8B%E5%90%88%E5%94%B1%E9%80%99%E4%B8%96%E7%95%8C%E9%82%A3%E9%BA%BC%E5%A4%9A%E4%BA%BA/490703023831493/" target="_blank" class="platform-link">Facebook1</a>
+                    <a href="https://www.youtube.com/watch?v=iv49foV0oPU" target="_blank" class="platform-link">YouTube1-1(凤凰卫视)</a>
+                    <a href="https://www.youtube.com/watch?v=qNJb4g1QELk" target="_blank" class="platform-link">YouTube1-2(中国新闻社)</a>
+                    <a href="https://www.youtube.com/watch?v=8GpqCj9EECQ" target="_blank" class="platform-link">YouTube1-3(莫文蔚版)</a>
+                    <a href="https://x.com/ChinaDaily/status/1838029425130238412" target="_blank" class="platform-link">X(China Daily)1-1</a>
+                    <a href="https://x.com/PhoenixTVHK/status/1837904700412432785" target="_blank" class="platform-link">X(凤凰卫视)1-2</a>
+
+                    <a href="https://k.sina.cn/article_1643971635_m61fd0433033013a1i.html?from=movie" target="_blank" class="platform-link">Sina2</a>
+                    <a href="https://v.ifeng.com/c/8d61URNjqqt" target="_blank" class="platform-link">凤凰网2</a>
+                    <a href="https://www.facebook.com/PhoenixTVHK/videos/%E7%81%A3%E5%8D%80%E5%8D%87%E6%98%8E%E6%9C%88%E8%B6%85%E7%A9%A9%E7%8F%BE%E5%A0%B4%E8%82%96%E6%88%B0%E5%91%88%E7%8F%BE%E9%AB%98%E9%9F%B3%E8%88%9E%E5%8F%B0%E5%BE%80%E4%BA%8B%E9%9A%A8%E9%A2%A8/1463277994388769/" target="_blank" class="platform-link">Facebook2</a>
+                    <a href="https://www.youtube.com/watch?v=NwkSVCyMtVE" target="_blank" class="platform-link">YouTube2</a>
+
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2024-09-20</div>
+                <h3 class="work-title">2024 The Beijing Cultural Forum's Artistic Performance<br>2024 北京文化论坛专场文艺演出：月亮代表我的心</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://k.sina.cn/article_1644948230_m620beb06033014hme.html" target="_blank" class="platform-link">Sina</a>
+                    <a href="https://www.youtube.com/watch?v=ARChdSyNrvw" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2024-02-10</div>
+                <h3 class="work-title">Beijing Spring Festival Gala &nbsp; 北京春晚舞台：如愿</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://xinwen.bjd.com.cn/content/s65c784bde4b06c5601ebadfd.html" target="_blank" class="platform-link">北京日报</a>
+                    <a href="https://www.iq.com/play/%E8%82%96%E6%88%98%E6%AD%8C%E6%9B%B2%E3%80%8A%E5%A6%82%E6%84%BF%E3%80%8B-2024-1hqd7mcdfp8?lang=en_us" target="_blank" class="platform-link">iQIYI</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2024-02-03</div>
+                <h3 class="work-title">2024 China Internet Audio-Visual Annual Gala<br>2024中国网络视听年度盛典：1.第一篇章《同梦·不负韶华》 &nbsp; 2.同路人</h3>
+                <div class="work-role">Role: Narrator & Singer </div>
+                <p class="work-description">1.Narrator of Chapter 1: Seize the Day. 2.Singer of the song: Fellow Traveler.</p>
+                <div class="platform-links">
+                    <a href="http://www.news.cn/politics/20240128/9f4d386a26884392a4b67c29d6640980/c.html" target="_blank" class="platform-link">新华网1</a>
+                    <a href="https://www.douyin.com/video/7334645390165200169" target="_blank" class="platform-link">抖音1</a>
+                    <a href="https://www.bilibili.com/video/BV1J64y1374c/" target="_blank" class="platform-link">Bilibili1</a>
+                    <a href="https://v.qq.com/x/cover/mzc00200wlrpuxb/p0048hjuvou.html" target="_blank" class="platform-link">Tencent2</a>
+                    <a href="https://www.chinanews.com.cn/yl/shipin/cns/2023/10-16/news972808.shtml" target="_blank" class="platform-link">中国新闻网2-1</a>
+                    <a href="https://www.chinanews.com.cn/gn/2023/10-16/10094669.shtml" target="_blank" class="platform-link">中国新闻网2-2</a>
+                    <a href="https://www.youtube.com/watch?v=SPOZ_Um_dpA" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+              <div class="work-item">
+                <div class="work-year">2023-06-29</div>
+                <h3 class="work-title">The Greater Bay Area Film Concert 2023 &nbsp; “湾区升明月”2023大湾区电影音乐晚会：潇洒走一回</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://js.ifeng.com/c/8R1QT9oTFuy" target="_blank" class="platform-link">凤凰网</a>
+                    <a href="https://www.youtube.com/watch?v=1LYMKAgLhBM" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+          <div class="work-item">
+                <div class="work-year">2022-02-02</div>
+                <h3 class="work-title">2022 China Internet Audio-Visual Annual Gala &nbsp; 2022年中国网络视听年度盛典：只道是寻常</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/tv/show/1034:4732588779307117?from=old_pc_videoshow" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=IWou9xlKSl0&list=PLxbgQdcnIafgy2d95lKn_QVqNxtvgkXmX&index=9" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-10-16</div>
+                <h3 class="work-title">6th Jackie Chan International Action Film Week &nbsp; 第六届成龙国际动作电影周：中华力量</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=U65WI4DT-c8" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://m.weibo.cn/status/4693030101847226#&video" target="_blank" class="platform-link">Weibo</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-09-10</div>
+                <h3 class="work-title">One-year Countdown to Hangzhou Asian Games 2022<br>2022杭州亚运会倒计时一周年：我们都将奔赴美好未来</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=T2f0LjV29Rs" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.douyin.com/video/7006292054959590669" target="_blank" class="platform-link">抖音</a>
+                    <a href="https://www.iq.com/play/%E3%80%8A%E6%88%91%E4%BB%AC%E9%83%BD%E5%B0%86%E5%A5%94%E8%B5%B4%E7%BE%8E%E5%A5%BD%E6%9C%AA%E6%9D%A5%E3%80%8B%E5%A4%AA%E7%BB%9D%E4%BA%86-%E8%82%96%E6%88%98%E6%9D%AD%E5%B7%9E%E4%BA%9A%E8%BF%90%E4%BC%9A%E5%80%92%E8%AE%A1%E6%97%B6%E5%90%AF%E5%8A%A8-2021-p4ghq73y84?lang=en_us" target="_blank" class="platform-link">iQIYI</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-05-31</div>
+                <h3 class="work-title">Ignite the Night: JD.com's 618 Extravaganza &nbsp; 618沸腾之夜：让我留在你身边 &nbsp; 竹石</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/tv/show/1034:4643045698896064?from=old_pc_videoshow" target="_blank" class="platform-link">Weibo</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-03-05</div>
+                <h3 class="work-title">The Winter Dream's Promise &nbsp; 冬梦之约舞台：1.冬梦 &nbsp; 2.Something just like this</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=f000099v8tv&cid=nxigpbeei12heg7&ptag=4_2.2.3.23078_wxf" target="_blank" class="platform-link">央视频1</a>
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=d000060rs23&cid=nxigpbeei12heg7" target="_blank" class="platform-link">央视频2</a>
+                    <a href="https://v.youku.com/video?vid=XNTExNTc4Njk4MA%3D%3D" target="_blank" class="platform-link">优酷1</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-02-12</div>
+                <h3 class="work-title">SMG Spring Festival Gala &nbsp; 2021年东方卫视春节晚会：异乡人 &nbsp; 用尽我的一切奔向你</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=Xykyd0Cl2nw" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+ 
+
+            <div class="work-item">
+                <div class="work-year">2021-02-12</div>
+                <h3 class="work-title">Beijing Spring Festival Gala &nbsp; 北京春晚舞台：给所有知道我名字的人</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.iqiyi.com/v_1b07bvfwzss.html?list=140w677p0ya" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.youtube.com/watch?v=hqXcmqgJP7U" target="_blank" class="platform-link">YouTube</a>      
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-01-15</div>
+                <h3 class="work-title">2021 iQIYI Shout Out For Love Gala &nbsp; 2021爱奇艺为爱尖叫晚会：余年</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.iqiyi.com/v_1g73ftahgvs.html?ht=0&ischarge=false&tvname=%E3%80%8A%E4%B8%BA%E7%88%B1%E5%B0%96%E5%8F%AB%E6%99%9A%E4%BC%9A%E3%80%8B%E7%BA%AF%E4%BA%AB%EF%BC%9A%E8%82%96%E6%88%98%E3%80%8A%E4%BD%99%E5%B9%B4%E3%80%8B&vid=3ebc0e1761e0f6da74e836e5c7443d88&lt=4&vtype=0&f_block=tabbed_wonderful_short_bk-undefined&s2=wna_tvg_1st&s3=wna_tvg_shorts&s4=image_2&vfrm=playlist&vfrmblk=sv_content&vfrmrst=4&pb2=bkt%3D%26c1%3D6%26childinfo%3D%26e%3D%26fatherid%3D%26position%3D5%26r_area%3D%26r_source%3D%26recext%3D%26sc1%3D6%26sqpid%3D%26stype%3D%26tagemode%3D0&ab=8883_A%2C10385_B%2C10274_A%2C8739_B%2C9419_B%2C9922_C%2C9379_B%2C10590_A%2C10276_A%2C8004_B%2C5257_B%2C10566_C%2C9776_A%2C8873_E%2C10123_A%2C7423_C%2C8401_A%2C6249_C%2C7996_B%2C10793_C%2C9576_B%2C10358_B%2C9365_B%2C5465_B%2C6843_B%2C10897_A%2C6578_B%2C6312_B%2C6091_B%2C8690_C%2C8737_D%2C8742_A%2C10193_B%2C10596_B%2C9484_B%2C10803_A%2C6752_C%2C10311_B%2C10698_B%2C10237_A%2C10188_B%2C8971_A%2C7332_B%2C9683_B%2C10383_B%2C8665_E%2C10575_B%2C6237_B%2C9569_B%2C11004_A%2C8983_A%2C7024_C%2C5592_B%2C9117_A%2C6031_B%2C10509_B%2C7581_A%2C9506_B%2C9517_D%2C10216_A%2C9394_B%2C8542_B%2C6050_B%2C9167_D%2C10637_A%2C10551_B%2C9469_B%2C10633_B%2C8812_B%2C10598_A%2C6832_C%2C7074_C%2C7682_C%2C8867_B%2C5924_D%2C6151_C%2C5468_B%2C10447_B%2C11014_B%2C10825_C%2C6704_C%2C10530_B%2C8808_B%2C10765_C%2C8497_B%2C8342_B%2C8871_C%2C9790_B%2C9355_B%2C10389_B%2C8760_B%2C10624_B%2C10627_D%2C9292_B%2C6629_B%2C5670_B%2C9158_A%2C9805_B%2C10541_B%2C9959_B%2C10999_C%2C6082_B%2C5335_B%2C10271_A" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.youtube.com/watch?v=Mr2XecnJa8E" target="_blank" class="platform-link">YouTube</a>      
+                </div>
+            </div>
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-12-31</div>
+                <h3 class="work-title">SMG Countdown Party &nbsp; 2021东方卫视跨年盛典：1.相爱后动物感伤 &nbsp; 2.别问我什么是迪斯科 &nbsp; 3.野子</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=ihf9Mb6W7f4" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=qppP9bt2e40" target="_blank" class="platform-link">YouTube2</a>
+                    <a href="https://www.youtube.com/watch?v=1xnvLhlptKk" target="_blank" class="platform-link">YouTube3</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-12-20</div>
+                <h3 class="work-title">Tencent Video All Star Night 2020 &nbsp; 腾讯星光大赏：1.余生，请多指教 &nbsp; 2.最幸运的幸运</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=iIU61IEZydQ" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=snpbIm_8tyg" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-12-05</div>
+                <h3 class="work-title">Everybody Standby S2 &nbsp; 演员请就位第二季：用尽我的一切奔向你</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=EL9jpQGDfYU" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-10-25</div>
+                <h3 class="work-title">Celebrating the Double Ninth Festival &nbsp; CCTV3《岁岁又重阳》重阳节特别节目：夜空中最亮的星</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+		    <a href="https://tv.cctv.com/2020/10/25/VIDEvmcOE8DiMhWfYQoDPcQO201025.shtml" target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://www.youtube.com/watch?v=l60mfjxNlXU" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-05-09</div>
+                <h3 class="work-title">Celebrate International Nurses Day &nbsp; 《国际护士节》特别节目：竹石</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+		    <a href="https://zx.sina.cn/entactivity/xiaozhan/2021-01-29/detail-ikftssap1802000.d.html?cre=wappage&mod=r&loc=3&r=0&rfunc=84&tj=wap_news_relate" target="_blank" class="platform-link">Sina</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-26</div>
+                <h3 class="work-title">Everlasting Classics &nbsp; 《经典咏流传》第三季：1.千年一声唱 &nbsp; 2.竹石</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+		    <a href="https://tv.cctv.com/2020/01/26/VIDEG4OFtTbBZcO4PlK8AmyW200126.shtml" target="_blank" class="platform-link">CCTV.COM1</a>
+                    <a href="https://tv.cctv.com/2020/01/26/VIDEnwSofzp8gXf3paAqayE2200126.shtml?spm=C52056131267.P6AQcZyePmUN.0.0" target="_blank" class="platform-link">CCTV.COM2</a>
+		    <a href="https://www.youtube.com/watch?v=mmu9qLIMMuY" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=YmKTxosE0pE" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-25</div>
+                <h3 class="work-title">Beijing Spring Festival Gala &nbsp; 北京春晚舞台：1.沧海一声笑 &nbsp; 2.壮志在我胸</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+		    <a href="https://www.douyin.com/video/6785863696775187720" target="_blank" class="platform-link">抖音1</a>
+		    <a href="https://www.douyin.com/user/MS4wLjABAAAAU-9q9jD8WQyj7jJHsSfxPGHxyVajJBaGu7A8hn24cio?from_tab_name=main&modal_id=6785903440527641864&relation=0&vid=6785863696775187720" target="_blank" class="platform-link">抖音2</a>
+                    <a href="https://www.iqiyi.com/v_19rvy6dnbw.html" target="_blank" class="platform-link">爱奇艺</a>
+                    <a href="https://www.youtube.com/watch?v=YZhtDJJRPEc" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-24</div>
+                <h3 class="work-title">CMG Spring Festival Gala: I Like You Because You Like Me &nbsp; 央视春晚：喜欢你喜欢我</h3>
+                <div class="work-role">Role: A Dentist (Lead) </div>
+                <p class="work-description">The short play tells the story of tea house owner Xie Na, who has played matchmaker for many customers, but her own love life remains a blank slate. Dentist Xiao Zhan, who met Xie Na online, bravely comes to confess his love.</p>
+                <div class="platform-links">
+		    <a href="https://www.douyin.com/video/6927619076466478343" target="_blank" class="platform-link">抖音</a>
+		    <a href="https://tv.cctv.com/2020/01/25/VIDEfNtgACc8baqFL6DqhlB5200125.shtml?spm=C88599.PAZ9IA5B3QsX.E2jnZ4cc7gEy.63" target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://www.iq.com/play/%E5%B0%8F%E5%93%81%E3%80%8A%E5%96%9C%E6%AC%A2%E4%BD%A0%E5%96%9C%E6%AC%A2%E6%88%91%E3%80%8B%E8%82%96%E6%88%98%E8%B0%A2%E5%A8%9C%E4%B8%8A%E6%BC%94%E2%80%9C%E5%A7%90%E5%BC%9F%E6%81%8B%E2%80%9D%E2%80%942020%E5%A4%AE%E8%A7%86%E6%98%A5%E6%99%9A-2020-19rwamg4nk?lang=es_mx" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/watch?v=XGb3WueZ8dI" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-06</div>
+                <h3 class="work-title">Super IP Ceremony &nbsp; 阅文原创文学风云盛典：余年</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=i3H95319FEk" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=YVf7OJ2g2Nk" target="_blank" class="platform-link">YouTube2</a>
+                    <a href="https://www.youtube.com/watch?v=x92_XB3Snfo" target="_blank" class="platform-link">YouTube3</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2019-12-31</div>
+                <h3 class="work-title">SMG Countdown Party &nbsp; 2020东方卫视跨年盛典：1.我们都是追梦人 &nbsp; 2.跟着感觉走 &nbsp; 3.余年 &nbsp; 4.神奇</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=cJtXk1pAq4s" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=O96YBHQSx3M" target="_blank" class="platform-link">YouTube2</a>
+                    <a href="https://www.iq.com/play/2020%E4%B8%9C%E6%96%B9%E8%B7%A8%E5%B9%B4-%E8%82%96%E6%88%98%E6%AD%8C%E6%9B%B2%E3%80%8A%E4%BD%99%E5%B9%B4%E3%80%8B-2019-19rwgj221g?lang=en_us" target="_blank" class="platform-link">iQIYI3</a>
+                    <a href="https://www.youtube.com/watch?v=Z6uWaQjM5G4" target="_blank" class="platform-link">YouTube4</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2019-12-13</div>
+                <h3 class="work-title">CCTV Heart to Heart Gutian Tour &nbsp; CCTV “心连心”古田慰问演出：我们都是追梦人</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://tv.cctv.com/2019/12/27/VIDErYc4hSWejbJgpluX4OFu191227.shtml" target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://www.youtube.com/watch?v=WlPRr15FZxk" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2019-11-17</div>
+                <h3 class="work-title">Our Song &nbsp; 我们的歌</h3>
+                <div class="work-role">Role: Guest Performer</div>
+                <p class="work-description">A reality competition show where singers from different generations collaborate to reinterpret classic songs.</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=u-ro3Ut8JGk" target="_blank" class="platform-link">YouTube(cut)</a>
+                    <a href="https://www.youtube.com/watch?v=anJKIZovysY" target="_blank" class="platform-link">YouTube(XZ合集)</a>
+                    <a href="https://www.bilibili.com/video/BV1PJ411x7Hy/" target="_blank" class="platform-link">Bilibili(XZ合集)</a>
+                </div>
+            </div>
+
+
+         
+
+            <div class="work-item">
+                <div class="work-year">2019-10-19</div>
+                <h3 class="work-title">Douyin Wonderful Night &nbsp; 抖音美好奇妙夜：你是此生最美的风景</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=84ofVOsZJRo" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+            <div class="work-item">
+                <div class="work-year">2019-10-4</div>
+                <h3 class="work-title">"I Love You, China" on CCTV-15 Music Channel &nbsp; CCTV-15音乐频道《我爱你中国》：我的中国心</h3>
+                <div class="work-role">Role: Singer </div>
+                <p class="work-description">Stage performance</p>
+                <div class="platform-links">
+                    <a href="https://tv.cctv.com/2019/10/04/VIDEV71YJNMa8rKyP2AubWZj191004.shtml" target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://www.youtube.com/watch?v=1lr_k8SaxRA" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+<!-- =============== End of Stage Performance =============== -->
+  
+        <div id="variety" class="content-section">
+            <h2>Variety Shows</h2>
+  
+            <div class="work-item">
+                <div class="work-year">Updated by XZ.Studio</div>
+                <h3 class="work-title">Xiao Zhan Studio on YouTube &nbsp; 肖战工作室</h3>
+                <div class="work-role">Role: The Owner</div>
+                <p class="work-description"> Contents released by Xiao Zhan Studio on YouTube including shorts, MVs, documentaries and behind-the-scenes.</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/@xzstudio-1005/videos" target="_blank" class="platform-link">YouTube</a>                   
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2025-02-09</div>
+                <h3 class="work-title">Talk Show Part 2: Legends of the Condor Heroes The Gallants &nbsp; 射雕英雄传侠之大者特别对谈（下）</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">Interviews and behind-the-scenes about Legends of the Condor Heroes The Gallants.</p>
+                <div class="platform-links">
+                    <a href="https://www.bilibili.com/video/BV17mNXeJEsN/?spm_id_from=333.1387.search.video_card.click" target="_blank" class="platform-link">Bilibili</a>
+                    <a href="https://weibo.com/tv/show/1034:5132241161093136?from=old_pc_videoshow" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=Ae182PJGvCA" target="_blank" class="platform-link">YouTube</a>
+
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">Talk Show Part 1: Legends of the Condor Heroes The Gallants &nbsp; 射雕英雄传侠之大者特别对谈（上）</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">Interviews and behind-the-scenes about Legends of the Condor Heroes The Gallants.</p>
+                <div class="platform-links">
+                    <a href="https://www.bilibili.com/video/BV1LuFheMEgE/" target="_blank" class="platform-link">Bilibili</a>
+                    <a href="https://weibo.com/tv/show/1034:5128009334849543?from=old_pc_videoshow" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=1q-PnHHS73I" target="_blank" class="platform-link">YouTube</a>
+
+                </div>
+            </div>
+
+   
+
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">Lan Yu Show·The New Year's Roundtable Meeting: Legends of the Condor Heroes The Gallants<br>蓝羽会客厅·新春圆桌会”之《射雕英雄传：侠之大者》</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">Interviews and behind-the-scenes about Legends of the Condor Heroes The Gallants.</p>
+                <div class="platform-links">
+                    <a href="https://tv.cctv.com/2025/01/29/VIDEImPwng68RrpZ87MWyaMg250129.shtml"  target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://weibo.com/tv/show/1034:5128276054835293?from=old_pc_videoshow"  target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=gHgZAt8BohY"  target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2025-01-29</div>
+                <h3 class="work-title">New Year's Greetings: Legends of the Condor Heroes The Gallants<br>《射雕英雄传：侠之大者》新春拜年会</h3>
+                <div class="work-role">Role: Guo Jing 郭靖 (Lead)</div>
+                <p class="work-description">Interviews and behind-the-scenes about Legends of the Condor Heroes The Gallants.</p>
+                <div class="platform-links">
+                    <a href="https://m.chinanews.com/wap/detail/chs/zb/5744.shtml"  target="_blank" class="platform-link">中国新闻网</a>
+                    <a href="https://v.youku.com/video?s=aafd4926d195453ab4df"  target="_blank" class="platform-link">优酷</a>
+                    <a href="https://www.youtube.com/watch?v=2aumtAO4uXk&t=82s"  target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2023-06-18 &nbsp; 2023-06-25</div>
+                <h3 class="work-title">Show of Great Shows: The Youth Memories &nbsp; 剧说很好看：梦中的那片海 </h3>
+                <div class="work-role">Role: Xiao Chunsheng 肖春生 (Lead)</div>
+                <p class="work-description">Behind-the-scenes and interviews.</p>
+                <div class="platform-links">
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=t000028qt7y" target="_blank" class="platform-link">央视频1</a>
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=p000037v9d4&ptag=4_2.8.1.23336_sina" target="_blank" class="platform-link">央视频2</a>
+                    <a href="https://tv.cctv.com/2023/06/18/VIDEpwqsabN3o0VEW0u4WIMc230618.shtml" target="_blank" class="platform-link">CCTV.COM1</a>
+                    <a href="https://tv.cctv.com/2023/06/25/VIDEQjw87amDHR2I0cmsxX8g230625.shtml?spm=C53090171355.PaxHVtmpGFpz.0.0" target="_blank" class="platform-link">CCTV.COM2</a>
+                    <a href="https://www.youtube.com/watch?v=h6OG10lWir4&t=932s" target="_blank" class="platform-link">YouTube1</a>
+                    <a href="https://www.youtube.com/watch?v=0caKdpLrG9A" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2021-03-05</div>
+                <h3 class="work-title">The Winter Dream's Promise: Ice Hockey &nbsp; 冬梦之约：冰球运动</h3>
+                <div class="work-role">Role: Guest </div>
+                <p class="work-description">BRTV's Winter Olympics venue music reality show</p>
+                <div class="platform-links">
+                    <a href="https://w.yangshipin.cn/video?type=0&vid=h000016zrzb" target="_blank" class="platform-link">央视频</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2021-02-05</div>
+                <h3 class="work-title">Douluo Continent Launch Event &nbsp; 斗罗大陆发布会</h3>
+                <div class="work-role">Role: Tang San 唐三 (Lead)</div>
+                <p class="work-description">TV series premiere event of the Douluo Continent.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/mzc00200js3mdvw/p0035nypt0c.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.youtube.com/watch?v=Xpz7jfSKU-s" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2021-01-12</div>
+                <h3 class="work-title">Marvelous City S1 Ep2: Chongqing &nbsp; 奇妙之城第一季  第二集：重庆</h3>
+                <div class="work-role">Role: Celebrity Host </div>
+                <p class="work-description">This is a documentary series that explores the human stories behind the artisans, foodies, and artists who embody the spirit of urban life. Told from the perspective of celebrity hosts, the series uncovers the hidden wonders that lie within the everyday fabric of each city.</p>
+                <div class="platform-links">
+                    <a href="https://v.youku.com/video?spm=a2hkm.8166622.PhoneSokuProgram_2.dselectbutton_2&vid=XNTA1NjM0MDg4MA==" target="_blank" class="platform-link">优酷</a>
+                    <a href="https://www.youku.tv/v/v_show/id_XNTkyNDcwOTMzMg==.html?s=addfb4a9b2184a2d9158&spm=a2hje.13141534.1_2.d_zj2_2&scm=20140719.apircmd.242627.video_XNTkyNDcwOTMzMg==" target="_blank" class="platform-link">Youku</a>
+                    <a href="https://www.youtube.com/watch?v=e601XtWLcr8" target="_blank" class="platform-link">YouTube</a>      
+                </div>
+            </div>
+
+
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-24</div>
+                <h3 class="work-title">CMG Spring Festival Gala: I Like You Because You Like Me &nbsp; 央视春晚：喜欢你喜欢我</h3>
+                <div class="work-role">Role: A Dentist (Lead) </div>
+                <p class="work-description">The short play tells the story of tea house owner Xie Na, who has played matchmaker for many customers, but her own love life remains a blank slate. Dentist Xiao Zhan, who met Xie Na online, bravely comes to confess his love.</p>
+                <div class="platform-links">
+		    <a href="https://www.douyin.com/video/6927619076466478343" target="_blank" class="platform-link">抖音</a>
+		    <a href="https://tv.cctv.com/2020/01/25/VIDEfNtgACc8baqFL6DqhlB5200125.shtml?spm=C88599.PAZ9IA5B3QsX.E2jnZ4cc7gEy.63" target="_blank" class="platform-link">CCTV.COM</a>
+                    <a href="https://www.iq.com/play/%E5%B0%8F%E5%93%81%E3%80%8A%E5%96%9C%E6%AC%A2%E4%BD%A0%E5%96%9C%E6%AC%A2%E6%88%91%E3%80%8B%E8%82%96%E6%88%98%E8%B0%A2%E5%A8%9C%E4%B8%8A%E6%BC%94%E2%80%9C%E5%A7%90%E5%BC%9F%E6%81%8B%E2%80%9D%E2%80%942020%E5%A4%AE%E8%A7%86%E6%98%A5%E6%99%9A-2020-19rwamg4nk?lang=es_mx" target="_blank" class="platform-link">iQIYI</a>
+                    <a href="https://www.youtube.com/watch?v=XGb3WueZ8dI" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-24</div>
+                <h3 class="work-title">Who's the Murderer S5 Ep 11-12 &nbsp; 《明星大侦探》第五季  第11-12期</h3>
+                <div class="work-role">Role: Guest </div>
+                <p class="work-description">The show was licensed from JTBC's Crime Scene. Episode 11-12 are about solving murders on the Slow Northern Train.</p>
+                <div class="platform-links">
+		    <a href="https://www.youtube.com/watch?v=fZdewSQ4HWE" target="_blank" class="platform-link">YouTube1</a>
+		    <a href="https://www.youtube.com/watch?v=qG9YfhHjBYw" target="_blank" class="platform-link">YouTube2</a>
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-08</div>
+                <h3 class="work-title">The Best Acting Performances: Family Rules &nbsp; 最美表演：家规</h3>
+                <div class="work-role">Role: the son (Lead) </div>
+                <p class="work-description">The mischievous and cheeky boy played by Xiao Zhan is also a filial and good-natured child. He takes out a loan to buy a car, enduring a frugal lifestyle for the next two years, all with the goal of letting his father ride in his four-wheeled vehicle and bask in the adoration in his father's eyes.</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/5721872475/Iox9OrHpc" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=c8PaBbPAQZA" target="_blank" class="platform-link">YouTube</a>      
+                </div>
+            </div>
+
+
+            <div class="work-item">
+                <div class="work-year">2020-01-08</div>
+                <h3 class="work-title">The Best Acting Performances: Buying Hearing Aid &nbsp; 最美表演：买耳朵</h3>
+                <div class="work-role">Role: Food delivery rider (Lead) </div>
+                <p class="work-description">Xiao Zhan took on the role of a food delivery worker, portraying a story about his deep concern for his grandmother and his desire to buy her a hearing aid.</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/5721872475/IpjUWzy8C" target="_blank" class="platform-link">Weibo</a>
+                    <a href="https://www.youtube.com/watch?v=gzTFUWmV_iQ" target="_blank" class="platform-link">YouTube</a>                   
+                </div>
+            </div>
+
+
+
+
+         
+            <div class="work-item">
+                <div class="work-year">2019-11-17</div>
+                <h3 class="work-title">Our Song &nbsp; 我们的歌</h3>
+                <div class="work-role">Role: Guest Performer</div>
+                <p class="work-description">A reality competition show where singers from different generations collaborate to reinterpret classic songs.</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/playlist?list=PLzcpmqe6SErkEtDDK_eXq_cphWCQBsjU5" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://v.qq.com/x/cover/mzc00200379ftoz/r003232r7mj.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.bilibili.com/bangumi/media/md21129432" target="_blank" class="platform-link">Bilibili</a>
+                </div>
+            </div>
+
+
+
+            <div class="work-item">
+                <div class="work-year">2019-10-14</div>
+                <h3 class="work-title">Ai Si Bu Si Interview &nbsp; 爱思不Si</h3>
+                <div class="work-role">Role: Guest </div>
+                <p class="work-description">A micro-variety show that features 'hot topics' and 'unique perspectives.' The show conducts incisive interviews with 'hot-button figures' across various industries.</p>
+                <div class="platform-links">
+                    <a href="https://www.youtube.com/watch?v=CFVUtZO7ufk" target="_blank" class="platform-link">YouTube</a>
+                </div>
+            </div>
+ 
+            <div class="work-item">
+                <div class="work-year">2019-09-30</div>
+                <h3 class="work-title">Feel the World: Xiamen &nbsp; 漫游旅行家：厦门篇</h3>
+                <div class="work-role">Role: Guest </div>
+                <p class="work-description">A travel program</p>
+                <div class="platform-links">
+                    <a href="https://weibo.com/6470719555/I9ivxtSww" target="_blank" class="platform-link">Weibo1</a>
+                    <a href="https://weibo.com/6470719555/Ibuq2bihY" target="_blank" class="platform-link">Weibo2</a>
+                </div>
+            </div>
+
+           
+            <div class="work-item">
+                <div class="work-year">2015-11-21</div>
+                <h3 class="work-title">X File &nbsp; 燃烧吧少年</h3>
+                <div class="work-role">Role: Contestant (X NINE member)</div>
+                <p class="work-description">A reality competition show where idol groups compete in various challenges and performances.</p>
+                <div class="platform-links">
+                    <a href="https://v.qq.com/x/cover/imzwsz2awsd230g/e0018j4lzz3.html" target="_blank" class="platform-link">Tencent</a>
+                    <a href="https://www.youtube.com/playlist?list=PLmHvcli_9mkRH4oFQTVRkZHkiUVQRWw3n" target="_blank" class="platform-link">YouTube</a>
+                    <a href="https://www.bilibili.com/video/BV1ua411w7si/?spm_id_from=333.337.search-card.all.click" target="_blank" class="platform-link">Bilibili(cut)</a>
+                </div>
             </div>
         </div>
+
+
+
+<!-- =============== End of Variety Shows =============== -->
     </div>
-
-
+ 
 <div class="container">
     <div class="work-item" style="text-align: center; margin-bottom: 40px;">
-        <h3 class="work-title">Discover Xiao Zhan's Captivating Works</h3>
-        <p class="work-description">Complete collection of dramas, movies, and shows</p>
+        <h3 class="work-title">Connect with Xiao Zhan on Social Media</h3>
+        <p class="work-description">Follow Xiao Zhan's latest updates and activities on various social media platforms.</p>
         <div style="margin-top: 20px;">
-            <a href="https://canadaxfx.github.io/XZworks/" target="_blank" class="btn" style="font-size: 1.1rem; padding: 10px 25px;">Complete Collection</a>
+            <a href="https://canadaxfx.github.io/xiaozhan/" target="_blank" class="platform-link" style="font-size: 1.1rem; padding: 10px 25px;">Visit Xiao Zhan Social Media Hub</a>
         </div>
     </div>
 </div>
 
    
-<!-- =============== CONTACT SECTION =============== -->
+    <!-- =============== CONTACT SECTION =============== -->
 <div class="container">
-    <div class="contact-section">
+    <div class="contact-section" id="contact">
         <h2 class="section-title">Contact Us</h2>
         <form action="https://formsubmit.co/yvonzh@gmail.com" method="POST">
             <!-- Anti-spam honeypot field -->
@@ -740,12 +2263,156 @@
     </div>
 </div>
 
-
-
     <footer class="footer">
         <p>This fan-made website by North American XFX is created for personal use only. All rights to images and content belong to their respective owners.</p>
         <p>Last updated: <span id="last-updated">April 2025</span></p>
     </footer>
+    
+    
+    <script>
+        // Tab functionality
+        const tabs = document.querySelectorAll('.tab');
+        const contentSections = document.querySelectorAll('.content-section');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content sections
+                tabs.forEach(t => t.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content section
+                const sectionId = tab.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+        
+// =============== SEARCH FUNCTIONALITY ===============
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
+const clearSearchButton = document.getElementById('clear-search');
+const searchResultsCount = document.getElementById('search-results-count');
+const allWorkItems = document.querySelectorAll('.work-item');
+
+// Function to perform search
+const performSearch = () => {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    // If search term is empty, show all items
+    if (searchTerm === '') {
+        allWorkItems.forEach(item => {
+            item.classList.remove('hidden');
+            
+            // Remove any existing highlights
+            const highlightedElements = item.querySelectorAll('.highlight');
+            highlightedElements.forEach(el => {
+                const parent = el.parentNode;
+                parent.replaceChild(document.createTextNode(el.textContent), el);
+                parent.normalize();
+            });
+        });
+        
+        searchResultsCount.textContent = '';
+        return;
+    }
+    
+    let matchCount = 0;
+    
+    // Loop through all work items
+    allWorkItems.forEach(item => {
+        const title = item.querySelector('.work-title').textContent.toLowerCase();
+        const year = item.querySelector('.work-year').textContent.toLowerCase();
+        const role = item.querySelector('.work-role').textContent.toLowerCase();
+        const description = item.querySelector('.work-description').textContent.toLowerCase();
+        
+        // Check if any field contains the search term
+        const isMatch = title.includes(searchTerm) || 
+                        year.includes(searchTerm) || 
+                        role.includes(searchTerm) || 
+                        description.includes(searchTerm);
+        
+        if (isMatch) {
+            item.classList.remove('hidden');
+            matchCount++;
+            
+            // Remove any existing highlights first
+            const highlightedElements = item.querySelectorAll('.highlight');
+            highlightedElements.forEach(el => {
+                const parent = el.parentNode;
+                parent.replaceChild(document.createTextNode(el.textContent), el);
+                parent.normalize();
+            });
+            
+            // Add highlights to matching text
+            highlightText(item.querySelector('.work-title'), searchTerm);
+            highlightText(item.querySelector('.work-year'), searchTerm);
+            highlightText(item.querySelector('.work-role'), searchTerm);
+            highlightText(item.querySelector('.work-description'), searchTerm);
+        } else {
+            item.classList.add('hidden');
+        }
+    });
+    
+    // Show the tab that contains "All Works" to see all search results
+    tabs.forEach(t => t.classList.remove('active'));
+    contentSections.forEach(section => section.classList.remove('active'));
+    
+    const allTab = document.querySelector('[data-section="all"]');
+    allTab.classList.add('active');
+    document.getElementById('all').classList.add('active');
+    
+    // Update results count
+    searchResultsCount.textContent = `Found ${matchCount} result${matchCount !== 1 ? 's' : ''}`;
+};
+
+// Function to highlight matching text
+const highlightText = (element, searchTerm) => {
+    if (!element) return;
+    
+    const content = element.innerHTML;
+    const pattern = new RegExp(searchTerm, 'gi');
+    
+    if (pattern.test(content)) {
+        const newContent = content.replace(pattern, match => `<span class="highlight">${match}</span>`);
+        element.innerHTML = newContent;
+    }
+};
+
+// Clear search results and show all items
+const clearSearch = () => {
+    searchInput.value = '';
+    searchResultsCount.textContent = '';
+    
+    allWorkItems.forEach(item => {
+        item.classList.remove('hidden');
+        
+        // Remove any existing highlights
+        const highlightedElements = item.querySelectorAll('.highlight');
+        highlightedElements.forEach(el => {
+            const parent = el.parentNode;
+            parent.replaceChild(document.createTextNode(el.textContent), el);
+            parent.normalize();
+        });
+    });
+};
+
+// Add event listeners for search
+searchButton.addEventListener('click', performSearch);
+clearSearchButton.addEventListener('click', clearSearch);
+
+// Search on Enter key
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        performSearch();
+    }
+});
+
+// Search as you type (uncomment if desired)
+// searchInput.addEventListener('input', performSearch);   
+            
+    </script>
 
 <!-- Add this JavaScript code right before the closing </body> tag -->
 <script>
@@ -816,6 +2483,13 @@
                 '<span class="music-icon">▶️</span>';
         }
         
+
+// Make sure all buttons use the same pattern for their content
+prevButton.innerHTML = '<span class="music-icon">⏮️</span>'; // Remove the emoji variation selector if present
+musicToggle.innerHTML = '<span class="music-icon">▶️</span>';
+nextButton.innerHTML = '<span class="music-icon">⏭️</span>';
+
+
         // Update shuffle button appearance
         function updateShuffleButton() {
             shuffleButton.style.backgroundColor = isShuffled ? 
@@ -924,12 +2598,14 @@
         // Initialize shuffle button appearance
         updateShuffleButton();
     });
+
 </script>
 
 
+<!-- Replace your existing carousel JavaScript with this perfected version -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Array of image paths for the background carousel - update with your image paths
+    // Array of image paths for the background carousel
     const imagePaths = [
         'xiao-zhan1-1.jpg',
         'xiao-zhan1-2.jpg',
@@ -955,7 +2631,6 @@ document.addEventListener('DOMContentLoaded', function() {
         'xiao-zhan2-4.jpg',
         'xiao-zhan3-1.jpg'
 
-        // Add more images as needed
     ];
     
     // Get the image strip container
@@ -983,6 +2658,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         return fragment;
     }
+    
+    // Get container dimensions for calculations
+    const containerWidth = carouselContainer.clientWidth;
     
     // Add multiple sets of images (more than needed for safety)
     imageStrip.appendChild(createImageSet());
@@ -1083,8 +2761,33 @@ document.addEventListener('DOMContentLoaded', function() {
             isPaused = false;
         }
     });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        // Simply continue the animation - our calculation uses current width
+        // No special handling needed as we calculate position on each frame
+    });
 });
+
+
+
+// Add YouTube tab functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const youtubeTab = document.querySelector('.youtube-tab');
+    
+    if (youtubeTab) {
+        youtubeTab.addEventListener('click', function() {
+            // Navigate to the xz-yt.html page
+            window.location.href = 'https://canadaxfx.github.io/XZYT/';
+        });
+    }
+});
+
+
+
 </script>
+
+
 
 </body>
 </html>
