@@ -148,10 +148,10 @@
         background-color: var(--primary-color); /* Fallback color */
         color: white;
         text-align: center;
-        padding: 2rem 0;
+        padding: 1rem 0;
         position: relative;
         overflow: hidden; /* Keep the carousel contained */
-        min-height: 250px; /* Ensure enough height for the header */
+        min-height: 180px; /* Ensure enough height for the header */
     }
     
     /* Background carousel container */
@@ -205,14 +205,36 @@
         z-index: 3; /* Ensure content is on top */
     }
 
-        
+/* Make header text smaller */
+.header-content h1 {
+    font-size: 1.8rem; /* Reduced size */
+    margin-bottom: 0.3rem; /* Add less space below title */
+}   
+
+
+.header-content p {
+    font-size: 0.9rem; /* Smaller subtitle text */
+    margin: 0.3rem 0; /* Less vertical spacing */
+}
+
+
+
+
+/* 3. Smaller fonts for social card titles */
+.card-header h2 {
+    font-size: 1.3rem; /* Smaller card titles */
+    margin: 0.5rem 0; /* Less vertical space */
+}
+
+
+
         .profile-img {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid white;
-            margin-bottom: 1rem;
+            border: 3px solid white;
+            margin-bottom: 0.5rem;
         }
         
         .container {
@@ -466,14 +488,53 @@
             .container {
                 padding: 0 1rem;
             }
+
+    .header-content h1 {
+        font-size: 1.4rem; /* Even smaller on mobile */
+        white-space: nowrap; /* Prevent wrapping */
+        overflow: hidden; /* Hide overflow */
+        text-overflow: ellipsis; /* Show ellipsis for overflow */
+        max-width: 90vw; /* Limit width to prevent overflow */
+        margin: 0 auto 0.3rem; /* Center title and add margin below */
+    }
+    
+    header {
+        padding: 0.8rem 0; /* Even less padding on mobile */
+        min-height: 150px; /* Shorter height on mobile */
+    }
+    
+    .profile-img {
+        width: 50px; /* Even smaller on mobile */
+        height: 50px;
+        margin-bottom: 0.3rem;
+    }
+    
+    .card-header h2 {
+        font-size: 1.2rem; /* Even smaller on mobile */
+    }
+    
+    .card-body {
+        padding: 1rem; /* Less padding to save space */
+        min-height: 180px; /* Shorter cards on mobile */
+    }
+    
+    .card-info p {
+        font-size: 0.9rem; /* Smaller text in cards */
+        margin: 0.5rem 0; /* Less space between paragraphs */
+    }
+    
+    .btn {
+        padding: 0.6rem 1.2rem; /* Smaller buttons */
+        font-size: 0.9rem;
+    }
+
         }
         
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
+@media (max-width: 360px) {
+    .header-content h1 {
+        font-size: 1.2rem; /* Even smaller on tiny screens */
+    }
+}
         /* Email Contact Form Styles */
         .contact-section {
             max-width: 800px;
@@ -573,8 +634,8 @@
     <!-- Header content in a wrapper for z-index control -->
     <div class="header-content">
         <img src="logo.jpg" alt="Xiao Zhan" class="profile-img" id="profile-img">
-        <h1>Xiao Zhan (肖战) Social Media Hub</h1>
-        <p>All of Xiao Zhan's official social media accounts in one place</p>
+        <h1>Xiao Zhan Social Media Hub</h1>
+        <p>Xiao Zhan's official social media all in one place</p>
     </div>
     </header>
 
