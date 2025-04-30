@@ -453,30 +453,69 @@
             padding-bottom: 0;
         }
         
-        .work-item {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+
+
+        /* Back to Main Site Button */
+        .back-button-container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 4;
         }
         
-        .work-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .work-title {
-            font-size: 1.5rem;
+        .back-button {
+            background-color: rgba(255, 255, 255, 0.9);
             color: var(--primary-color);
-            margin-bottom: 10px;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-decoration: none;
+	    font-size: 0.9rem; /* Slightly smaller font */
         }
+        
+        .back-button:hover {
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .back-arrow {
+            margin-right: 5px;
+            font-size: 18px;
+            font-weight: bold;
+
+        }
+
+
+
 
 
 
         /* Mobile responsive adjustments */
         @media (max-width: 768px) {
+
+    .back-button-container {
+        top: 10px;
+        left: 10px;
+    }
+    
+    .back-button {
+        padding: 4px 8px;
+        font-size: 0.75rem; /* Smaller text on mobile */
+        border-radius: 12px; /* Slightly smaller radius */
+    }
+    
+    .back-arrow {
+        font-size: 14px; /* Smaller arrow */
+        margin-right: 3px; /* Less spacing */
+    }
+
             .social-grid {
                 grid-template-columns: 1fr;
             }
@@ -531,6 +570,23 @@
         }
         
 @media (max-width: 360px) {
+
+
+    .back-button {
+        padding: 3px 6px;
+        font-size: 0.7rem;
+    }
+    
+    /* Optional: For very small screens, you could simplify to just show the arrow */
+    .back-button span:not(.back-arrow) {
+        display: none; /* Hide text, keep only arrow on very small screens */
+    }
+    
+    .back-button .back-arrow {
+        margin-right: 0;
+    }
+
+
     .header-content h1 {
         font-size: 1.2rem; /* Even smaller on tiny screens */
     }
@@ -604,6 +660,11 @@
 
 </head>
 <body>
+        <div class="back-button-container">
+            <a href="https://canadaxfx.github.io/XZworks/" class="back-button">
+                <span class="back-arrow">←</span> Back to Main Site<br>回主页
+            </a>
+        </div>
 
 <div class="music-player">
     <audio id="background-music">
@@ -635,7 +696,9 @@
     <div class="header-content">
         <img src="logo.jpg" alt="Xiao Zhan" class="profile-img" id="profile-img">
         <h1>Xiao Zhan Social Media Hub</h1>
-        <p>Xiao Zhan's official social media all in one place</p>
+        <p>XZ's official social media all in one place</p>
+	<p class="site-subtitle">* For all of XZ's works, please click<br><a href="https://canadaxfx.github.io/XZworks/" style="color: white; text-decoration: underline; font-style: italic">the main site: Screen Arts of Xiao Zhan</a><a> *</a></p>
+	<p class="site-subtitle">* For  XZ's shows on YouTube, please click<br><a href="https://canadaxfx.github.io/XZYT/" style="color: white; text-decoration: underline; font-style: italic">XZ Screen Universe on YouTube</a><a> *</a></p>
     </div>
     </header>
 
@@ -866,6 +929,22 @@
             </div>
             
             <div class="social-card">
+                <div class="card-header tencent">
+                    <h2>WeTV</h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Watch Xiao Zhan's shows and performances on WeTV.</p>
+                        <p>Video platform</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="https://wetv.vip/en/search/%E8%82%96%E6%88%98" class="btn tencent" target="_blank" data-platform="tencent-video">Watch Videos</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="social-card">
                 <div class="card-header youku">
                     <h2>优酷视频</h2>
                 </div>
@@ -879,10 +958,10 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="social-card">
                 <div class="card-header iqiyi">
-                    <h2>爱奇艺视频</h2>
+                    <h2>iQIYI视频</h2>
                 </div>
                 <div class="card-body">
                     <div class="card-info">
@@ -890,7 +969,7 @@
                         <p>Video platform</p>
                     </div>
                     <div class="card-button">
-                        <a href="https://www.iqiyi.com/search/%E8%82%96%E6%88%98.html" class="btn iqiyi" target="_blank" data-platform="iqiyi-video">Watch Videos</a>
+                        <a href="https://www.iq.com/search?query=%E8%82%96%E6%88%98&originInput=%E8%82%96%E6%88%98" class="btn iqiyi" target="_blank" data-platform="iqiyi-video">Watch Videos</a>
                     </div>
                 </div>
             </div>
@@ -912,15 +991,6 @@
     </div>
 
 
-<div class="container">
-    <div class="work-item" style="text-align: center; margin-bottom: 40px;">
-        <h3 class="work-title">Discover Xiao Zhan's Captivating Works</h3>
-        <p class="work-description">Complete collection of dramas, movies, and shows</p>
-        <div style="margin-top: 20px;">
-            <a href="https://canadaxfx.github.io/XZworks/" target="_blank" class="btn" style="font-size: 1.1rem; padding: 10px 25px;">Complete Collection</a>
-        </div>
-    </div>
-</div>
 
    
 <!-- =============== CONTACT SECTION =============== -->
