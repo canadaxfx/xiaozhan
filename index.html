@@ -335,11 +335,7 @@
     margin-bottom: 0x;
 }
 
-.site-footer .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
+
 
 .site-footer .copyright-notice {
     text-align: center;
@@ -358,15 +354,19 @@
         }
         
         
-        .footer-links {
-            margin-bottom: 15px;
-        }
-        
         .footer-link {
             color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            transition: opacity 0.3s;
+            margin: 0 5px;
+            text-decoration: underline;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 2px;
+            font-weight: bold;
+            font-style: italic;
+    	        	    justify-content: center;
+    	    gap: 20px;
+ 	    margin-bottom: 15px;
+
         }
         
         .footer-link:hover {
@@ -663,7 +663,7 @@
 <body>
         <div class="back-button-container">
             <a href="https://canadaxfx.github.io/XZworks/" class="back-button">
-                <span class="back-arrow">←</span> Back to Main Site<br>回主页
+                <span class="back-arrow">←</span> Back to Main Site:<br>Screen Arts of XZ
             </a>
         </div>
 
@@ -697,9 +697,7 @@
     <div class="header-content">
         <img src="logo.jpg" alt="Xiao Zhan" class="profile-img" id="profile-img">
         <h1>Xiao Zhan Social Media Hub</h1>
-        <p>XZ's official social media all in one place</p>
-	<p class="site-subtitle">* For all of XZ's works, please click<br><a href="https://canadaxfx.github.io/XZworks/" style="color: white; text-decoration: underline; font-style: italic">the main site: Screen Arts of Xiao Zhan</a><a> *</a></p>
-	<p class="site-subtitle">* For  XZ's shows on YouTube, please click<br><a href="https://canadaxfx.github.io/XZYT/" style="color: white; text-decoration: underline; font-style: italic">XZ Screen Universe on YouTube</a><a> *</a></p>
+        <p>XZ's official social media all in one place</p>	
     </div>
     </header>
 
@@ -1034,6 +1032,14 @@
 <footer class="site-footer">
     <div class="container">
         <div class="footer-content">
+
+             <div class="footer-links">
+		<a> You may also be interested in: </a><br>
+                <a href="https://canadaxfx.github.io/XZworks/" target="_blank" class="footer-link">Screen Arts of XZ</a>
+                <a href="https://canadaxfx.github.io/XZYT/" target="_blank" class="footer-link">XZ on YouTube</a>
+            </div>
+
+
             <div class="copyright-text">
                 <ul>
                     <li>This fan-made website by CanadaXFX is created for personal and non-commercial use only.</li>
