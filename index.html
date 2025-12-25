@@ -407,6 +407,9 @@ font-style:italic;
 justify-content:center;
 gap:20px;
 margin-bottom:15px
+position: relative;
+z-index: 4;
+padding-top: 10px;
 }
 
 .footer-link:hover {
@@ -685,9 +688,16 @@ body {
     <div class="header-content">
         <img src="logo.jpg" alt="Xiao Zhan" class="profile-img" id="profile-img">
         <h1>Xiao Zhan Social Media Hub</h1>
-        <p>XZ's official social media all in one place</p>	
+        <p>XZ's official social media all in one place</p>
+	<p style="margin-top: 10px; font-size: 0.85rem;">
+        Welcome to visit: 
+        <a href="https://canadaxfx.github.io/XZ-social-media-archive/" target="_blank" style="color: white; font-weight: bold; text-decoration: underline;">Xiao Zhan Social Media Archive</a>
+    	</p>
     </div>
+
     </header>
+
+
 
     <div class="container">
         <!-- Traffic Analytics Dashboard (only visible to admin) -->
@@ -980,9 +990,9 @@ body {
             </div>
         </div>
 
-        <!-- LATEST NEWS SECTION -->
+       <!-- LATEST NEWS SECTION -->
 
-<div class="upcoming-work-section" style="margin-bottom: 30px; margin-top: 50px; padding: 20px; background-color: #eef4ff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+<div class="upcoming-work-section" style="display: none; margin-bottom: 30px; margin-top: 50px; padding: 20px; background-color: #eef4ff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
     <h2 style="text-align: left; color: var(--accent-color); margin-bottom: 20px;">Upcoming / Current Production</h2>
     <div class="work-item upcoming-item"> <!-- Add a class for specific styling if needed -->
         <div class="work-year">Release (Anticipated): 2025-05-18</div>
@@ -1004,7 +1014,7 @@ body {
                         <a href="https://v.youku.com/video?spm=a2hkm.8166622.PhoneSokuProgramSeries_1.dposter_2&s=06efbfbd08efbfbdefbf&vid=XNjQ1MTQzNzk2OA%3D%3D" class="btn iqiyi" target="_blank" data-platform="YOUKU-video">YOUKU</a>
                         <a href="https://www.youtube.com/playlist?list=PLxbgQdcnIafjZhKxxnSFLZuHmQzEF9Zb7" class="btn iqiyi" target="_blank" data-platform="YOUKU-video">YouTube</a>
                         <a href="https://www.viki.com/tv/41118c-legend-of-zang-hai" class="btn iqiyi" target="_blank" data-platform="YOUKU-video">Rakuten Viki</a>
-                    </div>
+                    </div> 
 
             <!-- Add more links if available -->
              
@@ -1018,7 +1028,7 @@ body {
             <h2>Latest Updates</h2>
             <div class="news-item">
                 <h3>New Drama/Movie Announcement</h3>
-                <p>Xiao Zhan's captivating performance in the TV series "Legend of Zang Hai" earns widespread acclaim. The upcoming film "De Xian Jin Zhi" is eagerly anticipated.</p>
+                <p>Movie "Gezhi Town" premiered on December 6, 2025. It was then released in Australia and New Zealand on December 18, and in the United States and Canada on December 25. The movie is based on Lan Xiaolong's original story 'The Battle of Yichang,' focusing on the key battles of the defense of Shipai during the 1940-1943 campaign in western Hubei. The story follows the civilians who fled to the remote mountain town of Yichang after the fall of Nanjing, and their desperate struggle against the invading Japanese forces.</p>
             </div>
             
             <div class="news-item">
@@ -1039,9 +1049,9 @@ body {
         <div class="container">
             <div class="footer-content">
                 <div style="margin-bottom:10px;font-weight:700; text-align: center;">Explore more</div>
-                <div class="footer-links">
+                <div class="footer-link">
                     <a href="https://www.youtube.com/@xzstudio-1005" target="_blank" class="footer-link">XZ.Studio on YouTube</a><br>
-                    <a href="https://canadaxfx.github.io/XZ-photo-gallery/" class="footer-link">Xiao Zhan Studio Gallery</a><br>
+                    <a href="https://canadaxfx.github.io/XZ-Studio-Gallery/" class="footer-link">Xiao Zhan Studio Gallery</a><br>
                     <a href="https://canadaxfx.github.io/contact-us/" class="footer-link">Contact Us</a>
                 </div>
                 <div class="copyright-notice">&copy; 2025 CanadaXFX. All rights reserved.</div>
@@ -1071,15 +1081,15 @@ body {
     document.addEventListener('DOMContentLoaded', function() {
         // Define your playlist with track names and file paths
         const originalPlaylist = [
-            { name: "XZ-都一样", file: "都一样.mp3" },
+            { name: "XZ-得闲谨制", file: "得闲谨制.mp3" },
+            { name: "XZ-岁岁年年", file: "岁岁年年.mp3" },
             { name: "XZ-灯塔", file: "灯塔.mp3" },
             { name: "XZ-漂流", file: "漂流.mp3" },
             { name: "XZ-不要回头", file: "不要回头.mp3" },
             { name: "XZ-如愿", file: "如愿.mp3" },
             { name: "XZ-同路人", file: "同路人.mp3" },
             { name: "XZ-余年", file: "余年.mp3" },
-            { name: "XZ-晚安", file: "晚安.mp3" },
-            // Add more tracks as needed
+                        // Add more tracks as needed
         ];
         
         // Create a working copy of the playlist that we can shuffle
@@ -1268,6 +1278,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'xiao-zhan1-16.jpg',
         'xiao-zhan1-17.jpg',
         'xiao-zhan1-18.jpg',
+	'xiao-zhan1-19.jpg',
         'xiao-zhan2-1.jpg',
         'xiao-zhan2-2.jpg',
 	'xiao-zhan2-3.jpg',
