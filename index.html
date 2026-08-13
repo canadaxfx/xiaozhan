@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Official hub for all Xiao Zhan social media accounts and latest updates">
     <title>Xiao Zhan Social Media Hub</title>
+    <script>if(location.hostname==='localhost'||location.hostname==='127.0.0.1')document.title='L · '+document.title;</script>
     <!-- Add the AI protection tags here -->
     <meta name="robots" content="noai, noimageai">
     <meta name="copyright" content="Content curation and organization © 2025 CanadaXFX. Unauthorized AI training prohibited.">
@@ -665,8 +666,18 @@ body {
 
 </head>
 <body>
+<div id="cf-migration-banner" style="display:none;background:#1d4ed8;color:#fff;text-align:center;padding:8px 40px 8px 16px;font-size:13px;position:relative;z-index:9999">
+  🚀 此页面已迁移至更快的新地址 / This page has moved to a faster URL：<a href="https://xz-social-media.pages.dev/" style="color:#93c5fd;font-weight:600" target="_blank">xz-social-media.pages.dev</a> — 请更新书签 / Please update your bookmark
+  <button onclick="document.getElementById('cf-migration-banner').style.display='none';localStorage.setItem('cfBannerDismissed','1')"
+    style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:18px;cursor:pointer;line-height:1">×</button>
+</div>
+<script>
+if (location.hostname.includes('github.io') && !localStorage.getItem('cfBannerDismissed')) {
+  document.getElementById('cf-migration-banner').style.display = 'block';
+}
+</script>
         <div class="back-button-container">
-            <a href="https://canadaxfx.github.io/XZworks/" class="back-button">
+            <a href="https://xzworks.pages.dev/" class="back-button">
                 <span class="back-arrow">←</span> Back to Main Site:<br>Screen Arts of XZ
             </a>
         </div>
